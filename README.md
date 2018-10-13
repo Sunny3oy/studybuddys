@@ -6,4 +6,4 @@
 <li>Brandon (Presenter & Tracker)</li>
 <li>Charlie Ding (Designer)</li>
 <li>Matthew Jacome (Unit Tester)</li>
-<li>Sunny (Code Reviewer)</li>
+<li>Sunny Mei (Code Reviewer)</li>
