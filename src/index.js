@@ -7,8 +7,20 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AOS from 'aos';
 import "../node_modules/aos/dist/aos.css";
+import * as firebase from 'firebase';
+
 AOS.init();
 const theme = createMuiTheme();
+
+var config = {
+    apiKey: "AIzaSyBvsVosbnkWQ9M7bYxxDzWKXTvuXzCcE2Y",
+    authDomain: "studybuddys-8fe89.firebaseapp.com",
+    databaseURL: "https://studybuddys-8fe89.firebaseio.com",
+    projectId: "studybuddys-8fe89",
+    storageBucket: "",
+    messagingSenderId: "48350702100"
+  };
+  firebase.initializeApp(config);
 
 ReactDOM.render(<MuiThemeProvider theme={theme}>
     <App />
