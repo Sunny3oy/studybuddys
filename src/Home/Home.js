@@ -45,12 +45,16 @@ class Home extends Component {
             </Button>
           </form>
 
-          < Button
-            variant = "outlined" 
-            style = {{marginTop:'15px'}}
-          >
-            <Link to = '/signup'>Sign Up</Link>
-          </Button>
+          
+          <Link to = '/signup'>
+            <Button
+              type = 'submit'
+              variant = "outlined"
+              style = {{marginTop:'15px'}}
+            >
+              Sign Up
+            </Button>
+          </Link> 
         </div>
       </div>
 

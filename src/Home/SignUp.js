@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import './Home.css';
 
 const SignUp = () => {
     return (
@@ -54,7 +54,7 @@ const SignUp = () => {
 
                     < TextField
                         className = ""
-                        placeholder = "Enter Your Password Again" 
+                        placeholder = "Confirm Password" 
                         style = {{marginTop:'15px'}} 
                     />
 
@@ -65,18 +65,20 @@ const SignUp = () => {
                         variant = "outlined"
                         style = {{marginTop:'15px'}}
                     >
-                        Sign Me Up
+                        Sign Me Up!
                     </Button>
 
                 </form>
 
-                <Button
-                    type = 'submit'
-                    variant = "outlined"
-                    style = {{marginTop:'15px'}}
-                >
-                   <Link to = '/'>Sign In Instead</Link> 
-                </Button>
+                <Link to = '/'>
+                     <Button
+                        type = 'submit'
+                        variant = "outlined"
+                        style = {{marginTop:'15px'}}
+                    >
+                        Sign In Instead
+                    </Button>
+                </Link> 
             </div>
         </div>
     );
