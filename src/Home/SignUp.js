@@ -4,15 +4,37 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import './Home.css';
-
+import * as firebase from 'firebase';
 class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            name:'',
+            email:'',
+            password:'',
+
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.createUser = this.createUser.bind(this);
     }
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value
+        });
+    }
+    
+    createUser(e){
+        e.preventDefault();
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .catch(function(error) {
+            console.log(error);
+        });
+    }
+
     render() {
+       console.log(this.state.name);
+       console.log(this.state.email);
+       console.log(this.state.name);
         return (
             <div data-aos = "" className = "Home" style = {{backgroundColor:'#F5F5F5'}}>
                 <div className="signIn" 
@@ -23,20 +45,10 @@ class SignUp extends Component {
                     Sign Up To Be A Buddy Today
                 </Typography>
                     <form>
-                        < TextField
-                            className = ""
-                            placeholder = "First Name" 
-                            name = 'fName' 
-                        />
-
-                        <br/>
-
-                        < TextField
-                            className = ""
-                            placeholder = "Last Name" 
-                            style = {{marginTop:'15px'}}
-                            name = 'lName' 
-                        />
+                        < TextField className = ""
+                            placeholder = "Full Name" 
+                            onChange={this.handleChange('name')}
+                            />
 
                         <br/>
 
@@ -45,7 +57,7 @@ class SignUp extends Component {
                             type = 'email'
                             placeholder = "Email Address" 
                             style = {{marginTop:'15px'}} 
-                            name = 'eAddress' 
+                            onChange={this.handleChange('email')}
                         />
 
                         <br/>
@@ -54,7 +66,7 @@ class SignUp extends Component {
                             className = ""
                             placeholder = "Password" 
                             style = {{marginTop:'15px'}}
-                            name = 'password'
+                            onChange={this.handleChange('password')}
                         />
 
                         <br/>
@@ -68,6 +80,7 @@ class SignUp extends Component {
                         <br/>
 
                         <Button
+                            onClick={this.createUser}
                             type = 'submit'
                             variant = "outlined"
                             style = {{marginTop:'15px'}}
