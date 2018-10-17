@@ -12,11 +12,10 @@ class Home extends Component {
        user:{},
        email:'',
        password:'',
-       loggedIn: false,
+      //  loggedIn: false,
 
     }
    this.handleChange = this.handleChange.bind(this);
-  //  this.authListener = this.authListener.bind(this);
    this.login = this.login.bind(this);
 }
 
@@ -26,30 +25,29 @@ class Home extends Component {
   });
   }
   
-  componentDidMount(){
-    // this.authListener();
-  }
-  // authListener(){
-  //   this.fireBaseListener = firebase.auth().onAuthStateChanged((user)=>{
+  
+  // authListener() {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     console.log(user);
   //     if (user) {
-  //         this.setState({
-  //             loggedIn: true
-  //         })}
-  //         else {
-  //           this.setState({
-  //               loggedIn: false,
-
-  //           })
-
-  //       }
+  //       this.setState({ loggedIn:true });
+  //     } 
+  //     else {
+  //       this.setState({ loggedIn: false });
   //     }
-  //   }
-      
+  //   });
+  // }
     
 
   login(e){
     e.preventDefault();
-    firebase.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.email, this.state.password)
+    firebase.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.email, this.state.password).then((user) => {
+      // after user clicks sign in, check if the sign in was successful.
+      // if the sign in was successful you can redirect
+      if (user) {
+        
+      }
+    })
     .catch(function(error) {
       console.log(error);
   });
@@ -87,16 +85,17 @@ class Home extends Component {
               onChange={this.handleChange('password')}
             />
             <br/>
-            <Link to = '/dashboard'>
+            
             <Button
-              
+              onClick={this.login}
+              // href="/Dashboard"
               type = 'submit'
               variant="outlined" 
               style = {{marginTop:'15px'}}
             >
               Sign In
             </Button>
-            </Link>
+          
           </form>
 
           
