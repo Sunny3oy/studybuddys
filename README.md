@@ -1,4 +1,4 @@
-<h1>Study Buddy</h1>
+<h1>Study Buddy's</h1>
 
 <ul>Team Members and Roles</ul>
 <li>Melvin Tham (Customer)</li>
