@@ -73,6 +73,7 @@ class Home extends Component {
             </Typography>
           
             <TextField
+              type = "email"
               className=""
               placeholder ="Enter Your Email"
               onChange={this.handleChange('email')}
@@ -80,6 +81,7 @@ class Home extends Component {
             <br/>
 
             <TextField
+              type = "password"
               style={{marginTop:'15px'}}
               placeholder ="Enter Your Password"
               onChange={this.handleChange('password')}
