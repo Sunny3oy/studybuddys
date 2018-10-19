@@ -25,7 +25,17 @@ class SignUp extends Component {
     
     createUser(e){
         e.preventDefault();
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)     
+        .then((user)=>{
+            if(user){
+                firebase.database().ref(`users/${user.user.uid}`).set({
+                    age:10
+                })
+                .then(()=>{}).catch(function(error){
+                    console.log(error);
+                }
+            )}
+        })
         .catch(function(error) {
             console.log(error);
         });
