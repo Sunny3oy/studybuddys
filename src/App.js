@@ -43,7 +43,7 @@ authListener() {
             this.state.loggedIn ?
               <Redirect to="/dashboard" /> :  <Redirect to="/" />
              }
-           <Route path = "/" exact component = { Home } />
+            <Route path = "/" exact component = { Home } />
             <Route path = "/signup" exact component = { SignUp } />
             {
               // The below condition prevents the user from manually going to /dashboard.
