@@ -73,6 +73,7 @@ class SignUp extends Component {
                         <br/>
 
                         < TextField
+                            type = "password"
                             className = ""
                             placeholder = "Password" 
                             style = {{marginTop:'15px'}}
@@ -82,6 +83,7 @@ class SignUp extends Component {
                         <br/>
 
                         < TextField
+                            type = "password"
                             className = ""
                             placeholder = "Confirm Password" 
                             style = {{marginTop:'15px'}} 
