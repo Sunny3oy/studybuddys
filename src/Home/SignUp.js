@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import './Home.css';
 import * as firebase from 'firebase';
+import axios from 'axios'; // import axios library
 class SignUp extends Component {
     constructor(props) {
         super(props);
@@ -22,22 +23,22 @@ class SignUp extends Component {
             [name]: event.target.value
         });
     }
-    
+
     createUser(e){
         e.preventDefault();
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)     
-        .then((user)=>{
-            if(user){
-                firebase.database().ref(`users/${user.user.uid}`).set({
-                    age:10
-                })
-                .then(()=>{}).catch(function(error){
-                    console.log(error);
-                }
-            )}
+        var info = { // JSON object to pass to the api call
+            email: this.state.email,
+            password: this.state.password,
+            name: this.state.name
+        };
+        axios.post('http://localhost:3001/api/signUp', info) // URL of api call and object being passed to it
+        .then(response => {
+            // This simply creates an alert saying successfully created.
+            // Should route to different page such as homepage
+            alert(response.data.message);
         })
-        .catch(function(error) {
-            console.log(error);
+        .catch(error => {
+            alert(error.response.data.message); // alert to display error
         });
     }
 
@@ -47,16 +48,16 @@ class SignUp extends Component {
        console.log(this.state.name);
         return (
             <div data-aos = "" className = "Home" style = {{backgroundColor:'#F5F5F5'}}>
-                <div className="signIn" 
-                    data-aos="fade-down"  
-                    data-aos-easing="linear" 
+                <div className="signIn"
+                    data-aos="fade-down"
+                    data-aos-easing="linear"
                     data-aos-duration="500">
                 <Typography component="h2" variant="display2" gutterBottom style={{color:'black'}}>
                     Sign Up To Be A Buddy Today
                 </Typography>
                     <form>
                         < TextField className = ""
-                            placeholder = "Full Name" 
+                            placeholder = "Full Name"
                             onChange={this.handleChange('name')}
                             />
 
@@ -65,8 +66,8 @@ class SignUp extends Component {
                         < TextField
                             className = ""
                             type = 'email'
-                            placeholder = "Email Address" 
-                            style = {{marginTop:'15px'}} 
+                            placeholder = "Email Address"
+                            style = {{marginTop:'15px'}}
                             onChange={this.handleChange('email')}
                         />
 
@@ -75,7 +76,7 @@ class SignUp extends Component {
                         < TextField
                             type = "password"
                             className = ""
-                            placeholder = "Password" 
+                            placeholder = "Password"
                             style = {{marginTop:'15px'}}
                             onChange={this.handleChange('password')}
                         />
@@ -85,8 +86,8 @@ class SignUp extends Component {
                         < TextField
                             type = "password"
                             className = ""
-                            placeholder = "Confirm Password" 
-                            style = {{marginTop:'15px'}} 
+                            placeholder = "Confirm Password"
+                            style = {{marginTop:'15px'}}
                         />
 
                         <br/>
@@ -110,7 +111,7 @@ class SignUp extends Component {
                         >
                             Sign In Instead
                         </Button>
-                    </Link> 
+                    </Link>
                 </div>
             </div>
         );
