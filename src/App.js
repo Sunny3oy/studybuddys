@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter,Route,Redirect } from 'react-router-dom';
-import Routes from './Home/Routes';
+//import Routes from './Home/Routes';
 import * as firebase from 'firebase';
 import Dashboard from './Home/Dashboard';
 import Home from './Home/Home';
@@ -26,9 +25,11 @@ authListener() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       this.setState({ loggedIn:true });
+      console.log('im logged in');
     } 
     else {
       this.setState({ loggedIn: false });
+      console.log('im logged not in');
     }
   });
 }
@@ -38,11 +39,11 @@ authListener() {
       <div >
         <BrowserRouter>
           <div className = "App">
-          {
+              {
             // SO THAT IT AUTO REDIRECTS WHEN USER IS SIGNED IN FROM BEFORE
             this.state.loggedIn ?
               <Redirect to="/dashboard" /> :  <Redirect to="/" />
-             }
+              }
             <Route path = "/" exact component = { Home } />
             <Route path = "/signup" exact component = { SignUp } />
             {

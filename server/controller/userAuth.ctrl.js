@@ -20,6 +20,9 @@ module.exports = {
             if (user) {
                 // User is signed in.
                 // Store in database user name and email
+
+                //ref = where to store the data
+                //in users 'table' inside the tab which is userid
                 firebase.database().ref('users/' + user.uid).set({
                     email: req.body.email,
                     name : req.body.name
@@ -52,5 +55,11 @@ module.exports = {
             var errorMessage = String(error.message);
             res.status(400).json({message : errorCode + ' ' + errorMessage});
         });
+    },
+
+    logout: (req, res, next) => {
+        var user = firebase.auth().currentUser;
+        firebase.auth().signOut();
+        res.status(201).json({message : 'Successful logged out. UserID: ' + user.uid})
     }
 }
