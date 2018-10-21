@@ -13,11 +13,12 @@ class Home extends Component {
        user:{},
        email:'',
        password:'',
-      //  loggedIn: false,
+       //loggedIn: false,
 
     }
    this.handleChange = this.handleChange.bind(this);
    this.login = this.login.bind(this);
+   //this.authListener = this.authListener.bind(this);
 }
 
   handleChange = name => event => {
@@ -32,6 +33,7 @@ class Home extends Component {
   //     console.log(user);
   //     if (user) {
   //       this.setState({ loggedIn:true });
+  //       console.log('home signed in');
   //     }
   //     else {
   //       this.setState({ loggedIn: false });
