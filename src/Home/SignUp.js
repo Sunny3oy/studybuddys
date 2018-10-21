@@ -15,6 +15,7 @@ class SignUp extends Component {
             password:'',
 
         }
+        this.checkIfUser = this.checkIfUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createUser = this.createUser.bind(this);
     }
@@ -22,6 +23,15 @@ class SignUp extends Component {
         this.setState({
             [name]: event.target.value
         });
+    }
+
+    checkIfUser(e){
+        axios.get('http://localhost:3001/api/checkLoggedIn')
+        .then(response => {
+            if(response.data.loggedIn){
+                this.props.history.push('/dashboard');
+            }
+        })
     }
 
     createUser(e){
@@ -35,7 +45,7 @@ class SignUp extends Component {
         .then(response => {
             // This simply creates an alert saying successfully created.
             // Should route to different page such as homepage
-            alert(response.data.message);
+            this.props.history.push('/dashboard');
         })
         .catch(error => {
             alert(error.response.data.message); // alert to display error
@@ -48,6 +58,7 @@ class SignUp extends Component {
        console.log(this.state.name);
         return (
             <div data-aos = "" className = "Home" style = {{backgroundColor:'#F5F5F5'}}>
+            {this.checkIfUser()} {/* Check if user is logged in. If not redirect to login page */}
                 <div className="signIn"
                     data-aos="fade-down"
                     data-aos-easing="linear"

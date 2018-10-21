@@ -12,13 +12,12 @@ class Home extends Component {
     this.state = {
        user:{},
        email:'',
-       password:'',
-       //loggedIn: false,
+       password:''
 
     }
+    this.checkIfUser = this.checkIfUser.bind(this);
    this.handleChange = this.handleChange.bind(this);
    this.login = this.login.bind(this);
-   //this.authListener = this.authListener.bind(this);
 }
 
   handleChange = name => event => {
@@ -27,19 +26,14 @@ class Home extends Component {
   });
   }
 
-
-  // authListener() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     console.log(user);
-  //     if (user) {
-  //       this.setState({ loggedIn:true });
-  //       console.log('home signed in');
-  //     }
-  //     else {
-  //       this.setState({ loggedIn: false });
-  //     }
-  //   });
-  // }
+  checkIfUser(e){
+      axios.get('http://localhost:3001/api/checkLoggedIn')
+      .then(response => {
+          if(response.data.loggedIn){
+              this.props.history.push('/dashboard');
+          }
+      })
+  }
 
 
   login(e){
@@ -52,7 +46,7 @@ class Home extends Component {
     .then(response => {
         // This simply creates an alert saying successfully logged in and the user ID.
         // Should route to different page such as homepage
-        alert(response.data.message);
+        this.props.history.push('/dashboard');
     })
     .catch(error => {
         alert(error.response.data.message); // alert to display error
@@ -63,6 +57,7 @@ class Home extends Component {
 
     return (
       <div data-aos="" className="Home" style={{backgroundColor:'#F5F5F5'}}>
+      {this.checkIfUser()} {/* Check if user is logged in. If not redirect to login page */}
       {/* Insert StudyBuddy's Logo Somewhere */}
         <div className="signIn"
              data-aos="fade-down"
@@ -96,7 +91,6 @@ class Home extends Component {
 
             <Button
               onClick={this.login}
-              // href="/Dashboard"
               type = 'submit'
               variant="outlined"
               style = {{marginTop:'15px'}}
