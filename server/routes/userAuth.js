@@ -11,6 +11,10 @@ module.exports = (router) => {
 
     router
     .route('/logout')
-    .post(userAuthController.logout)
+    .get(userAuthController.logout)
+
+    router
+    .route('/checkLoggedIn')
+    .get(userAuthController.checkLoggedIn)
 
 }

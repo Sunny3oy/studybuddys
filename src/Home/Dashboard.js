@@ -3,33 +3,39 @@ import './Dashboard.css';
 import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
 import { BrowserRouter,Route,Redirect } from 'react-router-dom';
+import axios from 'axios'; // import axios library
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           loggedIn:'true',
-    
+           loggedIn:'true', // This is no longer necessary
+
         }
         this.logout = this.logout.bind(this);
+        this.checkIfUser = this.checkIfUser.bind(this);
     }
-    logout(){
-      firebase.auth().signOut();
-      this.setState({
-        loggedIn:'false',
-      });
-    
 
+    logout(e){
+        e.preventDefault();
+        axios.get('http://localhost:3001/api/logout');
+        this.props.history.push('/');
     }
+
+    checkIfUser(e){
+        axios.get('http://localhost:3001/api/checkLoggedIn')
+        .then(response => {
+            if(!(response.data.loggedIn)){
+                this.props.history.push('/');
+            }
+        })
+    }
+
   render() {
     return (
       <div >
-        
+      {this.checkIfUser()} {/* Check if user is logged in. If not redirect to login page */}
         <h1>Hello i am a dashboard</h1>
         <Button onClick={this.logout}>Logout</Button>
-        {
-            this.state.loggedIn ?
-              null: <Redirect to="/" /> 
-        }
       </div>
     );
   }

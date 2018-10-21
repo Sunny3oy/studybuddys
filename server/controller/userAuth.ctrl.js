@@ -58,8 +58,17 @@ module.exports = {
     },
 
     logout: (req, res, next) => {
-        var user = firebase.auth().currentUser;
         firebase.auth().signOut();
-        res.status(201).json({message : 'Successful logged out. UserID: ' + user.uid})
+        res.status(201).json({message : 'Successful logged out.'})
+    },
+
+    checkLoggedIn: (req, res, next) => {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                res.status(201).json({loggedIn : true})
+            } else {
+                res.status(201).json({loggedIn : false})
+            }
+        });
     }
 }
