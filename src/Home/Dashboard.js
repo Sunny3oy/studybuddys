@@ -8,8 +8,7 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           loggedIn:'true', // This is no longer necessary
-
+            loggedIn:'true', // This is no longer necessary
         }
         this.logout = this.logout.bind(this);
         this.checkIfUser = this.checkIfUser.bind(this);
@@ -33,8 +32,8 @@ class Dashboard extends Component {
   render() {
     return (
       <div >
-      {this.checkIfUser()} {/* Check if user is logged in. If not redirect to login page */}
-        <h1>Hello i am a dashboard</h1>
+        {this.checkIfUser()} {/* Check if user is logged in. If not redirect to login page */}
+        <h1>Hello there</h1>
         <Button onClick={this.logout}>Logout</Button>
       </div>
     );

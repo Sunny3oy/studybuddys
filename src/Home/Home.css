@@ -1,17 +1,23 @@
-.Home{
+.Home {
     height: 100vh;
     margin: 0;
     display: flex;
     flex-direction: column;     
     justify-content: center; 
     align-items: center;  
+    background-image: url('./homePic.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    
 }
 .signIn{
+    height: 330px;
+    padding: 45px 60px;
     display: flex;
     flex-direction: column;     
     justify-content: center; 
-    align-items: center; 
-    
+    align-items: center;
 }
 
 .flexCenter{
@@ -20,6 +26,14 @@
     align-items: center;
     text-align: center;
     flex-direction:column;
+}
+
+.signUp {
+    padding: 45px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .white{

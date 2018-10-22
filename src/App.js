@@ -10,7 +10,7 @@ import SignUp from './Home/SignUp';
 class App extends Component {
   constructor(props) {
     super(props);
-}
+  }
 
   render() {
     return (

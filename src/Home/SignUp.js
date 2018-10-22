@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
 import './Home.css';
 import * as firebase from 'firebase';
 import axios from 'axios'; // import axios library
@@ -57,14 +58,21 @@ class SignUp extends Component {
        console.log(this.state.email);
        console.log(this.state.name);
         return (
-            <div data-aos = "" className = "Home" style = {{backgroundColor:'#F5F5F5'}}>
+            <div data-aos = "" className = "Home">
             {this.checkIfUser()} {/* Check if user is logged in. If not redirect to login page */}
-                <div className="signIn"
+                <Card 
+                    raised = "true"
+                    className = "signUp"
                     data-aos="fade-down"
                     data-aos-easing="linear"
                     data-aos-duration="500">
-                <Typography component="h2" variant="display2" gutterBottom style={{color:'black'}}>
-                    Sign Up To Be A Buddy Today
+                <Typography 
+                    component="h2" 
+                    variant="display2" 
+                    gutterBottom = "true"
+                    style={{color:'black'}}
+                >
+                    Sign Up
                 </Typography>
                     <form>
                         < TextField className = ""
@@ -114,16 +122,14 @@ class SignUp extends Component {
 
                     </form>
 
-                    <Link to = '/'>
-                        <Button
-                            type = 'submit'
-                            variant = "outlined"
-                            style = {{marginTop:'15px'}}
-                        >
-                            Sign In Instead
-                        </Button>
+                    <Link 
+                        to = '/'
+                        variant = "outlined"
+                        style = {{marginTop:'15px'}}
+                    >
+                        Have an account? Sign In Here
                     </Link>
-                </div>
+                </Card>
             </div>
         );
     }

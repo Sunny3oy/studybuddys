@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Home.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import * as firebase from 'firebase';
@@ -56,19 +57,35 @@ class Home extends Component {
   render() {
 
     return (
-      <div data-aos="" className="Home" style={{backgroundColor:'#F5F5F5'}}>
-      {this.checkIfUser()} {/* Check if user is logged in. If not redirect to login page */}
-      {/* Insert StudyBuddy's Logo Somewhere */}
-        <div className="signIn"
-             data-aos="fade-down"
-             data-aos-easing="linear"
-             data-aos-duration="500">
+      <div data-aos="" className="Home">
+
+        {this.checkIfUser()} {/* Check if user is logged in. If not redirect to login page */}
+        {/* Insert StudyBuddy's Logo Somewhere */}
+
+        <Typography
+          variant = "display4"
+          data-aos = "fade-down"
+          data-aos-easing = "linear"
+          data-aos-duration = "500"
+          style = {{color: "white", textShadow: "0 0 10px black", marginBottom: "20px"}}
+        >
+          Study Buddy's
+        </Typography>
+
+        <Card
+          raised = 'true'
+          className = "signIn"
+          data-aos = "fade-down"
+          data-aos-easing = "linear"
+          data-aos-duration = "500"
+        >
+
           <form>
             <Typography
               component="h2"
               variant="display2"
-              gutterBottom s
-              tyle={{color:'black'}}
+              gutterBottom = "true"
+              style={{color:'black'}}
             >
               Sign In
             </Typography>
@@ -101,16 +118,14 @@ class Home extends Component {
           </form>
 
 
-          <Link to = '/signup'>
-            <Button
-              type = 'submit'
-              variant = "outlined"
-              style = {{marginTop:'15px'}}
-            >
-              Sign Up
-            </Button>
+          <Link 
+            to = '/signup'
+            variant = "outlined"
+            style = {{marginTop:'14px'}}
+          >
+              Don't have an account? Sign Up Here
           </Link>
-        </div>
+        </Card>
       </div>
 
     );
