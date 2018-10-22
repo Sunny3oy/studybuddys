@@ -12,12 +12,25 @@ class Dashboard extends Component {
         }
         this.logout = this.logout.bind(this);
         this.checkIfUser = this.checkIfUser.bind(this);
+        this.getUserName = this.getUserName.bind(this);
     }
 
     logout(e){
         e.preventDefault();
         axios.get('http://localhost:3001/api/logout');
         this.props.history.push('/');
+    }
+
+    componentDidMount(){
+        this.checkIfUser();
+        this.getUserName();
+    }
+
+    getUserName(e){
+        axios.get('http://localhost:3001/api/getUsername')
+        .then(response => {
+            this.setState({name : response.data.name})
+        })
     }
 
     checkIfUser(e){
@@ -32,8 +45,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div >
-        {this.checkIfUser()} {/* Check if user is logged in. If not redirect to login page */}
-        <h1>Hello there</h1>
+        <h1>Hello, {this.state.name}</h1>
         <Button onClick={this.logout}>Logout</Button>
       </div>
     );

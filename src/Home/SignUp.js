@@ -35,6 +35,10 @@ class SignUp extends Component {
         })
     }
 
+    componentDidMount(){
+        this.checkIfUser();
+    }
+
     createUser(e){
         e.preventDefault();
         var info = { // JSON object to pass to the api call
@@ -59,16 +63,15 @@ class SignUp extends Component {
        console.log(this.state.name);
         return (
             <div data-aos = "" className = "Home">
-            {this.checkIfUser()} {/* Check if user is logged in. If not redirect to login page */}
-                <Card 
+                <Card
                     raised = "true"
                     className = "signUp"
                     data-aos="fade-down"
                     data-aos-easing="linear"
                     data-aos-duration="500">
-                <Typography 
-                    component="h2" 
-                    variant="display2" 
+                <Typography
+                    component="h2"
+                    variant="display2"
                     gutterBottom = "true"
                     style={{color:'black'}}
                 >
@@ -122,7 +125,7 @@ class SignUp extends Component {
 
                     </form>
 
-                    <Link 
+                    <Link
                         to = '/'
                         variant = "outlined"
                         style = {{marginTop:'15px'}}
