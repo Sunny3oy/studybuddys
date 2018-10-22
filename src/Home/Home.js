@@ -36,6 +36,9 @@ class Home extends Component {
       })
   }
 
+  componentDidMount(){
+      this.checkIfUser();
+  }
 
   login(e){
     e.preventDefault();
@@ -58,8 +61,6 @@ class Home extends Component {
 
     return (
       <div data-aos="" className="Home">
-
-        {this.checkIfUser()} {/* Check if user is logged in. If not redirect to login page */}
         {/* Insert StudyBuddy's Logo Somewhere */}
 
         <Typography
@@ -118,7 +119,7 @@ class Home extends Component {
           </form>
 
 
-          <Link 
+          <Link
             to = '/signup'
             variant = "outlined"
             style = {{marginTop:'14px'}}
