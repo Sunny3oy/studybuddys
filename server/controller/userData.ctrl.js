@@ -1,5 +1,4 @@
 //functions for dashboard
-
 var firebase = require('firebase');
 
 module.exports = {
