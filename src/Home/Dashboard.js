@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './Dashboard.css';
 import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
-import { BrowserRouter,Route,Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios'; // import axios library
+
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -44,9 +45,26 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div >
-        <h1>Hello, {this.state.name}</h1>
-        <Button onClick={this.logout}>Logout</Button>
+      <div>  
+        <div style = {{float: "right", display: "inline-block"}}>
+          <span>{this.state.name}</span>
+          <Button onClick={this.logout}>Logout</Button>  
+        </div>
+        <div id="titleContainer">
+          <header>
+              <ul class="nav flex-column">
+
+                  <Link to = "/dashboard">My Course</Link>
+
+                  <Link to = "/dashboard/team">Team</Link>
+
+                  <Link to = "/dashboard/meetup">Meetup</Link>
+                
+                  <Link to = '/dashboard/browse'>Browse</Link>
+                
+              </ul>
+          </header>
+        </div>
       </div>
     );
   }

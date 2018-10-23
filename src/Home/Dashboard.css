@@ -1,0 +1,34 @@
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+@import url(https://fonts.googleapis.com/css?family=Muli);
+
+#titleContainer {
+  margin:0;
+  padding:0;
+  background-color:#f0f0f0;
+  font-family:Muli, sans-serif;
+  color:#444;
+}
+
+ul {
+  list-style:none;
+  margin-top:0;
+  padding:0;
+}
+
+h2 {
+	margin: 0;
+	padding: 0;
+}
+
+header {
+  float:left;
+  position:relative;
+  margin-left: 5%;
+  height: 100vh;
+}
+
+.title {
+  	float: right;
+	position: relative;
+	display: block;
+}
