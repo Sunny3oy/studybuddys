@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 import Dashboard from './Home/Dashboard';
 import Home from './Home/Home';
 import SignUp from './Home/SignUp';
+import Browser from './Home/Browser';
 
 class App extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class App extends Component {
             <Route path = "/" exact component = { Home } />
             <Route path = "/signup" exact component = { SignUp } />
             <Route path="/dashboard" exact component = { Dashboard } />
+            <Route path="/dashboard/browse" exact component = { Browser } />
           </div>
         </BrowserRouter>
       </div>
