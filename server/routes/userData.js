@@ -9,4 +9,8 @@ module.exports = (router) => {
     .route('/getUseremail')
     .get(userDataController.getUseremail)
 
+    router
+    .route('/addCourses')
+    .post(userDataController.addCourses)
+
 }

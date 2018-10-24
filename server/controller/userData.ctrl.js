@@ -31,5 +31,21 @@ module.exports = {
         console.log("The read failed: " + errorObject.code);
         });
 
+    },
+
+    addCourses: (req, res, next) => {
+        //course is what is being passed in from the frontend
+        var course = req.body.courseName;
+        //user is for uid
+        var user = firebase.auth().currentUser;
+        //ref is the path for uid
+        var ref = firebase.database().ref("user/");
+        var updateCourses = ref.child(user.uid).child("courseList");
+        console.log(updateCourses);
+
+        updateCourses.transaction(function(courses) {
+            courses = updateCourses.concat(', ', course);
+            return courses;
+        })
     }
 }
