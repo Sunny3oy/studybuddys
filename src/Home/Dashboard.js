@@ -5,6 +5,8 @@ import * as firebase from 'firebase';
 import { Link } from 'react-router-dom';
 import axios from 'axios'; // import axios library
 import Courses from "./Courses";
+import Navbar from "./Navbar";
+
 
 
 class Dashboard extends Component {
@@ -45,19 +47,19 @@ class Dashboard extends Component {
         })
     }
 
+
+
   render() {
     return (
       <div style = {{height: "100vh", backgroundImage: "linear-gradient(to right top, #e00a0a, #e44900, #e66b00, #e58800, #e4a300)"}}>  
         <div style = {{float: "right", display: "inline-block"}}>
             <span>{this.state.name}</span>
           <Button onClick={this.logout}>Logout</Button>  
-        </div>
-        {/* <div id="sideNav">
-            <Link to = "/dashboard" className = "navItems">My Course</Link>
-            <Link to = "/dashboard/team" className = "navItems">Team</Link>
-            <Link to = "/dashboard/meetup" className = "navItems">Meetup</Link>  
-            <Link to = "/dashboard/browse" className = "navItems">Course Selection</Link>  
-        </div> */}
+        </div> 
+       
+       <Navbar/>
+
+
         <h1 
             className = "dashSec"
         >
@@ -72,8 +74,9 @@ class Dashboard extends Component {
         < Courses / >
         < Courses / >
         < Courses / >
-
       </div>
+      
+     
     )
   }
 }
