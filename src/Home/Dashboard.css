@@ -6,12 +6,31 @@ html, body {
   height: 100%;
 }
 #sideNav {
+  z-index: 1;
   width: 200px;
   height: 100vh;
+  overflow-y: hidden;
+  border: 2px solid grey;
   float: left;
   padding: 0;
   margin: 0;
+  opacity: 0.9;
   background-color: rgb(222, 225, 229);
+}
+
+#page-content-wrapper{
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+  
+}
+
+#wrapper.menuDisplayed #sidebar-wrapper{
+  width: 250px;
+}
+
+#wrapper.menuDisplayed #page-content-wrapper{
+  padding-left: 250px;
 }
 
 .navItems {
@@ -42,29 +61,6 @@ html, body {
   background-color:#f0f0f0;
   font-family:Muli, sans-serif;
   color:#444;
-}
-#sideNav {
-    width: 200px;
-    height: 100vh;
-    float: left;
-    padding: 0;
-    margin: 0;
-    background-color: rgb(222, 225, 229);
-}
-
-.navItems {
-    margin: 0 auto;
-    float: left;
-    width: 200px;
-    display: block;
-    font-size: 25px;
-    padding: 15px 0;
-    text-decoration: none !important;
-    color: black;
-}
-
-.navItems:hover {
-    background-color: rgb(179, 179, 179);
 }
 
 .title {
@@ -100,34 +96,4 @@ html, body {
 }
 html, body {
   height: 100%;
-}
-#sideNav {
-  width: 200px;
-  height: 100vh;
-  float: left;
-  padding: 0;
-  margin: 0;
-  background-color: rgb(222, 225, 229);
-}
-
-.navItems {
-  margin: 0 auto;
-  float: left;
-  width: 200px;
-  display: block;
-  font-size: 25px;
-  padding: 15px 0;
-  text-decoration: none !important;
-  color: black;
-}
-
-.navItems:hover {
-  background-color: rgb(179, 179, 179);
-}
-
-.dashSec {
-  font-size: 50px;
-  font-family: 'Nunito', sans-serif;
-  margin: 0 auto;
-  padding-top: 50px;
 }
