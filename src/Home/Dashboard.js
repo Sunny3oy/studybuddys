@@ -51,7 +51,7 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div style = {{height: "100vh", backgroundImage: "linear-gradient(to right top, #e00a0a, #e44900, #e66b00, #e58800, #e4a300)"}}>  
+      <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="600" style = {{height: "100vh", backgroundImage: "linear-gradient(to right top, #e00a0a, #e44900, #e66b00, #e58800, #e4a300)"}}>  
         <div style = {{float: "right", display: "inline-block"}}>
             <span>{this.state.name}</span>
           <Button onClick={this.logout}>Logout</Button>  
