@@ -43,23 +43,28 @@ html, body {
   font-family:Muli, sans-serif;
   color:#444;
 }
-
-ul {
-  list-style:none;
-  margin-top:0;
-  padding:0;
+#sideNav {
+    width: 200px;
+    height: 100vh;
+    float: left;
+    padding: 0;
+    margin: 0;
+    background-color: rgb(222, 225, 229);
 }
 
-h2 {
-	margin: 0;
-	padding: 0;
+.navItems {
+    margin: 0 auto;
+    float: left;
+    width: 200px;
+    display: block;
+    font-size: 25px;
+    padding: 15px 0;
+    text-decoration: none !important;
+    color: black;
 }
 
-header {
-  float:left;
-  position:relative;
-  margin-left: 5%;
-  height: 100vh;
+.navItems:hover {
+    background-color: rgb(179, 179, 179);
 }
 
 .title {
