@@ -2,6 +2,40 @@
 @import url(https://fonts.googleapis.com/css?family=Muli);
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+html, body {
+  height: 100%;
+}
+#sideNav {
+  width: 200px;
+  height: 100vh;
+  float: left;
+  padding: 0;
+  margin: 0;
+  background-color: rgb(222, 225, 229);
+}
+
+.navItems {
+  margin: 0 auto;
+  float: left;
+  width: 200px;
+  display: block;
+  font-size: 25px;
+  padding: 15px 0;
+  text-decoration: none !important;
+  color: black;
+}
+
+.navItems:hover {
+  background-color: rgb(179, 179, 179);
+}
+
+.dashSec {
+  font-size: 50px;
+  font-family: 'Nunito', sans-serif;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
 #titleContainer {
   margin:0;
   padding:0;
@@ -58,4 +92,37 @@ header {
   align-items: center;   */
   background-image: linear-gradient(to right top, #e00a0a, #e44900, #e66b00, #e58800, #e4a300);
   font-family:Nunito,'Times New Roman', Times, serif;
+}
+html, body {
+  height: 100%;
+}
+#sideNav {
+  width: 200px;
+  height: 100vh;
+  float: left;
+  padding: 0;
+  margin: 0;
+  background-color: rgb(222, 225, 229);
+}
+
+.navItems {
+  margin: 0 auto;
+  float: left;
+  width: 200px;
+  display: block;
+  font-size: 25px;
+  padding: 15px 0;
+  text-decoration: none !important;
+  color: black;
+}
+
+.navItems:hover {
+  background-color: rgb(179, 179, 179);
+}
+
+.dashSec {
+  font-size: 50px;
+  font-family: 'Nunito', sans-serif;
+  margin: 0 auto;
+  padding-top: 50px;
 }
