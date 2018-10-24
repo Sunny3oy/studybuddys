@@ -159,7 +159,7 @@ class Browser extends Component {
                     data-aos-easing="linear" 
                     data-aos-duration="400">
 
-                {subject.map(op=> tion (
+                {subject.map(option=>(
                     <MenuItem key={option.value} value={option.value}>
                         {option.label}
                     </MenuItem>
