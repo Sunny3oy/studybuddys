@@ -66,14 +66,10 @@ class Dashboard extends Component {
             My Courses
         </h1>
 
-        < Courses / >
-        < Courses / >
-        < Courses / >
-        < Courses / >
-        < Courses / >
-        < Courses / >
-        < Courses / >
-        < Courses / >
+        < Courses name = "CSc 10300" / >
+        < Courses name = "CSc 11300" / >
+        < Courses name = "CSc 32200" / >
+        < Courses name = "CSc 33600" / >
       </div>
       
      

@@ -7,6 +7,7 @@ import GridList from '@material-ui/core/GridList';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Navbar from "./Navbar";
 import './Dashboard.css';
 import './Browser.css';
 
@@ -115,6 +116,9 @@ class Browser extends Component {
         console.log(this.state.subject);
         return (
             <div className="browserTitle"> 
+            
+                <Navbar />
+
                 <div className = "flexRow">
                     <h1
                       style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}

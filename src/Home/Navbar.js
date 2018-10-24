@@ -4,19 +4,14 @@ import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/icons/Menu';
+import { Link } from 'react-router-dom';
 
 const styles = {
   list: {
     width: 250,
-  },
-  fullList: {
-    width: 'auto',
-  },
+  }
 };
 
 class Navbar extends React.Component {
@@ -36,32 +31,30 @@ class Navbar extends React.Component {
     const sideList = (
       <div className={classes.list}>
         <List>
-          {['My Courses', 'Browse'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
+            <ListItem button>
+              <Link 
+                to = "/dashboard" 
+                style = {{textDecoration: "none", color: "black", width: "100%"}}
+              >
+                My Courses
+              </Link>
             </ListItem>
-          ))}
-        </List>
-      </div>
-    );
-
-    const fullList = (
-      <div className={classes.fullList}>
-        <List>
-          {['My Courses', 'Browse'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
+            <ListItem button>
+              <Link 
+                to = "/dashboard/browse" 
+                style = {{textDecoration: "none", color: "black", width: "100%"}}
+              >
+                Course Selection
+              </Link>
             </ListItem>
-          ))}
         </List>
-        
       </div>
     );
 
     return (
       <div>
         <Button style={{float: "left"}} onClick={this.toggleDrawer('left', true)}>
-          <Menu></Menu></Button>
+          <Menu fontSize = "large"></Menu></Button>
         <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
           <div
             tabIndex={0}

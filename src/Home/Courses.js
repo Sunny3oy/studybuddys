@@ -5,7 +5,7 @@ class Courses extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            courses: []
+            courses: this.props.name
         }
     }
     render() {
@@ -26,7 +26,7 @@ class Courses extends Component {
                         variant = "subtitle1" 
                         gutterBottom
                     >
-                        Course Number
+                        {this.state.courses}
                     </Typography>
                 </CardContent>
             </Card>
