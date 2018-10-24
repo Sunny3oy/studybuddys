@@ -1,34 +1,33 @@
-@import url(http://weloveiconfonts.com/api/?family=entypo);
-@import url(https://fonts.googleapis.com/css?family=Muli);
-
-#titleContainer {
-  margin:0;
-  padding:0;
-  background-color:#f0f0f0;
-  font-family:Muli, sans-serif;
-  color:#444;
+html, body {
+    height: 100%;
+}
+#sideNav {
+    width: 200px;
+    height: 100vh;
+    float: left;
+    padding: 0;
+    margin: 0;
+    background-color: rgb(222, 225, 229);
 }
 
-ul {
-  list-style:none;
-  margin-top:0;
-  padding:0;
+.navItems {
+    margin: 0 auto;
+    float: left;
+    width: 200px;
+    display: block;
+    font-size: 25px;
+    padding: 15px 0;
+    text-decoration: none !important;
+    color: black;
 }
 
-h2 {
-	margin: 0;
-	padding: 0;
+.navItems:hover {
+    background-color: rgb(179, 179, 179);
 }
 
-header {
-  float:left;
-  position:relative;
-  margin-left: 5%;
-  height: 100vh;
-}
-
-.title {
-  	float: right;
-	position: relative;
-	display: block;
+.dashSec {
+    font-size: 50px;
+    font-family: 'Nunito', sans-serif;
+    margin: 0 auto;
+    padding-top: 50px;
 }

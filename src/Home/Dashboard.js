@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
 import { Link } from 'react-router-dom';
 import axios from 'axios'; // import axios library
+import Courses from "./Courses";
+
 
 class Dashboard extends Component {
     constructor(props) {
@@ -45,28 +47,34 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div>  
+      <div style = {{height: "100vh", backgroundImage: "linear-gradient(to right top, #e00a0a, #e44900, #e66b00, #e58800, #e4a300)"}}>  
         <div style = {{float: "right", display: "inline-block"}}>
-          <span>{this.state.name}</span>
+            <span>{this.state.name}</span>
           <Button onClick={this.logout}>Logout</Button>  
         </div>
-        <div id="titleContainer">
-          <header>
-              <ul class="nav flex-column">
+        {/* <div id="sideNav">
+            <Link to = "/dashboard" className = "navItems">My Course</Link>
+            <Link to = "/dashboard/team" className = "navItems">Team</Link>
+            <Link to = "/dashboard/meetup" className = "navItems">Meetup</Link>  
+            <Link to = "/dashboard/browse" className = "navItems">Course Selection</Link>  
+        </div> */}
+        <h1 
+            className = "dashSec"
+        >
+            My Courses
+        </h1>
 
-                  <Link to = "/dashboard">My Course</Link>
+        < Courses / >
+        < Courses / >
+        < Courses / >
+        < Courses / >
+        < Courses / >
+        < Courses / >
+        < Courses / >
+        < Courses / >
 
-                  <Link to = "/dashboard/team">Team</Link>
-
-                  <Link to = "/dashboard/meetup">Meetup</Link>
-                
-                  <Link to = '/dashboard/browse'>Browse</Link>
-                
-              </ul>
-          </header>
-        </div>
       </div>
-    );
+    )
   }
 }
 
