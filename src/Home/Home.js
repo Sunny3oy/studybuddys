@@ -16,7 +16,7 @@ class Home extends Component {
        password:''
 
     }
-    this.checkIfUser = this.checkIfUser.bind(this);
+   this.checkIfUser = this.checkIfUser.bind(this);
    this.handleChange = this.handleChange.bind(this);
    this.login = this.login.bind(this);
 }
