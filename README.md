@@ -1,8 +1,9 @@
 <h1>Study Buddy's</h1>
 
 <h3>Purpose</h3>
-The goal of this project is to help connect students with each other, helping them find their study buddy. We're student ourselves, so we know how difficult it can be when studying alone. 
+The goal of this project is to help connect students with each other, helping them find their study buddy. We're student ourselves, so we know how difficult it can be when studying alone. We want to build a platform for students to ask questions, share resources, and meet up with one another.  
 
+</br>
 </br>
 <table>
   <tr>
