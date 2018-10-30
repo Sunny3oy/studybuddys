@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Navbar from "./Navbar";
+import axios from 'axios';
 import './Dashboard.css';
 import './Browser.css';
 
@@ -17,7 +18,7 @@ class Browser extends Component {
         this.state = {
           school:'',
           subject:'',
-          class:'',
+          class:[],
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -38,8 +39,20 @@ class Browser extends Component {
           [name]: event.target.value,
         });
       };
+
+      getCourseName(e){
+        axios.get('http://localhost:3001/api/getCourses')
+        .then(response => {
+            this.setState({class : response.data})
+        })
+    }
     
+    componentDidMount(){
+      this.getCourseName();
+    }
+
       render() {
+        console.log(this.state.class)
         const schools = [
             {
                 value: '',
@@ -85,50 +98,71 @@ class Browser extends Component {
               label: 'Eco',
             },
           ];
-          const classes = [
+          // const classes = [
             
-            {
-              value: 'Csc 103',
-              label: 'Csc 103',
-            },
-            {
-              value: 'Csc 104',
-              label: 'Csc 104',
-            },
-            {
-              value: 'Csc 211',
-              label: 'Csc 211',
-            },
-            {
-              value: 'Csc 212',
-              label: 'Csc 212',
-            },
-            {
-                value: 'Csc 220',
-                label: 'Csc 220',
-              },
+          //   {
+          //     value: 'Csc 103',
+          //     label: 'Csc 103',
+          //   },
+          //   {
+          //     value: 'Csc 104',
+          //     label: 'Csc 104',
+          //   },
+          //   {
+          //     value: 'Csc 211',
+          //     label: 'Csc 211',
+          //   },
+          //   {
+          //     value: 'Csc 212',
+          //     label: 'Csc 212',
+          //   },
+          //   {
+          //       value: 'Csc 220',
+          //       label: 'Csc 220',
+          //     },
+          //     {
+          //       value: 'Csc 103',
+          //       label: 'Csc 103',
+          //     },
+          //     {
+          //       value: 'Csc 104',
+          //       label: 'Csc 104',
+          //     },
+          //     {
+          //       value: 'Csc 211',
+          //       label: 'Csc 211',
+          //     },
+          //     {
+          //       value: 'Csc 212',
+          //       label: 'Csc 212',
+          //     },
+          //     {
+          //         value: 'Csc 220',
+          //         label: 'Csc 220',
+          //       },
             
-            
-          ];
+          // ];
         const { anchorEl } = this.state;
 
         console.log(this.state.school);
         console.log(this.state.subject);
+        console.log(this.state.class);
         return (
+         
             <div className="browserTitle"> 
-            
-                <Navbar />
+             <Navbar />
+                
 
-                <div className = "flexRow">
+                <div className = "flexCenter">
                     <h1
                       style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}
                       data-aos="fade-down"
                       data-aos-easing="linear" 
                       data-aos-duration="400">Select a Class
                     </h1>
-                </div>
+                
 
-                <div  style = {{height:'65vh'}}>
+                <div style = {{height:'65vh'}}>
                 <TextField
                     select
                     label="Select"
@@ -175,30 +209,47 @@ class Browser extends Component {
                  <br/>
 
                  {
-                    this.state.subject == 'Csc'?
+                    this.state.subject === 'Csc'?
                     <div className="flexRow" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
                        <GridList  cols={3} padding={150} >
 
-                {classes.map(option => (
-            
-                    <Card key={option.value} value={option.value} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
-                        <CardContent >
-                            <Typography variant ="headline">
-                            {option.label}
-                            </Typography >
-                        </CardContent>
-                    </Card>
-                   
-                    
-                ))}
-                 </GridList>
+                          {/* {Object.keys(this.state.class).map((option,key) => (
+                              
+                              <Card key = {key} value={option.courseName} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
+                                  <CardContent >
+                                      <Typography variant ="headline">
+                                        {this.state.class.courseName[key]}
+                                      </Typography >
+                                      <Typography variant ="headline">
+                                      
+                                      </Typography >
+                                  </CardContent>
+                              </Card>                 
+                          ))} */}
+
+                          {this.state.class.courseName.map((data, key) => {
+                            return(
+                              <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
+                                  <CardContent >
+                                      <Typography variant ="headline">
+                                        {data}
+                                      </Typography >
+                                      <Typography variant ="headline">
+                                      
+                                      </Typography >
+                                  </CardContent>
+                              </Card>     
+                            )              
+                          })}
+
+                      </GridList>
                 </div> : null
 
                  }
 
                 
                 </div>
-              
+                </div>
             
             </div>
         )
