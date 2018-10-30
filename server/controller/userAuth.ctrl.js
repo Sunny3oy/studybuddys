@@ -25,7 +25,8 @@ module.exports = {
                 //in users 'table' inside the tab which is userid
                 firebase.database().ref('users/' + user.uid).set({
                     email: req.body.email,
-                    name : req.body.name
+                    name : req.body.name,
+                    courseList: ""
                 })
                 .then(function() { // everything was successful
                     res.status(201).json({message : 'User created successfully'})
