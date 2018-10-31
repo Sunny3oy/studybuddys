@@ -83,7 +83,7 @@ module.exports = {
         res.status(201).json("course added");
     },
 
-    getCourses: (req, res, next) => {
+    getUserCourses: (req, res, next) => {
         //var user holds information on the current user
         var user = firebase.auth().currentUser;
         //we want to get data in the table users based on the uid
