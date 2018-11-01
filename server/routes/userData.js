@@ -14,7 +14,7 @@ module.exports = (router) => {
     .post(userDataController.addCourses)
 
     router
-    .route('/getCourses')
-    .get(userDataController.getCourses)
+    .route('/getUserCourses')
+    .get(userDataController.getUserCourses)
 
 }
