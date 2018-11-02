@@ -91,7 +91,7 @@ module.exports = {
 
         ref.once("value", function(snapshot) {
         console.log(snapshot.val());
-        res.status(201).json(snapshot.val());
+        res.status(201).json({"courseList": snapshot.val()});
         }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
         });
