@@ -19,16 +19,22 @@ class Browser extends Component {
           school:'',
           subject:'',
           class:[],
+          userClasses: [],
         }
         this.handleChange = this.handleChange.bind(this);
+        this.addCourseToUser = this.addCourseToUser.bind(this);
     }
     state = {
         anchorEl: null,
       };
     
-      handleClick = event => {
-        this.setState({ anchorEl: event.currentTarget });
-      };
+      // handleClick = event => {
+      //   this.setState({ anchorEl: event.currentTarget });
+      // };
+
+      handleClick(event) {
+        this.setState({userClasses: event.target.value})
+      }
     
       handleClose = () => {
         this.setState({ anchorEl: null });
@@ -46,10 +52,41 @@ class Browser extends Component {
             this.setState({class : response.data})
         })
     }
+
+      addCourseToUser(e){
+        e.preventDefault();
+        const x = e.currentTarget.value
+        console.log(x)
+        
+        var course = { // JSON object to pass to the api call
+          courseName: this.state.courseName,
+      };  
+      axios.post('http://localhost:3001/api/addCourses', course)   // URL of api call and object being passed to it
+        .then(response => {
+          this.props.history.push('/dashboard');
+        })
+        .catch(error => {
+          alert(error.response.data.message); // alert to display error
+        });
+      
+      }
+
+    //   addCourse(e){
+    //   axios.post('http://localhost:3001/api/addCourse',{
+    //     className: []
+    //   })
+    //   .then(response => {
+    //     this.props.history.push('/dashboard');
+    //   })
+    //   .catch(error => {
+    //     alert("Added your course")
+    //   })
+    // }
     
     componentDidMount(){
       this.getCourseName();
     }
+
 
       render() {
         console.log(this.state.class)
@@ -147,6 +184,7 @@ class Browser extends Component {
         console.log(this.state.school);
         console.log(this.state.subject);
         console.log(this.state.class);
+        console.log(this.state.userClasses);
         return (
          
             <div className="browserTitle"> 
@@ -158,7 +196,7 @@ class Browser extends Component {
                       style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}
                       data-aos="fade-down"
                       data-aos-easing="linear" 
-                      data-aos-duration="400">Select a Class
+                      data-aos-duration="400"> Select a Class
                     </h1>
                 
 
@@ -229,16 +267,31 @@ class Browser extends Component {
 
                           {this.state.class.courseName.map((data, key) => {
                             return(
+                              
                               <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
-                                  <CardContent >
+                                  <form key = {key}>
+                                  <CardContent>
                                       <Typography variant ="headline">
                                         {data}
                                       </Typography >
                                       <Typography variant ="headline">
-                                      
+                                    
+                                        <Button
+                                            onClick={(e)=>this.addCourseToUser(e)}
+                                            value={data}
+                                            type = "submit"
+                                            variant = "outlined"
+                                            style = {{marginTop:'15px'}}
+                                            >
+                                            Add Course
+                                          </Button>
+                                    
+                
                                       </Typography >
                                   </CardContent>
-                              </Card>     
+                                  </form> 
+                              </Card> 
+                       
                             )              
                           })}
 
