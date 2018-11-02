@@ -19,16 +19,22 @@ class Browser extends Component {
           school:'',
           subject:'',
           class:[],
+          userClasses: [],
         }
         this.handleChange = this.handleChange.bind(this);
+        this.addCourseToUser = this.addCourseToUser.bind(this);
     }
     state = {
         anchorEl: null,
       };
     
-      handleClick = event => {
-        this.setState({ anchorEl: event.currentTarget });
-      };
+      // handleClick = event => {
+      //   this.setState({ anchorEl: event.currentTarget });
+      // };
+
+      handleClick(event) {
+        this.setState({userClasses: event.target.value})
+      }
     
       handleClose = () => {
         this.setState({ anchorEl: null });
@@ -46,10 +52,31 @@ class Browser extends Component {
             this.setState({class : response.data})
         })
     }
+
+      addCourseToUser(e){
+        e.preventDefault();
+        var course = { 
+            courseName: this.state.userClasses,
+        };
+        axios.post('http://localhost:3001/api/addCourses', course) // URL of api call and object being passed to it
+      }
+
+    //   addCourse(e){
+    //   axios.post('http://localhost:3001/api/addCourse',{
+    //     className: []
+    //   })
+    //   .then(response => {
+    //     this.props.history.push('/dashboard');
+    //   })
+    //   .catch(error => {
+    //     alert("Added your course")
+    //   })
+    // }
     
     componentDidMount(){
       this.getCourseName();
     }
+
 
       render() {
         console.log(this.state.class)
@@ -147,6 +174,7 @@ class Browser extends Component {
         console.log(this.state.school);
         console.log(this.state.subject);
         console.log(this.state.class);
+        console.log(this.state.userClasses);
         return (
          
             <div className="browserTitle"> 
@@ -229,16 +257,31 @@ class Browser extends Component {
 
                           {this.state.class.courseName.map((data, key) => {
                             return(
+                              
                               <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
-                                  <CardContent >
+                                  <form key = {key}>
+                                  <CardContent>
                                       <Typography variant ="headline">
                                         {data}
                                       </Typography >
                                       <Typography variant ="headline">
-                                      
+                                    
+                                        <Button
+                                            onClick={this.addCourseToUser}
+                                            value={data}
+                                            type = "submit"
+                                            variant = "outlined"
+                                            style = {{marginTop:'15px'}}
+                                            >
+                                            Add Course
+                                          </Button>
+                                    
+                
                                       </Typography >
                                   </CardContent>
-                              </Card>     
+                                  </form> 
+                              </Card> 
+                       
                             )              
                           })}
 
