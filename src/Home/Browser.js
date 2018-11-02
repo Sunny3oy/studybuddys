@@ -55,10 +55,20 @@ class Browser extends Component {
 
       addCourseToUser(e){
         e.preventDefault();
-        var course = { 
-            courseName: this.state.userClasses,
-        };
-        axios.post('http://localhost:3001/api/addCourses', course) // URL of api call and object being passed to it
+        const x = e.currentTarget.value
+        console.log(x)
+        
+        var course = { // JSON object to pass to the api call
+          courseName: this.state.courseName,
+      };  
+      axios.post('http://localhost:3001/api/addCourses', course)   // URL of api call and object being passed to it
+        .then(response => {
+          this.props.history.push('/dashboard');
+        })
+        .catch(error => {
+          alert(error.response.data.message); // alert to display error
+        });
+      
       }
 
     //   addCourse(e){
@@ -186,7 +196,7 @@ class Browser extends Component {
                       style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}
                       data-aos="fade-down"
                       data-aos-easing="linear" 
-                      data-aos-duration="400">Select a Class
+                      data-aos-duration="400"> Select a Class
                     </h1>
                 
 
@@ -267,7 +277,7 @@ class Browser extends Component {
                                       <Typography variant ="headline">
                                     
                                         <Button
-                                            onClick={this.addCourseToUser}
+                                            onClick={(e)=>this.addCourseToUser(e)}
                                             value={data}
                                             type = "submit"
                                             variant = "outlined"
