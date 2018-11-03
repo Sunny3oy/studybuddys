@@ -47,10 +47,10 @@ module.exports = {
             return jsonObj;
         }
         ref.once("value", function (snapshot) {
-            console.log(String(snapshot.numChildren()))
-            let key = String(snapshot.numChildren());
+            let r = Math.random().toString(36).substring(7);
+            console.log("random", r);
 
-            ref.update(constructjson(key,course));
+            ref.update(constructjson(r,course));
         })
         //perform this function once
         //***************************************
@@ -96,5 +96,22 @@ module.exports = {
         console.log("The read failed: " + errorObject.code);
         });
 
+    },
+
+    deleteUserCourses: (req, res, next) => {
+        var course = req.body.courseName;
+        var user = firebase.auth().currentUser;
+        var ref = firebase.database().ref("users/" + user.uid + "/courseList");
+        console.log("entered course is " + course);
+
+        ref.once("value", function(snapshot){
+            snapshot.forEach(function (childsnap) {
+                if (childsnap.val() === course){
+                    console.log(childsnap.key);
+                    ref.child(childsnap.key).remove();
+                }
+            });
+        });
+        res.status(201).json("course deleted");
     }
 }
