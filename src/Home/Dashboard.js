@@ -6,18 +6,22 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'; // import axios library
 import Courses from "./Courses";
 import Navbar from "./Navbar";
-
-
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import GridList from '@material-ui/core/GridList';
 
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loggedIn:'true', // This is no longer necessary
+            userClass:'',
         }
         this.logout = this.logout.bind(this);
         this.checkIfUser = this.checkIfUser.bind(this);
         this.getUserName = this.getUserName.bind(this);
+        this.getUserCourses = this.getUserCourses.bind(this);
     }
 
     logout(e){
@@ -29,6 +33,7 @@ class Dashboard extends Component {
     componentDidMount(){
         this.checkIfUser();
         this.getUserName();
+        this.getUserCourses();
     }
 
     getUserName(e){
@@ -47,9 +52,16 @@ class Dashboard extends Component {
         })
     }
 
-
+    getUserCourses(){
+        axios.get('http://localhost:3001/api/getUserCourses').then(response=>{
+            this.setState({
+                userClass:response.data,
+            })
+        })
+    }
 
   render() {
+      console.log(this.state.userClass);
     return (
       <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="600" style = {{height: "100vh", backgroundImage: "linear-gradient(to right top, #e00a0a, #e44900, #e66b00, #e58800, #e4a300)"}}>  
         <div style = {{float: "right", display: "inline-block"}}>
@@ -59,17 +71,37 @@ class Dashboard extends Component {
        
        <Navbar/>
 
+        <h1 className = "dashSec"> My Courses </h1>
 
-        <h1 
-            className = "dashSec"
-        >
-            My Courses
-        </h1>
+       
+        <div className="flexCenter">
+        {
+                    this.state.userClass !== '' ?
+                    <div >
+                    <GridList  cols={3} padding={150} >
+                          {this.state.userClass.courseList.map((data, key) => {
+                            return(
+                              
+                              <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
+                                  <CardContent>
+                                      <Typography variant ="headline">
+                                        {data}
+                                      </Typography >
+                                  </CardContent>                        
+                              </Card> 
+                            )              
+                          })}
 
-        < Courses name = "CSc 10300" / >
-        < Courses name = "CSc 11300" / >
-        < Courses name = "CSc 32200" / >
-        < Courses name = "CSc 33600" / >
+                    </GridList>
+                </div> : null
+                //  <div className="flexCenter">
+                //     <h1>You dont have classes yet.</h1>
+                //  </div>
+                  
+
+                 }
+
+        </div>
       </div>
       
      
