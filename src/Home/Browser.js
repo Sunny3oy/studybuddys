@@ -58,30 +58,14 @@ class Browser extends Component {
         const x = e.currentTarget.value
         console.log(x)
         
-        var course = { // JSON object to pass to the api call
-          courseName: this.state.courseName,
+        var course = {     // JSON object to pass to the api call
+          courseName: x,
       };  
       axios.post('http://localhost:3001/api/addCourses', course)   // URL of api call and object being passed to it
-        .then(response => {
-          this.props.history.push('/dashboard');
-        })
-        .catch(error => {
-          alert(error.response.data.message); // alert to display error
-        });
       
+
       }
 
-    //   addCourse(e){
-    //   axios.post('http://localhost:3001/api/addCourse',{
-    //     className: []
-    //   })
-    //   .then(response => {
-    //     this.props.history.push('/dashboard');
-    //   })
-    //   .catch(error => {
-    //     alert("Added your course")
-    //   })
-    // }
     
     componentDidMount(){
       this.getCourseName();
@@ -89,6 +73,7 @@ class Browser extends Component {
 
 
       render() {
+
         console.log(this.state.class)
         const schools = [
             {
