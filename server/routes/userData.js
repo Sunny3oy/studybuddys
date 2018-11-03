@@ -17,4 +17,8 @@ module.exports = (router) => {
     .route('/getUserCourses')
     .get(userDataController.getUserCourses)
 
+    router
+    .route('/deleteUserCourses')
+    .post(userDataController.deleteUserCourses)
+
 }
