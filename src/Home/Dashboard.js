@@ -16,7 +16,7 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             loggedIn:'true', // This is no longer necessary
-            userClass:'',
+            userClass: "",
         }
         this.logout = this.logout.bind(this);
         this.checkIfUser = this.checkIfUser.bind(this);
@@ -54,14 +54,39 @@ class Dashboard extends Component {
 
     getUserCourses(){
         axios.get('http://localhost:3001/api/getUserCourses').then(response=>{
-            this.setState({
-                userClass:response.data,
-            })
+            console.log("res is: " + response.data.courseList[0]);
+            if(response.data.courseList[0] === undefined) {
+                this.setState({userClass: ""})
+            } else {
+                this.setState({
+                    userClass: response.data,
+                })
+            }
         })
     }
 
   render() {
-      console.log(this.state.userClass);
+        console.log(this.state.userClass);
+
+    let classes = (<h1>BOOOOOOO</h1>);
+    if(this.state.userClass !== ""){
+        classes = (
+            <div>
+               {this.state.userClass.courseList.map((data,key) => {
+                   return (
+                        <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
+                            <CardContent>
+                                <Typography variant ="headline">
+                                    {data}
+                                </Typography >
+                            </CardContent>                        
+                        </Card>
+                   )
+               })}
+            </div>
+        )
+    }
+
     return (
       <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="600" style = {{height: "100vh", backgroundImage: "linear-gradient(to right top, #e00a0a, #e44900, #e66b00, #e58800, #e4a300)"}}>  
         <div style = {{float: "right", display: "inline-block"}}>
@@ -75,34 +100,9 @@ class Dashboard extends Component {
 
        
         <div className="flexCenter">
-        {
-                    this.state.userClass !== '' ?
-                    <div >
-                    <GridList  cols={3} padding={150} >
-                          {this.state.userClass.courseList.map((data, key) => {
-                            return(
-                              
-                              <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
-                                  <CardContent>
-                                      <Typography variant ="headline">
-                                        {data}
-                                      </Typography >
-                                  </CardContent>                        
-                              </Card> 
-                            )              
-                          })}
-
-                    </GridList>
-                </div> : null
-                //  <div className="flexCenter">
-                //     <h1>You dont have classes yet.</h1>
-                //  </div>
-                  
-
-                 }
-
+            {classes}
         </div>
-      </div>
+    </div>
       
      
     )
