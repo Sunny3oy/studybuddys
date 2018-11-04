@@ -9,34 +9,30 @@ module.exports = {
         var email = req.body.email;
         var password = req.body.password;
         firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(function() {
+            //ref = where to store the data
+            //in users 'table' inside the tab which is userid
+            var user = firebase.auth().currentUser;
+            firebase.database().ref('users/' + user.uid).set({
+                email: req.body.email,
+                name : req.body.name,
+                courseList: ""
+            })
+            .then(function() { // everything was successful
+                res.status(201).json({message : 'User created successfully'})
+            })
+            .catch(function (error) {
+                // Handle error with storing user information in database
+                var errorCode = String(error.code);
+                var errorMessage = String(error.message);
+                res.status(400).json({message : errorCode + ' ' + errorMessage}); // indicate the error in res.data.error
+            });
+        })
         .catch(function (error) {
-            // Handle Errors here.
+            // Handle error with creating specified user.
             var errorCode = String(error.code);
             var errorMessage = String(error.message);
             res.status(400).json({message : errorCode + ' ' + errorMessage}); // indicate the error in res.data.error
-        });
-        // This is used to make sure user is signed in. Afterwards can call user and retrieve information such as uid within if
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                // User is signed in.
-                // Store in database user name and email
-
-                //ref = where to store the data
-                //in users 'table' inside the tab which is userid
-                firebase.database().ref('users/' + user.uid).set({
-                    email: req.body.email,
-                    name : req.body.name,
-                    courseList: ""
-                })
-                .then(function() { // everything was successful
-                    res.status(201).json({message : 'User created successfully'})
-                })
-                .catch(function (error){ // error with storing in database
-                    var errorCode = String(error.code);
-                    var errorMessage = String(error.message);
-                    res.status(400).json({message : errorCode + ' ' + errorMessage});
-                });
-            }
         });
     },
 
@@ -44,8 +40,8 @@ module.exports = {
         var email = req.body.email;
         var password = req.body.password;
         firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(function(user) {
-            res.status(201).json({message : 'Successful log in. UserID: ' + user.uid})
+        .then(function() {
+            res.status(201).json({message : 'Successful log in.'})
         })
         .catch(function(error) {
             var errorCode = String(error.code);
