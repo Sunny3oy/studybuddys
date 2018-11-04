@@ -68,10 +68,12 @@ class Dashboard extends Component {
   render() {
         console.log(this.state.userClass);
 
-    let classes = (<h1>BOOOOOOO</h1>);
+    let classes = (
+        <h1>You Haven't Selected a Class Yet! <br/> <br/> Select a Class by Clicking on the Left Tab </h1>);
     if(this.state.userClass !== ""){
         classes = (
-            <div>
+            <div className="flexRow">
+              <GridList style={{marginLeft:'50px'}} cols={4} padding={150} >
                {this.state.userClass.courseList.map((data,key) => {
                    return (
                         <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
@@ -83,6 +85,7 @@ class Dashboard extends Component {
                         </Card>
                    )
                })}
+               </GridList>
             </div>
         )
     }
@@ -96,10 +99,10 @@ class Dashboard extends Component {
        
        <Navbar/>
 
-        <h1 className = "dashSec"> My Courses </h1>
+        <h1 className = "dashSec" style={{marginLeft:'150px'}}> My Courses </h1>
 
        
-        <div className="flexCenter">
+        <div className="flexCenter" style={{marginTop:'50px'}}>
             {classes}
         </div>
     </div>
