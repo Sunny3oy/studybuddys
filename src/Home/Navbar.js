@@ -30,19 +30,19 @@ class Navbar extends React.Component {
 
     const sideList = (
       <div className={classes.list}>
-        <List>
-            <ListItem button>
+        <List  style={{width:'1000px'}}>
+            <ListItem button >
               <Link 
                 to = "/dashboard" 
-                style = {{textDecoration: "none", color: "black", width: "100%"}}
+                style = {{textDecoration: "none", color: "black", width: "100%",height:'50px'}}
               >
                 My Courses
               </Link>
-            </ListItem>
-            <ListItem button>
+            </ListItem >
+            <ListItem button > 
               <Link 
                 to = "/dashboard/browse" 
-                style = {{textDecoration: "none", color: "black", width: "100%"}}
+                style = {{textDecoration: "none", color: "black", width: '100%',height:'50px'}}
               >
                 Course Selection
               </Link>
