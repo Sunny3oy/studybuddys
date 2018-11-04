@@ -40,16 +40,12 @@ module.exports = {
         });
     },
 
-    logInUser: (req, res,next) => {
+    logInUser: (req, res, next) => {
         var email = req.body.email;
         var password = req.body.password;
-        firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
-        .then((user) => {
-            firebase.auth().onAuthStateChanged(function(user) {
-                if(user){
-                    res.status(201).json({message : 'Successful log in. UserID: ' + user.uid})
-                }
-            })
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(function(user) {
+            res.status(201).json({message : 'Successful log in. UserID: ' + user.uid})
         })
         .catch(function(error) {
             var errorCode = String(error.code);
