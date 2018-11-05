@@ -40,46 +40,7 @@ module.exports = {
         var user = firebase.auth().currentUser;
         //ref is the path for uid
         var ref = firebase.database().ref("users/" + user.uid + "/courseList");
-
-        function constructjson(jsonKey, jsonValue){
-            var jsonObj = {};
-            jsonObj[jsonKey] = jsonValue;
-            return jsonObj;
-        }
-        ref.once("value", function (snapshot) {
-            let r = Math.random().toString(36).substring(7);
-            console.log("random", r);
-
-            ref.update(constructjson(r,course));
-        })
-        //perform this function once
-        //***************************************
-        // ref.once("value", function (snapshot) {
-        //     //test holds the current snapshot
-        //   var test = snapshot.val();
-        //   //how snapshot looks like
-        //   console.log(snapshot.val());
-        //   //accessing snapshot's child by using . operator
-        //   console.log(test.courseList);
-        //   //if courseList is empty
-        //   if (test.courseList === "") {
-        //       //updatedCourse becomes what we get from the front end
-        //       updatedCourse = course;
-        //   }
-        //   //else, there are already courses stored in courselist, which means we should append courses to the current list
-        //   else {
-        //       updatedCourse = test.courseList.concat(",", course);
-        //   }
-        //
-        //   console.log("stuff input to database inside ref.on " + updatedCourse);
-        //   ref.update
-        //       ({
-        //           "courseList": updatedCourse
-        //       });
-        //
-        // });
-        //********************************************
-        //var previousList = ref.
+        ref.push(course);
         res.status(201).json("course added");
     },
 
@@ -88,12 +49,15 @@ module.exports = {
         var user = firebase.auth().currentUser;
         //we want to get data in the table users based on the uid
         var ref = firebase.database().ref("users/" + user.uid + "/courseList");
-
+        var courses = [];
         ref.once("value", function(snapshot) {
-        console.log(snapshot.val());
-        res.status(201).json({"courseList": snapshot.val()});
+            var list = snapshot.val();
+            for (var key in list) {
+                courses.push(list[key]);
+            }
+            res.status(201).json({"courseList": courses});
         }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
+            console.log("The read failed: " + errorObject.code);
         });
 
     },
@@ -102,12 +66,9 @@ module.exports = {
         var course = req.body.courseName;
         var user = firebase.auth().currentUser;
         var ref = firebase.database().ref("users/" + user.uid + "/courseList");
-        console.log("entered course is " + course);
-
         ref.once("value", function(snapshot){
             snapshot.forEach(function (childsnap) {
                 if (childsnap.val() === course){
-                    console.log(childsnap.key);
                     ref.child(childsnap.key).remove();
                 }
             });
