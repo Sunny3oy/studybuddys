@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import './Dashboard.css';
 import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
-import { Link } from 'react-router-dom';
 import axios from 'axios'; // import axios library
-import Courses from "./Courses";
 import Navbar from "./Navbar";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -22,6 +20,7 @@ class Dashboard extends Component {
         this.checkIfUser = this.checkIfUser.bind(this);
         this.getUserName = this.getUserName.bind(this);
         this.getUserCourses = this.getUserCourses.bind(this);
+        this.deleteUserCourses = this.deleteUserCourses.bind(this);
     }
 
     logout(e){
@@ -33,6 +32,10 @@ class Dashboard extends Component {
     componentDidMount(){
         this.checkIfUser();
         this.getUserName();
+        this.getUserCourses();
+    }
+
+    componentDidUpdate() {
         this.getUserCourses();
     }
 
@@ -65,6 +68,17 @@ class Dashboard extends Component {
         })
     }
 
+    deleteUserCourses(e) {
+         e.preventDefault();
+         const x = e.currentTarget.value
+         console.log(x)
+
+         var course = { // JSON object to pass to the api call
+             courseName: x,
+         };
+         axios.post('http://localhost:3001/api/deleteUserCourses', course)
+    }
+
   render() {
         console.log(this.state.userClass);
 
@@ -81,6 +95,15 @@ class Dashboard extends Component {
                                 <Typography variant ="headline">
                                     {data}
                                 </Typography >
+                                <Button
+                                    onClick={(e)=>this.deleteUserCourses(e)}
+                                    value={data}
+                                    type = "submit"
+                                    variant = "outlined"
+                                    style = {{marginTop:'15px'}}
+                                >
+                                    Remove Course
+                                </Button>
                             </CardContent>                        
                         </Card>
                    )
