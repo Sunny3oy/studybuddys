@@ -19,9 +19,11 @@ class Browser extends Component {
           subject:'',
           class:[],
           userClasses: [],
+          loading: true,
         }
         this.handleChange = this.handleChange.bind(this);
         this.addCourseToUser = this.addCourseToUser.bind(this);
+        this.getCourseName = this.getCourseName.bind(this);
     }
     state = {
         anchorEl: null,
@@ -46,27 +48,28 @@ class Browser extends Component {
       };
 
       getCourseName(e){
-        axios.get('http://localhost:3001/api/getCourses')
-        .then(response => {
-            this.setState({class : response.data})
-        })
-    }
+          console.log("Clicked");
+          var info = { // JSON object to pass to the api call
+              schoolName: this.state.school,
+              subject: this.state.subject
+          };
+          axios.post('http://localhost:3001/api/getCourses', info)
+          .then(response => {
+              console.log("Response: " + response.data.courseID);
+              this.setState({class : response.data});
+          })
+          this.setState({loading: false});
+      }
 
       addCourseToUser(e){
         e.preventDefault();
         const x = e.currentTarget.value
         console.log(x)
-        var course = {   
+        var course = {
           courseName: x,
-        };  
+        };
         axios.post('http://localhost:3001/api/addCourses', course)
       }
-
-
-    componentDidMount(){
-      this.getCourseName();
-    }
-
 
       render() {
 
@@ -122,6 +125,12 @@ class Browser extends Component {
         console.log(this.state.subject);
         console.log(this.state.class);
         console.log(this.state.userClasses);
+
+          let loading = (null)
+          if (this.state.loading === false) {
+            loading = (<h1>Loading...</h1>)
+          }
+
         return (
 
             <div className="browserTitle">
@@ -151,77 +160,85 @@ class Browser extends Component {
                     data-aos-duration="400">
 
                     {schools.map(option => (
-                    <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                    </MenuItem>
-                ))}
+                      <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                      </MenuItem>
+                    ))}
                 </TextField>
 
-                    <br/>
+                <br/>
+                <div className="flexCenter">
                  {
                     this.state.school !== ''?
-                    <TextField
-                    select
-                    label="Select"
-                    value={this.state.subject}
-                    onChange={this.handleChange('subject')}
-                    helperText="Please select your Subject"
-                    margin="normal"
-                    variant="outlined"
-                    data-aos="fade-left"
-                    data-aos-easing="linear"
-                    data-aos-duration="400">
+                      <TextField
+                        required
+                        label="Select"
+                        value={this.state.subject}
+                        onChange={this.handleChange('subject')}
+                        helperText="Please select your Subject"
+                        margin="normal"
+                        variant="outlined"
+                        data-aos="fade-left"
+                        data-aos-easing="linear"
+                        data-aos-duration="400"
+                      >
+                      </TextField>
 
-                {subject.map(option=>(
-                    <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                    </MenuItem>
-                ))}
-                </TextField>: null
+                : null
 
                  }
+                 </div>
+                 {this.state.school !==''?
+                    <Button
+                        onClick={(this.getCourseName)}
+                        type = 'submit'
+                        >
+                        Submit
+                    </Button>:null
 
+                 }
                  <br/>
-
+  
                  {
-                    this.state.subject === 'Csc'?
+                  this.state.class.courseID === undefined?
+                     loading :
                     <div className="flexRow" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
                        <GridList  cols={3} padding={150} >
+                       {console.log("Course list: " + this.state.class.courseID)}
                          {this.state.class.courseID.map((data, key) => {
                           return(
 
                               <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
                                   <form key = {key}>
-                                  <CardContent>
-                                      <Typography variant ="headline">
-                                        {data}
-                                      </Typography >
-                                      <Typography variant ="headline">
+                                    <CardContent>
+                                        <Typography variant ="headline">
+                                          {data}
+                                        </Typography >
+                                        <Typography variant ="headline">
 
-                                        <Button
+                                          <Button
                                             onClick={(e)=>this.addCourseToUser(e)}
                                             value={data}
                                             type = "submit"
                                             variant = "outlined"
                                             style = {{marginTop:'15px'}}
-                                            >
+                                          >
                                             Add Course
                                           </Button>
 
-                                      </Typography >
-                                  </CardContent>
-                                  </form> 
-                              </Card> 
-                            )            
+                                        </Typography >
+                                    </CardContent>
+                                  </form>
+                              </Card>
+                            )
                           })}
 
                       </GridList>
-                </div> : null
-
-                 }
-                
                     </div>
-                </div>
+
+                  }
+                  </div>
+              </div>
 
             </div>
         )
