@@ -206,29 +206,31 @@ class Browser extends Component {
                 </TextField>
 
                     <br/>
+                <div className="flexCenter">
                  {
                     this.state.school !== ''?
                     <TextField
-                    select
+                    required
                     label="Select"
                     value={this.state.subject}
                     onChange={this.handleChange('subject')}
                     helperText="Please select your Subject"
                     margin="normal"
-                    variant="outlined"
                     data-aos="fade-left" 
                     data-aos-easing="linear" 
                     data-aos-duration="400">
 
-                {subject.map(option=>(
-                    <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                    </MenuItem>
-                ))}
-                </TextField>: null
+                
+                </TextField>
+                
+                : null
 
                  }
+                 </div>
+                 {this.state.school !==''?
+                    <Button>Submit</Button>:null
                  
+                 }
                  <br/>
 
                  {
