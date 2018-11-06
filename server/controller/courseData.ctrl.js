@@ -1,29 +1,45 @@
 const rp = require('request-promise');
 const cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
 
 module.exports = {
     getCourses: (req, res, next) => {
-        const options = {
-            uri: 'https://www.ccny.cuny.edu/compsci/course-descriptions-syllabi-and-course-outcomes',
-            transform: function (body) {
-                return cheerio.load(body);
-            }
-        };
-
-        rp(options)
-        .then(($) => {
-            var i;
-            var courseNameList = [];
-            var name = "";
-            for (i = 0; i < 20; i++) {
-                name = $('.field-items').eq(4).find('table').first().find('tbody').children().eq(i).children().first().text();
-                name = name.substr(1, 9);
-                courseNameList.push(name);
-            }
-            res.status(201).json({courseName : courseNameList});
+        const url = 'https://www.coursicle.com/ccnycuny/#title=csc';
+        puppeteer
+        .launch()
+        .then(function(browser) {
+            return browser.newPage();
         })
-        .catch((err) => {
-            console.log(err);
+        .then(function(page) {
+            return page.goto(url).then(function() {
+                return page.content();
+            });
+        })
+        .then(function(html) {
+            var htmlString = "";
+            var courseIDList = [];
+            var courseNameList = [];
+            htmlString = html;
+            var i = 0;
+            while(1){
+                var startPos = htmlString.indexOf("<center>");
+                if(startPos == -1) break;
+                startPos = startPos + 8;
+                htmlString = htmlString.slice(startPos);
+                var lastPos = htmlString.indexOf("</center>");
+                var text = htmlString.slice(0, lastPos);
+                if(text == "AAAD 298-001") break;
+                if(i % 2) courseNameList.push(text);
+                else courseIDList.push(text);
+                i = i + 1;
+            }
+            res.status(201).json({
+                courseID : courseIDList,
+                courseName : courseNameList
+            });
+        })
+        .catch(function(err) {
+            //handle error
         });
     }
 }
