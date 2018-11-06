@@ -27,7 +27,7 @@ class Browser extends Component {
     state = {
         anchorEl: null,
       };
-    
+
       // handleClick = event => {
       //   this.setState({ anchorEl: event.currentTarget });
       // };
@@ -35,7 +35,7 @@ class Browser extends Component {
       handleClick(event) {
         this.setState({userClasses: event.target.value})
       }
-    
+
       handleClose = () => {
         this.setState({ anchorEl: null });
       };
@@ -57,16 +57,16 @@ class Browser extends Component {
         e.preventDefault();
         const x = e.currentTarget.value
         console.log(x)
-        
+
         var course = {     // JSON object to pass to the api call
           courseName: x,
-      };  
+      };
       axios.post('http://localhost:3001/api/addCourses', course)   // URL of api call and object being passed to it
-      
+
 
       }
 
-    
+
     componentDidMount(){
       this.getCourseName();
     }
@@ -121,7 +121,7 @@ class Browser extends Component {
             },
           ];
           // const classes = [
-            
+
           //   {
           //     value: 'Csc 103',
           //     label: 'Csc 103',
@@ -162,7 +162,7 @@ class Browser extends Component {
           //         value: 'Csc 220',
           //         label: 'Csc 220',
           //       },
-            
+
           // ];
         const { anchorEl } = this.state;
 
@@ -171,19 +171,19 @@ class Browser extends Component {
         console.log(this.state.class);
         console.log(this.state.userClasses);
         return (
-         
-            <div className="browserTitle"> 
+
+            <div className="browserTitle">
              <Navbar />
-                
+
 
                 <div className = "flexCenter">
                     <h1
                       style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}
                       data-aos="fade-down"
-                      data-aos-easing="linear" 
+                      data-aos-easing="linear"
                       data-aos-duration="400"> Select a Class
                     </h1>
-                
+
 
                 <div style = {{height:'65vh'}}>
                 <TextField
@@ -195,7 +195,7 @@ class Browser extends Component {
                     margin="normal"
                     variant="outlined"
                     data-aos="fade-down"
-                    data-aos-easing="linear" 
+                    data-aos-easing="linear"
                     data-aos-duration="400">
 
                     {schools.map(option => (
@@ -216,8 +216,8 @@ class Browser extends Component {
                     helperText="Please select your Subject"
                     margin="normal"
                     variant="outlined"
-                    data-aos="fade-left" 
-                    data-aos-easing="linear" 
+                    data-aos="fade-left"
+                    data-aos-easing="linear"
                     data-aos-duration="400">
 
                 {subject.map(option=>(
@@ -228,7 +228,7 @@ class Browser extends Component {
                 </TextField>: null
 
                  }
-                 
+
                  <br/>
 
                  {
@@ -237,22 +237,22 @@ class Browser extends Component {
                        <GridList  cols={3} padding={150} >
 
                           {/* {Object.keys(this.state.class).map((option,key) => (
-                              
+
                               <Card key = {key} value={option.courseName} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
                                   <CardContent >
                                       <Typography variant ="headline">
                                         {this.state.class.courseName[key]}
                                       </Typography >
                                       <Typography variant ="headline">
-                                      
+
                                       </Typography >
                                   </CardContent>
-                              </Card>                 
+                              </Card>
                           ))} */}
 
-                          {this.state.class.courseName.map((data, key) => {
+                          {this.state.class.courseID.map((data, key) => {
                             return(
-                              
+
                               <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
                                   <form key = {key}>
                                   <CardContent>
@@ -260,7 +260,7 @@ class Browser extends Component {
                                         {data}
                                       </Typography >
                                       <Typography variant ="headline">
-                                    
+
                                         <Button
                                             onClick={(e)=>this.addCourseToUser(e)}
                                             value={data}
@@ -270,14 +270,14 @@ class Browser extends Component {
                                             >
                                             Add Course
                                           </Button>
-                                    
-                
+
+
                                       </Typography >
                                   </CardContent>
-                                  </form> 
-                              </Card> 
-                       
-                            )              
+                                  </form>
+                              </Card>
+
+                            )
                           })}
 
                       </GridList>
@@ -285,10 +285,10 @@ class Browser extends Component {
 
                  }
 
-                
+
                 </div>
                 </div>
-            
+
             </div>
         )
     }
