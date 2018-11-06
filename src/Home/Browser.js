@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
@@ -57,13 +56,10 @@ class Browser extends Component {
         e.preventDefault();
         const x = e.currentTarget.value
         console.log(x)
-
-        var course = {     // JSON object to pass to the api call
+        var course = {   
           courseName: x,
-      };
-      axios.post('http://localhost:3001/api/addCourses', course)   // URL of api call and object being passed to it
-
-
+        };  
+        axios.post('http://localhost:3001/api/addCourses', course)
       }
 
 
@@ -120,50 +116,6 @@ class Browser extends Component {
               label: 'Eco',
             },
           ];
-          // const classes = [
-
-          //   {
-          //     value: 'Csc 103',
-          //     label: 'Csc 103',
-          //   },
-          //   {
-          //     value: 'Csc 104',
-          //     label: 'Csc 104',
-          //   },
-          //   {
-          //     value: 'Csc 211',
-          //     label: 'Csc 211',
-          //   },
-          //   {
-          //     value: 'Csc 212',
-          //     label: 'Csc 212',
-          //   },
-          //   {
-          //       value: 'Csc 220',
-          //       label: 'Csc 220',
-          //     },
-          //     {
-          //       value: 'Csc 103',
-          //       label: 'Csc 103',
-          //     },
-          //     {
-          //       value: 'Csc 104',
-          //       label: 'Csc 104',
-          //     },
-          //     {
-          //       value: 'Csc 211',
-          //       label: 'Csc 211',
-          //     },
-          //     {
-          //       value: 'Csc 212',
-          //       label: 'Csc 212',
-          //     },
-          //     {
-          //         value: 'Csc 220',
-          //         label: 'Csc 220',
-          //       },
-
-          // ];
         const { anchorEl } = this.state;
 
         console.log(this.state.school);
@@ -235,23 +187,8 @@ class Browser extends Component {
                     this.state.subject === 'Csc'?
                     <div className="flexRow" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
                        <GridList  cols={3} padding={150} >
-
-                          {/* {Object.keys(this.state.class).map((option,key) => (
-
-                              <Card key = {key} value={option.courseName} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
-                                  <CardContent >
-                                      <Typography variant ="headline">
-                                        {this.state.class.courseName[key]}
-                                      </Typography >
-                                      <Typography variant ="headline">
-
-                                      </Typography >
-                                  </CardContent>
-                              </Card>
-                          ))} */}
-
-                          {this.state.class.courseID.map((data, key) => {
-                            return(
+                         {this.state.class.courseID.map((data, key) => {
+                          return(
 
                               <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
                                   <form key = {key}>
@@ -271,22 +208,19 @@ class Browser extends Component {
                                             Add Course
                                           </Button>
 
-
                                       </Typography >
                                   </CardContent>
-                                  </form>
-                              </Card>
-
-                            )
+                                  </form> 
+                              </Card> 
+                            )            
                           })}
 
                       </GridList>
                 </div> : null
 
                  }
-
-
-                </div>
+                
+                    </div>
                 </div>
 
             </div>
