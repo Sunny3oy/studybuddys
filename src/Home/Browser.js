@@ -19,9 +19,11 @@ class Browser extends Component {
           subject:'',
           class:[],
           userClasses: [],
+          showCourses: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.addCourseToUser = this.addCourseToUser.bind(this);
+        this.getCourseName = this.getCourseName.bind(this);
     }
     state = {
         anchorEl: null,
@@ -46,11 +48,18 @@ class Browser extends Component {
       };
 
       getCourseName(e){
-        axios.get('http://localhost:3001/api/getCourses')
-        .then(response => {
-            this.setState({class : response.data})
-        })
-    }
+          console.log("Clicked");
+          var info = { // JSON object to pass to the api call
+              schoolName: this.state.school,
+              subject: this.state.subject
+          };
+          axios.post('http://localhost:3001/api/getCourses', info)
+          .then(response => {
+              console.log("Response: " + response.data.courseID);
+              this.setState({class : response.data});
+          })
+          this.setState({showCourses : true});
+      }
 
       addCourseToUser(e){
         e.preventDefault();
@@ -64,7 +73,7 @@ class Browser extends Component {
 
 
     componentDidMount(){
-      this.getCourseName();
+      //this.getCourseName();
     }
 
 
@@ -181,15 +190,22 @@ class Browser extends Component {
                  }
                  </div>
                  {this.state.school !==''?
-                    <Button>Submit</Button>:null
+                    <Button
+                        onClick={this.getCourseName}
+                        type = 'submit'
+                        >
+                        Submit
+                        </Button>:null
 
                  }
                  <br/>
 
                  {
-                    this.state.subject === 'Csc'?
+                    this.state.showCourses == false?
+                    null :
                     <div className="flexRow" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
                        <GridList  cols={3} padding={150} >
+                       {console.log("Course list: " + this.state.class.courseID)}
                          {this.state.class.courseID.map((data, key) => {
                           return(
 
@@ -219,7 +235,7 @@ class Browser extends Component {
                           })}
 
                       </GridList>
-                </div> : null
+                </div>
 
                  }
 

@@ -4,7 +4,12 @@ const puppeteer = require('puppeteer');
 
 module.exports = {
     getCourses: (req, res, next) => {
-        const url = 'https://www.coursicle.com/ccnycuny/#title=csc';
+        var url;
+        if(req.body.schoolName == "CUNY CCNY") url = 'https://www.coursicle.com/ccnycuny/#title=';
+        else if(req.body.schoolName == "CUNY Baruch") url = 'https://www.coursicle.com/baruchcuny/#title=';
+        else if(req.body.schoolName == "CUNY York") url = 'https://www.coursicle.com/yorkcuny/#title=';
+        else if(req.body.schoolName == "CUNY Queens") url = 'https://www.coursicle.com/qccuny/#title=';
+        url = url + req.body.subject;
         puppeteer
         .launch()
         .then(function(browser) {
