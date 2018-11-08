@@ -12,6 +12,7 @@ let port = 3001 || process.env.PORT
 routes(router)
 
 const API_KEY = process.env.Firebase_API_Key;
+const SENDER_ID = process.env.Firebase_Sender_ID;
 
 var config = {
     apiKey: API_KEY,
@@ -19,7 +20,7 @@ var config = {
     databaseURL: "https://studybuddys-8fe89.firebaseio.com",
     projectId: "studybuddys-8fe89",
     storageBucket: "",
-    messagingSenderId: "48350702100"
+    messagingSenderId: SENDER_ID
 };
 firebase.initializeApp(config);
 
