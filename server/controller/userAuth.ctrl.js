@@ -1,5 +1,5 @@
 // functions used in the backend
-var firebase = require('firebase');
+const firebase = require('firebase');
 
 module.exports = {
     createUser: (req, res, next) => {
@@ -19,7 +19,7 @@ module.exports = {
                 courseList: ""
             })
             .then(function() { // everything was successful
-                res.status(201).json({message : 'User created successfully'})
+                res.status(200).json({message : 'User created successfully'})
             })
             .catch(function (error) {
                 // Handle error with storing user information in database
@@ -41,7 +41,7 @@ module.exports = {
         var password = req.body.password;
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(function() {
-            res.status(201).json({message : 'Successful log in.'})
+            res.status(200).json({message : 'Successful log in.'})
         })
         .catch(function(error) {
             var errorCode = String(error.code);
@@ -52,16 +52,16 @@ module.exports = {
 
     logout: (req, res, next) => {
         firebase.auth().signOut();
-        res.status(201).json({message : 'Successful logged out.'})
+        res.status(200).json({message : 'Successful logged out.'})
     },
 
     checkLoggedIn: (req, res, next) => {
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                res.status(201).json({loggedIn : true})
-            } else {
-                res.status(201).json({loggedIn : false})
-            }
-        });
+        var user = firebase.auth().currentUser;
+        if(user){
+            res.status(400).json({loggedIn: true});
+        }
+        else{
+            res.status(400).json({loggedIn: false});
+        }
     }
 }

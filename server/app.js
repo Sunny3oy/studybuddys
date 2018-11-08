@@ -2,7 +2,8 @@ const express = require("express")
 const routes = require('./routes/')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const firebase = require('firebase')
+const firebase = require('firebase');
+
 
 const app = express()
 const router = express.Router()
@@ -33,3 +34,5 @@ app.use('/api', router) // our api calls start with localhost:3001/api/
 app.listen(port, () => {
     console.log(`Server started at port: ${port}`);
 });
+
+module.exports = app
