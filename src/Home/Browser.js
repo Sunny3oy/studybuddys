@@ -53,7 +53,7 @@ class Browser extends Component {
               schoolName: this.state.school,
               subject: this.state.subject
           };
-          axios.post('http://localhost:3001/api/getCourses', info)
+          axios.post('https://triple-bonito-221722.appspot.com/api/getCourses', info)
           .then(response => {
               console.log("Response: " + response.data.courseID);
               this.setState({class : response.data});
@@ -68,7 +68,7 @@ class Browser extends Component {
         var course = {
           courseName: x,
         };
-        axios.post('http://localhost:3001/api/addCourses', course)
+        axios.post('https://triple-bonito-221722.appspot.com/api/addCourses', course)
       }
 
       render() {
