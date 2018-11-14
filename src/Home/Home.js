@@ -28,7 +28,7 @@ class Home extends Component {
   }
 
   checkIfUser(e){
-      axios.get('http://localhost:3001/api/checkLoggedIn')
+      axios.get('https://triple-bonito-221722.appspot.com/api/checkLoggedIn')
       .then(response => {
           if(response.data.loggedIn){
               this.props.history.push('/dashboard');
@@ -43,17 +43,17 @@ class Home extends Component {
   login(e){
     e.preventDefault();
     var info = { // JSON object to pass to the api call
-        email: this.state.email,
-        password: this.state.password
+      email: this.state.email,
+      password: this.state.password
     };
-    axios.post('http://localhost:3001/api/logIn', info) // URL of api call and object being passed to it
+    axios.post('https://triple-bonito-221722.appspot.com/api/logIn', info) // URL of api call and object being passed to it
     .then(response => {
-        // This simply creates an alert saying successfully logged in and the user ID.
-        // Should route to different page such as homepage
-        this.props.history.push('/dashboard');
+      // This simply creates an alert saying successfully logged in and the user ID.
+      // Should route to different page such as homepage
+      this.props.history.push('/dashboard');
     })
     .catch(error => {
-        alert(error.response.data.message); // alert to display error
+      alert(error.response.data.message); // alert to display error
     });
   }
 

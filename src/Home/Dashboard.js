@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import './Dashboard.css';
 import Button from '@material-ui/core/Button';
 import * as firebase from 'firebase';
@@ -8,8 +8,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
+import {Redirect} from 'react-router';
 
-class Dashboard extends Component {
+class Dashboard extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,7 +26,7 @@ class Dashboard extends Component {
 
     logout(e){
         e.preventDefault();
-        axios.get('http://localhost:3001/api/logout');
+        axios.get('https://triple-bonito-221722.appspot.com/api/logout');
         this.props.history.push('/');
     }
 
@@ -35,19 +36,15 @@ class Dashboard extends Component {
         this.getUserCourses();
     }
 
-    componentDidUpdate() {
-        this.getUserCourses();
-    }
-
     getUserName(e){
-        axios.get('http://localhost:3001/api/getUsername')
+        axios.get('https://triple-bonito-221722.appspot.com/api/getUsername')
         .then(response => {
             this.setState({name : response.data.name})
         })
     }
 
     checkIfUser(e){
-        axios.get('http://localhost:3001/api/checkLoggedIn')
+        axios.get('https://triple-bonito-221722.appspot.com/api/checkLoggedIn')
         .then(response => {
             if(!(response.data.loggedIn)){
                 this.props.history.push('/');
@@ -56,7 +53,7 @@ class Dashboard extends Component {
     }
 
     getUserCourses(){
-        axios.get('http://localhost:3001/api/getUserCourses').then(response=>{
+        axios.get('https://triple-bonito-221722.appspot.com/api/getUserCourses').then(response => {
             console.log("res is: " + response.data.courseList[0]);
             if(response.data.courseList[0] === undefined) {
                 this.setState({userClass: ""})
@@ -69,14 +66,16 @@ class Dashboard extends Component {
     }
 
     deleteUserCourses(e) {
-         e.preventDefault();
-         const x = e.currentTarget.value
-         console.log(x)
+        e.preventDefault();
+        const x = e.currentTarget.value
+        console.log(x)
 
-         var course = { // JSON object to pass to the api call
-             courseName: x,
-         };
-         axios.post('http://localhost:3001/api/deleteUserCourses', course)
+        var course = { // JSON object to pass to the api call
+            courseName: x,
+        };
+        axios.post('https://triple-bonito-221722.appspot.com/api/deleteUserCourses', course).then(
+            this.getUserCourses
+        )
     }
 
   render() {

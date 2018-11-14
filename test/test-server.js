@@ -249,6 +249,7 @@ describe('logOut', function() {
     });
 });
 
+/*
 describe('checkLoggedIn', function() {
     it('should return false since no user is logged in', function(done) {
         chai.request(server)
@@ -322,7 +323,7 @@ describe('create user', function() {
         });
     });
 });
-
+*/
 describe('createQuestion', function() {
     it('Should return a success message.', function(done) {
         chai.request(server)

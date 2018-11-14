@@ -27,7 +27,7 @@ class SignUp extends Component {
     }
 
     checkIfUser(e){
-        axios.get('http://localhost:3001/api/checkLoggedIn')
+        axios.get('https://triple-bonito-221722.appspot.com/api/checkLoggedIn')
         .then(response => {
             if(response.data.loggedIn){
                 this.props.history.push('/dashboard');
@@ -46,7 +46,7 @@ class SignUp extends Component {
             password: this.state.password,
             name: this.state.name
         };
-        axios.post('http://localhost:3001/api/signUp', info) // URL of api call and object being passed to it
+        axios.post('https://triple-bonito-221722.appspot.com/api/signUp', info) // URL of api call and object being passed to it
         .then(response => {
             // This simply creates an alert saying successfully created.
             // Should route to different page such as homepage
