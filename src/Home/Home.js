@@ -28,7 +28,7 @@ class Home extends Component {
   }
 
   checkIfUser(e){
-      axios.get('http://localhost:3001/api/checkLoggedIn')
+      axios.get('https://triple-bonito-221722.appspot.com/api/checkLoggedIn')
       .then(response => {
           if(response.data.loggedIn){
               this.props.history.push('/dashboard');
@@ -42,6 +42,7 @@ class Home extends Component {
 
   login(e){
     e.preventDefault();
+
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
     .catch(function(err) {
       alert(err)
