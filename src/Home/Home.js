@@ -42,19 +42,11 @@ class Home extends Component {
 
   login(e){
     e.preventDefault();
-    var info = { // JSON object to pass to the api call
-        email: this.state.email,
-        password: this.state.password
-    };
-    axios.post('http://localhost:3001/api/logIn', info) // URL of api call and object being passed to it
-    .then(response => {
-        // This simply creates an alert saying successfully logged in and the user ID.
-        // Should route to different page such as homepage
-        this.props.history.push('/dashboard');
-    })
-    .catch(error => {
-        alert(error.response.data.message); // alert to display error
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+    .catch(function(err) {
+      alert(err)
     });
+    this.props.history.push('/dashboard');
   }
 
   render() {
