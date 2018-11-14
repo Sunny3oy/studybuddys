@@ -322,3 +322,40 @@ describe('create user', function() {
         });
     });
 });
+
+describe('createQuestion', function() {
+    it('Should return a success message.', function(done) {
+        chai.request(server)
+        .post('/api/createQuestion')
+        .send({
+            courseName : "csc101",
+            userQuestion : "How do I print hello world?"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('message');
+            res.body.message.should.be.a('string');
+            console.log(res.body.message);
+            done();
+        });
+    });
+});
+
+describe('getQuestion', function() {
+    it('Should return a json.', function(done) {
+        chai.request(server)
+        .post('/api/getQuestion')
+        .send({
+            courseName : "csc101"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('questions');
+            res.body.questions.should.be.a('array');
+            console.log(res.body.uid);
+            done();
+        });
+    });
+});
