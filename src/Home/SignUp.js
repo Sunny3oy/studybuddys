@@ -120,7 +120,7 @@ class SignUp extends Component {
                             variant = "outlined"
                             style = {{marginTop:'15px'}}
                         >
-                            Sign Me Up!
+                            Sign Me Up
                         </Button>
 
                     </form>
@@ -130,7 +130,7 @@ class SignUp extends Component {
                         variant = "outlined"
                         style = {{marginTop:'15px'}}
                     >
-                        Have an account? Sign In Here
+                        Have an account? Log In Here
                     </Link>
                 </Card>
             </div>
