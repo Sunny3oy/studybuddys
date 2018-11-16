@@ -10,11 +10,13 @@ before_install:
   - npm install firebase-tools
   - npm install
 
-script:
-  - npm test
-  - npm run build
-  - firebase deploy --non-interactive --token $FIREBASE_TOKEN
-
-branches:
-    only:
-      - master
+jobs:
+  include:
+    - stage: test
+      script:
+        - npm test
+    - stage: deploy
+      if: (branch = master) AND (type NOT IN (pull_request))
+      script:
+        - npm run build
+        - firebase deploy --non-interactive --token $FIREBASE_TOKEN
