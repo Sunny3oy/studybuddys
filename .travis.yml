@@ -17,6 +17,7 @@ after_success:
   script:
     - npm run build
     - firebase deploy --non-interactive --token $FIREBASE_TOKEN
-  branches:
+
+branches:
     only:
       - master
