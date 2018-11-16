@@ -12,11 +12,8 @@ before_install:
 
 script:
   - npm test
-
-after_success:
-  script:
-    - npm run build
-    - firebase deploy --non-interactive --token $FIREBASE_TOKEN
+  - npm run build
+  - firebase deploy --non-interactive --token $FIREBASE_TOKEN
 
 branches:
     only:
