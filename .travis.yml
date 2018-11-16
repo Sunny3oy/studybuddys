@@ -14,7 +14,9 @@ script:
   - npm test
 
 after_success:
-  if: (branch = master) AND (type NOT IN (pull_request))
-    script:
-      - npm run build
-      - firebase deploy --non-interactive --token $FIREBASE_TOKEN
+  script:
+    - npm run build
+    - firebase deploy --non-interactive --token $FIREBASE_TOKEN
+  branches:
+    only:
+      - master
