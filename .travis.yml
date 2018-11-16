@@ -13,10 +13,8 @@ before_install:
 script:
   - npm test
 
-jobs:
-  include:
-    - stage: deploy
-      if: (branch = master) AND (type NOT IN (pull_request))
-        script:
-          - npm run build
-          - firebase deploy --non-interactive --token $FIREBASE_TOKEN
+after_success:
+  if: (branch = master) AND (type NOT IN (pull_request))
+    script:
+      - npm run build
+      - firebase deploy --non-interactive --token $FIREBASE_TOKEN
