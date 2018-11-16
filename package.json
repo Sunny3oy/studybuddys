@@ -10,7 +10,6 @@
     "aos": "^2.3.4",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",
-    "cheerio": "^1.0.0-rc.2",
     "cors": "^2.8.4",
     "enzyme-adapter-react-16": "^1.6.0",
     "firebase": "^5.5.4",
