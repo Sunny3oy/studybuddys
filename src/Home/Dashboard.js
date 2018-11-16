@@ -1,14 +1,12 @@
 import React, { PureComponent } from 'react';
 import './Dashboard.css';
 import Button from '@material-ui/core/Button';
-import * as firebase from 'firebase';
 import axios from 'axios'; // import axios library
 import Navbar from "./Navbar";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
-import {Redirect} from 'react-router';
 
 class Dashboard extends PureComponent {
     constructor(props) {
