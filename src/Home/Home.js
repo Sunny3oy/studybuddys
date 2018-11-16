@@ -67,7 +67,7 @@ class Home extends Component {
         </Typography>
 
         <Card
-          raised = 'true'
+          raised = {true}
           className = "signIn"
           data-aos = "fade-down"
           data-aos-easing = "linear"
@@ -78,7 +78,7 @@ class Home extends Component {
             <Typography
               component="h2"
               variant="display2"
-              gutterBottom = "true"
+              gutterBottom = {true}
               style={{color:'black'}}
             >
               Sign In
