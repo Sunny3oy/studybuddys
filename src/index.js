@@ -8,22 +8,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AOS from 'aos';
 import "../node_modules/aos/dist/aos.css";
 import * as firebase from 'firebase';
+require('dotenv').config()
 
 AOS.init();
 const theme = createMuiTheme();
 
-const API_KEY = process.env.Firebase_API_Key;
-const SENDER_ID = process.env.Firebase_Sender_ID;
-
 var config = {
-    apiKey: "AIzaSyBvsVosbnkWQ9M7bYxxDzWKXTvuXzCcE2Y",
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: "studybuddys-8fe89.firebaseapp.com",
     databaseURL: "https://studybuddys-8fe89.firebaseio.com",
     projectId: "studybuddys-8fe89",
     storageBucket: "",
-    messagingSenderId: "48350702100"
+    messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID
   };
-  firebase.initializeApp(config);
+
+firebase.initializeApp(config);
 
 ReactDOM.render(<MuiThemeProvider theme={theme}>
     <App />
