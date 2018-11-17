@@ -7,74 +7,84 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
+import * as firebase from 'firebase';
 
 class Dashboard extends PureComponent {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loggedIn:'true', // This is no longer necessary
-            userClass: "",
-        }
-        this.logout = this.logout.bind(this);
-        this.checkIfUser = this.checkIfUser.bind(this);
-        this.getUserName = this.getUserName.bind(this);
-        this.getUserCourses = this.getUserCourses.bind(this);
-        this.deleteUserCourses = this.deleteUserCourses.bind(this);
-    }
+   constructor(props) {
+      super(props);
+      this.state = {
+         loggedIn:'true', // This is no longer necessary
+         userClass: "",
+      }
+      this.logout = this.logout.bind(this);
+      this.getUserName = this.getUserName.bind(this);
+      this.getUserCourses = this.getUserCourses.bind(this);
+      this.deleteUserCourses = this.deleteUserCourses.bind(this);
+   }
 
-    logout(e){
-        e.preventDefault();
-        axios.get('https://triple-bonito-221722.appspot.com/api/logout');
-        this.props.history.push('/');
-    }
+   logout(e){
+      e.preventDefault();
+      firebase.auth().signOut();
+      this.props.history.push('/');
+   }
 
-    componentDidMount(){
-        this.checkIfUser();
-        this.getUserName();
-        this.getUserCourses();
-    }
+   componentDidMount(){
+      this.getUserName();
+      this.getUserCourses();
+   }
 
-    getUserName(e){
-        axios.get('https://triple-bonito-221722.appspot.com/api/getUsername')
-        .then(response => {
-            this.setState({name : response.data.name})
-        })
-    }
-
-    checkIfUser(e){
-        axios.get('https://triple-bonito-221722.appspot.com/api/checkLoggedIn')
-        .then(response => {
-            if(!(response.data.loggedIn)){
-                this.props.history.push('/');
+   getUserName(e){
+      var page = this;
+      firebase.auth().onAuthStateChanged(function(user) {
+         if (user) {
+            var info = {
+               id: user.uid
             }
-        })
-    }
+            axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
+            .then(response => {
+               page.setState({name : response.data.name})
+            })
+         }
+      });
+   }
 
-    getUserCourses(){
-        axios.get('https://triple-bonito-221722.appspot.com/api/getUserCourses').then(response => {
-            console.log("res is: " + response.data.courseList[0]);
-            if(response.data.courseList[0] === undefined) {
-                this.setState({userClass: ""})
-            } else {
-                this.setState({
-                    userClass: response.data,
-                })
+   getUserCourses(){
+      var page = this;
+      firebase.auth().onAuthStateChanged(function(user) {
+         if (user) {
+            var info = {
+               id: user.uid
             }
-        })
-    }
+            axios.post('https://triple-bonito-221722.appspot.com/api/getUserCourses', info).then(response => {
+               console.log("res is: " + response.data.courseList[0]);
+               if(response.data.courseList[0] === undefined) {
+                  page.setState({userClass: ""})
+               } else {
+                  page.setState({
+                     userClass: response.data,
+                  })
+               }
+            })
+         }
+      });
+   }
 
-    deleteUserCourses(e) {
-        e.preventDefault();
-        const x = e.currentTarget.value
-        console.log(x)
-
-        var course = { // JSON object to pass to the api call
-            courseName: x,
-        };
-        axios.post('https://triple-bonito-221722.appspot.com/api/deleteUserCourses', course).then(
-            this.getUserCourses
-        )
-    }
+   deleteUserCourses(e) {
+      e.preventDefault();
+      var page = this;
+      var course = e.currentTarget.value;
+      firebase.auth().onAuthStateChanged(function(user) {
+         if (user) {
+            var info = { // JSON object to pass to the api call
+               id: user.uid,
+               courseName: course
+            };
+            axios.post('https://triple-bonito-221722.appspot.com/api/deleteUserCourses', info).then(
+               page.getUserCourses
+            )
+         }
+      });
+   }
 
   render() {
         console.log(this.state.userClass);
@@ -101,7 +111,7 @@ class Dashboard extends PureComponent {
                                 >
                                     Remove Course
                                 </Button>
-                            </CardContent>                        
+                            </CardContent>
                         </Card>
                    )
                })}
@@ -111,23 +121,23 @@ class Dashboard extends PureComponent {
     }
 
     return (
-      <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="600" style = {{height: "100vh", backgroundImage: "linear-gradient(to right top, #e00a0a, #e44900, #e66b00, #e58800, #e4a300)"}}>  
+      <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="600" style = {{height: "100vh", backgroundImage: "linear-gradient(to right top, #e00a0a, #e44900, #e66b00, #e58800, #e4a300)"}}>
         <div style = {{float: "right", display: "inline-block"}}>
             <span>{this.state.name}</span>
-          <Button onClick={this.logout}>Logout</Button>  
-        </div> 
-       
+          <Button onClick={this.logout}>Logout</Button>
+        </div>
+
        <Navbar/>
 
         <h1 className = "dashSec" style={{marginLeft:'150px'}}> My Courses </h1>
 
-       
+
         <div className="flexCenter" style={{marginTop:'50px'}}>
             {classes}
         </div>
     </div>
-      
-     
+
+
     )
   }
 }

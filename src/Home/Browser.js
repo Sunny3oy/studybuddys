@@ -8,6 +8,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Navbar from "./Navbar";
 import axios from 'axios';
+import * as firebase from 'firebase';
 import './Dashboard.css';
 import './Browser.css';
 
@@ -62,13 +63,17 @@ class Browser extends Component {
       }
 
       addCourseToUser(e){
-        e.preventDefault();
-        const x = e.currentTarget.value
-        console.log(x)
-        var course = {
-          courseName: x,
-        };
-        axios.post('https://triple-bonito-221722.appspot.com/api/addCourses', course)
+         e.preventDefault();
+         var course = e.currentTarget.value;
+         firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+               var info = {
+                  id: user.uid,
+                  courseName: course
+               };
+               axios.post('https://triple-bonito-221722.appspot.com/api/addCourses', info)
+            }
+         });
       }
 
       render() {
@@ -198,7 +203,7 @@ class Browser extends Component {
 
                  }
                  <br/>
-  
+
                  {
                   this.state.class.courseID === undefined?
                      loading :
