@@ -8,7 +8,7 @@ const firebase = require('firebase');
 const app = express()
 const router = express.Router()
 
-let port = 3001 || process.env.PORT
+let port = 8080 || process.env.PORT
 
 routes(router)
 

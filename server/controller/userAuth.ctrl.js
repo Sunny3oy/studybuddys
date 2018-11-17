@@ -55,6 +55,10 @@ module.exports = {
         res.status(200).json({message : 'Successful logged out.'})
     },
 
+    sayHello: (req, res, next) => {
+        res.status(200).json({message : 'Hello World'})
+    },
+
     checkLoggedIn: (req, res, next) => {
         var user = firebase.auth().currentUser;
         if(user){
