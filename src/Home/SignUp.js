@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import './Home.css';
 import * as firebase from 'firebase';
-import axios from 'axios'; // import axios library
 class SignUp extends Component {
     constructor(props) {
         super(props);
@@ -31,7 +30,7 @@ class SignUp extends Component {
       var userName = this.state.name;
       var userEmail = this.state.email;
       var prop = this.props;
-      if(this.state.checkPassword == this.state.password){
+      if(this.state.checkPassword === this.state.password){
          firebase.auth().createUserWithEmailAndPassword(userEmail, this.state.password)
          .then(function(){
             var user = firebase.auth().currentUser;
