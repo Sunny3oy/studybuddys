@@ -1,3 +1,5 @@
+sendm e the copy and pasta
+Andy Wang
 language: node_js
 node_js:
   - '10'
@@ -13,8 +15,10 @@ before_script:
 jobs:
   include:
     - stage: test
+      name: "Testing"
       - npm test
-    - stage: build
+    - stage: deploy
+      name: "Deploying to Firebase"
       if: (branch = master) AND (type NOT IN (pull_request))
       script:
         - npm run build
