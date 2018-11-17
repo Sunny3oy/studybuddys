@@ -14,4 +14,4 @@ script:
   - npm test 
   - npm run build
 
-after_failure: cat /home/travis/.npm/_logs/2018-11-17T00_35_48_731Z-debug/*.log
+after_failure: cat /home/travis/.npm/_logs/*.log
