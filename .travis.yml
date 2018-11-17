@@ -16,8 +16,7 @@ jobs:
       script:
         - npm test
     - stage: deploy
-      if: (branch = master) AND (type NOT IN (pull_request))
+      if: (branch = master)
       script:
         - npm run build
-        - firebase deploy --non-interactive --token $FIREBASE_TOKEN
       after_failure: "cat /home/travis/.npm/_logs/2018-11-16T01_28_08_732Z-debug/*.log"
