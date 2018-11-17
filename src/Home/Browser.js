@@ -97,29 +97,28 @@ class Browser extends Component {
             },
           ];
 
-          const subject = [
-            {
-                value: '',
-                label: '',
-            },
-            {
-              value: 'Art',
-              label: 'Art',
-            },
-            {
-              value: 'Bio',
-              label: 'Bio',
-            },
-            {
-              value: 'Csc',
-              label: 'Csc',
-            },
-            {
-              value: 'Eco',
-              label: 'Eco',
-            },
-          ];
-        const { anchorEl } = this.state;
+          // const subject = [
+          //   {
+          //       value: '',
+          //       label: '',
+          //   },
+          //   {
+          //     value: 'Art',
+          //     label: 'Art',
+          //   },
+          //   {
+          //     value: 'Bio',
+          //     label: 'Bio',
+          //   },
+          //   {
+          //     value: 'Csc',
+          //     label: 'Csc',
+          //   },
+          //   {
+          //     value: 'Eco',
+          //     label: 'Eco',
+          //   },
+          // ];
 
         console.log(this.state.school);
         console.log(this.state.subject);

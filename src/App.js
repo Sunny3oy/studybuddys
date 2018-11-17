@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter,Route,Redirect } from 'react-router-dom';
-//import Routes from './Home/Routes';
-import * as firebase from 'firebase';
+import { BrowserRouter,Route } from 'react-router-dom';
 import Dashboard from './Home/Dashboard';
 import Home from './Home/Home';
 import SignUp from './Home/SignUp';
 import Browser from './Home/Browser';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (

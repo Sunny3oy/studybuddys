@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
-import * as firebase from 'firebase';
 import axios from 'axios'; // import axios library
 class Home extends Component {
   constructor(props) {
