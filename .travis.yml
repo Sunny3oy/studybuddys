@@ -6,12 +6,17 @@ cache:
   directories:
     - node_modules
 
-before_script:
-  - npm install firebase-tools
-  - npm install
+jobs:
+  include:
+    - stage: install
+      - npm install firebase-tools
+      - npm install
+    - stage: test
+      - npm test
+    - stage: build
+      if: (branch = master) AND (type NOT IN (pull_request))
+      script:
+        - npm run build
+        - firebase deploy --non-interactive --token $FIREBASE_TOKEN
 
-script:
-  - npm test 
-  - npm run build
-
-after_failure: cat /home/travis/.npm/_logs/*.log
+  after_failure: cat /home/travis/.npm/_logs/*.log
