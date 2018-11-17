@@ -1,3 +1,5 @@
+sendm e the copy and pasta
+Andy Wang
 language: node_js
 node_js:
   - '10'
@@ -13,7 +15,7 @@ before_script:
 jobs:
   include:
     - stage: test
-      name: "npm test"
+      name: "Testing"
       - npm test
     - stage: deploy
       name: "Deploying to Firebase"
