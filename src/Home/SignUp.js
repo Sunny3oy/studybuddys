@@ -63,7 +63,7 @@ class SignUp extends Component {
         return (
             <div data-aos = "" className = "Home">
                 <Card
-                    raised = "true"
+                    raised = {true}
                     className = "signUp"
                     data-aos="fade-down"
                     data-aos-easing="linear"
@@ -71,7 +71,7 @@ class SignUp extends Component {
                 <Typography
                     component="h2"
                     variant="display2"
-                    gutterBottom = "true"
+                    gutterBottom = {true}
                     style={{color:'black'}}
                 >
                     Sign Up

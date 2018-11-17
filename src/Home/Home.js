@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
-import * as firebase from 'firebase';
 import axios from 'axios'; // import axios library
 class Home extends Component {
   constructor(props) {
@@ -74,7 +73,7 @@ class Home extends Component {
         </Typography>
 
         <Card
-          raised = 'true'
+          raised = {true}
           className = "signIn"
           data-aos = "fade-down"
           data-aos-easing = "linear"
@@ -85,7 +84,7 @@ class Home extends Component {
             <Typography
               component="h2"
               variant="display2"
-              gutterBottom = "true"
+              gutterBottom = {true}
               style={{color:'black'}}
             >
               Sign In

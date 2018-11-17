@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - '8'
+  - '10'
 
 cache:
   directories:
@@ -13,10 +13,11 @@ before_install:
 jobs:
   include:
     - stage: test
-      script:
-        - npm test
-    - stage: deploy
+      - npm test
+    - stage: build
       if: (branch = master) AND (type NOT IN (pull_request))
       script:
         - npm run build
         - firebase deploy --non-interactive --token $FIREBASE_TOKEN
+
+  after_failure: cat /home/travis/.npm/_logs/*.log
