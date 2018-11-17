@@ -16,12 +16,12 @@ const API_KEY = process.env.Firebase_API_Key;
 const SENDER_ID = process.env.Firebase_Sender_ID;
 
 var config = {
-    apiKey: API_KEY,
+    apiKey: "AIzaSyBvsVosbnkWQ9M7bYxxDzWKXTvuXzCcE2Y",
     authDomain: "studybuddys-8fe89.firebaseapp.com",
     databaseURL: "https://studybuddys-8fe89.firebaseio.com",
     projectId: "studybuddys-8fe89",
     storageBucket: "",
-    messagingSenderId: SENDER_ID
+    messagingSenderId: "48350702100"
   };
   firebase.initializeApp(config);
 
