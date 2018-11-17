@@ -13,8 +13,10 @@ before_script:
 jobs:
   include:
     - stage: test
+      name: "npm test"
       - npm test
-    - stage: build
+    - stage: deploy
+      name: "Deploying to Firebase"
       if: (branch = master) AND (type NOT IN (pull_request))
       script:
         - npm run build
