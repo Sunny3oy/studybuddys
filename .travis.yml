@@ -19,5 +19,3 @@ jobs:
       script:
         - npm run build
         - firebase deploy --non-interactive --token $FIREBASE_TOKEN
-
-after_failure: cat /home/travis/.npm/_logs/*.log
