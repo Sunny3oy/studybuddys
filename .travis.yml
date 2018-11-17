@@ -6,11 +6,12 @@ cache:
   directories:
     - node_modules
 
+before_install:
+  - npm install firebase-tools
+  - npm install
+
 jobs:
   include:
-    - stage: install
-      - npm install firebase-tools
-      - npm install
     - stage: test
       - npm test
     - stage: build
