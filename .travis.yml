@@ -9,5 +9,11 @@ cache:
 before_install:
   - npm install firebase-tools
   - npm install
+
+set -e
+
+script:
+  - npm test 
   - npm run build
-after_failure: "cat /home/travis/.npm/_logs/2018-11-16T01_28_08_732Z-debug/*.log"
+
+after_failure: cat /home/travis/.npm/_logs/2018-11-17T00_35_48_731Z-debug*.log
