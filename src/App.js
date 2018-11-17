@@ -5,6 +5,8 @@ import Dashboard from './Home/Dashboard';
 import Home from './Home/Home';
 import SignUp from './Home/SignUp';
 import Browser from './Home/Browser';
+import Profile from './Home/Profile';
+
 
 class App extends Component {
 
@@ -17,6 +19,7 @@ class App extends Component {
             <Route path = "/signup" exact component = { SignUp } />
             <Route path="/dashboard" exact component = { Dashboard } />
             <Route path="/dashboard/browse" exact component = { Browser } />
+            <Route path="/Profile" exact component = { Profile } />
           </div>
         </BrowserRouter>
       </div>

@@ -1,0 +1,19 @@
+.profile {
+    position: relative;
+    padding: 60px 70px;
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:20px;
+}
+
+.profile1 {
+    position: relative;
+    padding: 60px 70px;
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:20px;
+}
