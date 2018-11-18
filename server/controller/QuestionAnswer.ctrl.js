@@ -6,16 +6,13 @@ module.exports = {
 
     //Post: question is stored in the backend under the course
     createQuestion: (req, res, next) =>{
-        var user = firebase.auth().currentUser;
         var courseName = req.body.courseName;
         var question = req.body.userQuestion;
         var ref = firebase.database().ref("Courses/" + courseName);
-
         ref.push
         ({"question" : question,
-          "uid": user.uid,
+          "uid": req.body.id,
         });
-
         res.status(200).json({message: "question added"});
 
     },
@@ -42,7 +39,6 @@ module.exports = {
                     "users": user
                 });
             });
-
     },
 
     sumbitAnswer: (req, res, next) =>{
