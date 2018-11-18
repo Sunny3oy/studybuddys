@@ -18,12 +18,26 @@ class SignUp extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.createUser = this.createUser.bind(this);
+        this.checkLoggedIn = this.checkLoggedIn.bind(this);
     }
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value
         });
     }
+
+    componentDidMount(){
+      this.checkLoggedIn();
+    }
+
+    checkLoggedIn(){
+      var prop = this.props;
+      firebase.auth().onAuthStateChanged(function(user) {
+         if (user) {
+            prop.history.push('/dashboard');
+         }
+      });
+   }
 
     createUser(e){
       e.preventDefault();

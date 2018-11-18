@@ -20,6 +20,7 @@ class Dashboard extends PureComponent {
       this.getUserName = this.getUserName.bind(this);
       this.getUserCourses = this.getUserCourses.bind(this);
       this.deleteUserCourses = this.deleteUserCourses.bind(this);
+      this.checkLoggedIn = this.checkLoggedIn.bind(this);
    }
 
    logout(e){
@@ -31,7 +32,17 @@ class Dashboard extends PureComponent {
    componentDidMount(){
       this.getUserName();
       this.getUserCourses();
+      this.checkLoggedIn();
    }
+
+   checkLoggedIn(){
+     var prop = this.props;
+     firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+           prop.history.push('/');
+        }
+     });
+  }
 
    getUserName(e){
       var page = this;
