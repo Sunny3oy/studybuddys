@@ -11,17 +11,18 @@ const router = express.Router()
 let port = 8080 || process.env.PORT
 
 routes(router)
-
+//"AIzaSyBvsVosbnkWQ9M7bYxxDzWKXTvuXzCcE2Y"
 const API_KEY = process.env.Firebase_API_Key;
+//48350702100
 const SENDER_ID = process.env.Firebase_Sender_ID;
 
 var config = {
-    apiKey: API_KEY,
+    apiKey: "AIzaSyBvsVosbnkWQ9M7bYxxDzWKXTvuXzCcE2Y",
     authDomain: "studybuddys-8fe89.firebaseapp.com",
     databaseURL: "https://studybuddys-8fe89.firebaseio.com",
     projectId: "studybuddys-8fe89",
     storageBucket: "",
-    messagingSenderId: SENDER_ID
+    messagingSenderId: "48350702100"
 };
 firebase.initializeApp(config);
 

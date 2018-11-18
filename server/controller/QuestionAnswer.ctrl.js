@@ -9,11 +9,18 @@ module.exports = {
         var user = firebase.auth().currentUser;
         var courseName = req.body.courseName;
         var question = req.body.userQuestion;
-        var ref = firebase.database().ref("Courses/" + courseName);
+        //ref below will make a space to store the question
+        var ref = firebase.database().ref("CoursesQuestions/" + courseName);
+        //once the question is made, it should also make space for where the replies will be stored
+        var refreply = firebase.database().ref("QuestionReply/" + courseName +"/"+ user.uid);
 
+        refreply.push({
+           "question":question,
+            "reply": ""
+        });
         ref.push
         ({"question" : question,
-          "uid": user.uid,
+          "uid": user.uid
         });
 
         res.status(200).json({message: "question added"});
@@ -44,8 +51,34 @@ module.exports = {
             });
 
     },
-
+    //pre: User is logged in
+    //takes in the current course,text for reply,question, posterID
+    //post: posts a reply to a question that will be stored in the backend.
     sumbitAnswer: (req, res, next) =>{
+        var courseName = req.body.courseName;
+        var replyText = req.body.replyText;
+        var questionText = req.body.questionText;
+        var useridQuestion = req.body.useridQuestion;
+        var user = firebase.auth().currentUser;
+        var refreply = firebase.database().ref("QuestionReply/" + courseName +"/"+ useridQuestion);
+
+        refreply.once("value", function(snapshot){
+         snapshot.forEach(function (childsnap) {
+             console.log(childsnap.val().question);
+            if (childsnap.val().question === questionText){
+               firebase.database().ref("QuestionReply/" + courseName +"/"+ useridQuestion +"/"+ childsnap.key +"/reply/").push({
+                   "reply": replyText,
+                   "replierUID": user.uid
+                });
+            }
+         });
+        });
+
+        res.status(200).json({message: "reply added"});
+
+    },
+
+    getReplies: (req, res, next) =>{
 
     }
 }
