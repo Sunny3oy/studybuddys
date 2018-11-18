@@ -14,8 +14,8 @@ class Dashboard extends PureComponent {
    constructor(props) {
       super(props);
       this.state = {
-         loggedIn:'true', // This is no longer necessary
-         userClass: "",
+        name: "",
+        userClass: "",
       }
       this.logout = this.logout.bind(this);
       this.getUserName = this.getUserName.bind(this);
@@ -30,7 +30,7 @@ class Dashboard extends PureComponent {
       this.props.history.push('/');
    }
 
-   componentDidMount(){
+   componentDidMount() {
       this.getUserName();
       this.getUserCourses();
       this.checkLoggedIn();

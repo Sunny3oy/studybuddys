@@ -43,7 +43,7 @@ class CoursePage extends Component {
         firebase.auth().onAuthStateChanged(function(user){
             if(user) {
                 var question = {
-                    id: user.id,
+                    id: user.uid,
                     courseName: this.state.course,
                     userQuestion: this.state.newQuestion
                 }
