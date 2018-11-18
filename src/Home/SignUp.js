@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import './Home.css';
 import * as firebase from 'firebase';
-import axios from 'axios'; // import axios library
 class SignUp extends Component {
     constructor(props) {
         super(props);
@@ -14,9 +13,9 @@ class SignUp extends Component {
             name:'',
             email:'',
             password:'',
+            checkPassword:''
 
         }
-        this.checkIfUser = this.checkIfUser.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createUser = this.createUser.bind(this);
     }
@@ -26,45 +25,41 @@ class SignUp extends Component {
         });
     }
 
-    checkIfUser(e){
-        axios.get('https://triple-bonito-221722.appspot.com/api/checkLoggedIn')
-        .then(response => {
-            if(response.data.loggedIn){
-                this.props.history.push('/dashboard');
-            }
-        })
-    }
-
-    componentDidMount(){
-        this.checkIfUser();
-    }
-
     createUser(e){
-        e.preventDefault();
-        var info = { // JSON object to pass to the api call
-            email: this.state.email,
-            password: this.state.password,
-            name: this.state.name
-        };
-        axios.post('https://triple-bonito-221722.appspot.com/api/signUp', info) // URL of api call and object being passed to it
-        .then(response => {
-            // This simply creates an alert saying successfully created.
-            // Should route to different page such as homepage
-            this.props.history.push('/dashboard');
-        })
-        .catch(error => {
-            alert(error.response.data.message); // alert to display error
-        });
+      e.preventDefault();
+      var userName = this.state.name;
+      var userEmail = this.state.email;
+      var prop = this.props;
+      if(this.state.checkPassword === this.state.password){
+         firebase.auth().createUserWithEmailAndPassword(userEmail, this.state.password)
+         .then(function(){
+            var user = firebase.auth().currentUser;
+            firebase.database().ref('users/' + user.uid).set({
+               email: userEmail,
+               name : userName,
+               courseList: ""
+            })
+            .then(function(){
+               prop.history.push('/dashboard');
+            })
+            .catch(function (error) {
+               alert(error.message);
+            });
+         })
+         .catch(function (error) {
+            alert(error.message);
+         });
+      }
+      else{
+         alert("Passwords do not match");
+      }
     }
 
     render() {
-       console.log(this.state.name);
-       console.log(this.state.email);
-       console.log(this.state.name);
         return (
             <div data-aos = "" className = "Home">
                 <Card
-                    raised = "true"
+                    raised = {true}
                     className = "signUp"
                     data-aos="fade-down"
                     data-aos-easing="linear"
@@ -72,7 +67,7 @@ class SignUp extends Component {
                 <Typography
                     component="h2"
                     variant="display2"
-                    gutterBottom = "true"
+                    gutterBottom = {true}
                     style={{color:'black'}}
                 >
                     Sign Up
@@ -110,6 +105,7 @@ class SignUp extends Component {
                             className = ""
                             placeholder = "Confirm Password"
                             style = {{marginTop:'15px'}}
+                            onChange={this.handleChange('checkPassword')}
                         />
 
                         <br/>
@@ -120,7 +116,7 @@ class SignUp extends Component {
                             variant = "outlined"
                             style = {{marginTop:'15px'}}
                         >
-                            Sign Me Up!
+                            Sign Me Up
                         </Button>
 
                     </form>
@@ -130,7 +126,7 @@ class SignUp extends Component {
                         variant = "outlined"
                         style = {{marginTop:'15px'}}
                     >
-                        Have an account? Sign In Here
+                        Have an account? Log In Here
                     </Link>
                 </Card>
             </div>

@@ -288,7 +288,7 @@ initialize {
                                       },
                                       "children": Array [
                                         Object {
-                                          "data": "Sign Me Up!",
+                                          "data": "Sign Me Up",
                                           "next": null,
                                           "parent": [Circular],
                                           "prev": null,
@@ -597,7 +597,7 @@ initialize {
                                     },
                                     "children": Array [
                                       Object {
-                                        "data": "Sign Me Up!",
+                                        "data": "Sign Me Up",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
@@ -955,7 +955,7 @@ initialize {
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Sign Me Up!",
+                                      "data": "Sign Me Up",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -1263,7 +1263,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Sign Me Up!",
+                                    "data": "Sign Me Up",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -1621,7 +1621,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Sign Me Up!",
+                                  "data": "Sign Me Up",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -1929,7 +1929,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Sign Me Up!",
+                                "data": "Sign Me Up",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -2287,7 +2287,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Sign Me Up!",
+                              "data": "Sign Me Up",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -2595,7 +2595,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Sign Me Up!",
+                            "data": "Sign Me Up",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -2953,7 +2953,7 @@ initialize {
                       },
                       "children": Array [
                         Object {
-                          "data": "Sign Me Up!",
+                          "data": "Sign Me Up",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -3313,7 +3313,7 @@ initialize {
                 },
                 "children": Array [
                   Object {
-                    "data": "Have an account? Sign In Here",
+                    "data": "Have an account? Log In Here",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -3611,7 +3611,7 @@ initialize {
                                     },
                                     "children": Array [
                                       Object {
-                                        "data": "Sign Me Up!",
+                                        "data": "Sign Me Up",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
@@ -3920,7 +3920,7 @@ initialize {
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Sign Me Up!",
+                                      "data": "Sign Me Up",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -4278,7 +4278,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Sign Me Up!",
+                                    "data": "Sign Me Up",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -4586,7 +4586,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Sign Me Up!",
+                                  "data": "Sign Me Up",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -4944,7 +4944,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Sign Me Up!",
+                                "data": "Sign Me Up",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -5252,7 +5252,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Sign Me Up!",
+                              "data": "Sign Me Up",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -5610,7 +5610,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Sign Me Up!",
+                            "data": "Sign Me Up",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -5918,7 +5918,7 @@ initialize {
                       },
                       "children": Array [
                         Object {
-                          "data": "Sign Me Up!",
+                          "data": "Sign Me Up",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -6276,7 +6276,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "Sign Me Up!",
+                        "data": "Sign Me Up",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -6636,7 +6636,7 @@ initialize {
               },
               "children": Array [
                 Object {
-                  "data": "Have an account? Sign In Here",
+                  "data": "Have an account? Log In Here",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
@@ -6702,7 +6702,7 @@ initialize {
             },
             "children": Array [
               Object {
-                "data": "Have an account? Sign In Here",
+                "data": "Have an account? Log In Here",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,
@@ -6969,7 +6969,7 @@ initialize {
                                       },
                                       "children": Array [
                                         Object {
-                                          "data": "Sign Me Up!",
+                                          "data": "Sign Me Up",
                                           "next": null,
                                           "parent": [Circular],
                                           "prev": null,
@@ -7278,7 +7278,7 @@ initialize {
                                     },
                                     "children": Array [
                                       Object {
-                                        "data": "Sign Me Up!",
+                                        "data": "Sign Me Up",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
@@ -7636,7 +7636,7 @@ initialize {
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Sign Me Up!",
+                                      "data": "Sign Me Up",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -7944,7 +7944,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Sign Me Up!",
+                                    "data": "Sign Me Up",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -8302,7 +8302,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Sign Me Up!",
+                                  "data": "Sign Me Up",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -8610,7 +8610,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Sign Me Up!",
+                                "data": "Sign Me Up",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -8968,7 +8968,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Sign Me Up!",
+                              "data": "Sign Me Up",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -9276,7 +9276,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Sign Me Up!",
+                            "data": "Sign Me Up",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -9634,7 +9634,7 @@ initialize {
                       },
                       "children": Array [
                         Object {
-                          "data": "Sign Me Up!",
+                          "data": "Sign Me Up",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,

@@ -6,17 +6,14 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import * as firebase from 'firebase';
-import axios from 'axios'; // import axios library
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-       user:{},
        email:'',
        password:''
 
     }
-   this.checkIfUser = this.checkIfUser.bind(this);
    this.handleChange = this.handleChange.bind(this);
    this.login = this.login.bind(this);
 }
@@ -27,34 +24,16 @@ class Home extends Component {
   });
   }
 
-  checkIfUser(e){
-      axios.get('https://triple-bonito-221722.appspot.com/api/checkLoggedIn')
-      .then(response => {
-          if(response.data.loggedIn){
-              this.props.history.push('/dashboard');
-          }
-      })
-  }
-
-  componentDidMount(){
-      this.checkIfUser();
-  }
-
   login(e){
-    e.preventDefault();
-    var info = { // JSON object to pass to the api call
-      email: this.state.email,
-      password: this.state.password
-    };
-    axios.post('https://triple-bonito-221722.appspot.com/api/logIn', info) // URL of api call and object being passed to it
-    .then(response => {
-      // This simply creates an alert saying successfully logged in and the user ID.
-      // Should route to different page such as homepage
-      this.props.history.push('/dashboard');
-    })
-    .catch(error => {
-      alert(error.response.data.message); // alert to display error
-    });
+     e.preventDefault();
+     var prop = this.props;
+     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+     .then(function(){
+        prop.history.push('/dashboard');
+     })
+     .catch(function(error) {
+        alert(error.message);
+     });
   }
 
   render() {
@@ -74,7 +53,7 @@ class Home extends Component {
         </Typography>
 
         <Card
-          raised = 'true'
+          raised = {true}
           className = "signIn"
           data-aos = "fade-down"
           data-aos-easing = "linear"
@@ -85,7 +64,7 @@ class Home extends Component {
             <Typography
               component="h2"
               variant="display2"
-              gutterBottom = "true"
+              gutterBottom = {true}
               style={{color:'black'}}
             >
               Sign In
