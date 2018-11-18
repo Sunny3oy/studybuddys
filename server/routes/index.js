@@ -4,9 +4,11 @@
 const userAuthentication = require('./userAuth')
 const userData = require('./userData')
 const courseData = require('./courseData')
+const QuestionAnswer = require('./QuestionAnswer')
 
 module.exports = (router) => {
     userAuthentication(router)
     userData(router)
     courseData(router)
+    QuestionAnswer(router)
 }
