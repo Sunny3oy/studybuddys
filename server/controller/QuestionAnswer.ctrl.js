@@ -68,30 +68,88 @@ module.exports = {
     //takes in the current course,text for reply,question, posterID
     //post: posts a reply to a question that will be stored in the backend.
     sumbitAnswer: (req, res, next) =>{
-        var courseName = req.body.courseName;
-        var replyText = req.body.replyText;
-        var questionText = req.body.questionText;
-        var useridQuestion = req.body.useridQuestion;
-        var user = firebase.auth().currentUser;
-        var refreply = firebase.database().ref("QuestionReply/" + courseName +"/"+ useridQuestion);
+        if(req.body.id === undefined){
+         res.status(400).json({message: "Missing user ID"});
+      }
+      else if(req.body.courseName === undefined){
+         res.status(400).json({message: "Missing course Name"});
+      }
+      else if(req.body.replyText === undefined){
+         res.status(400).json({message: "Missing user's reply Text"});
+      }
+      else if(req.body.questionText === undefined){
+         res.status(400).json({message: "Missing question text"});
+      }
+      else if(req.body.useridQuestion === undefined){
+         res.status(400).json({message: "Missing the userID of the person who posted the question"});
+      }
+      else {
+            var user = req.body.id;
+            var courseName = req.body.courseName;
+            var replyText = req.body.replyText;
+            var questionText = req.body.questionText;
+            var useridQuestion = req.body.useridQuestion;
+            var refreply = firebase.database().ref("QuestionReply/" + courseName + "/" + useridQuestion);
 
-        refreply.once("value", function(snapshot){
-         snapshot.forEach(function (childsnap) {
-             console.log(childsnap.val().question);
-            if (childsnap.val().question === questionText){
-               firebase.database().ref("QuestionReply/" + courseName +"/"+ useridQuestion +"/"+ childsnap.key +"/reply/").push({
-                   "reply": replyText,
-                   "replierUID": user.uid
+            refreply.once("value", function (snapshot) {
+                snapshot.forEach(function (childsnap) {
+                    console.log(childsnap.val().question);
+                    if (childsnap.val().question === questionText) {
+                        firebase.database().ref("QuestionReply/" + courseName + "/" + useridQuestion + "/" + childsnap.key + "/reply/").push({
+                            "reply": replyText,
+                            "replierUID": user
+                        });
+                    }
                 });
-            }
-         });
-        });
+            });
 
-        res.status(200).json({message: "reply added"});
+            res.status(200).json({message: "reply added"});
+        }
 
     },
 
     getReplies: (req, res, next) =>{
-
+        if(req.body.id === undefined){
+         res.status(400).json({message: "Missing user ID"});
+      }
+      else if(req.body.courseName === undefined){
+         res.status(400).json({message: "Missing course Name"});
+      }
+      else if(req.body.questionText === undefined){
+         res.status(400).json({message: "Missing question text"});
+      }
+      else if(req.body.useridQuestion === undefined){
+         res.status(400).json({message: "Missing the userID of the person who posted the question"});
+      }
+      else {
+            var user = req.body.id;
+            var courseName = req.body.courseName;
+            var questionText = req.body.questionText;
+            var useridQuestion = req.body.useridQuestion;
+            var replies = [];
+            var userids = [];
+            var refreply = firebase.database().ref("QuestionReply/" + courseName + "/" + useridQuestion);
+            refreply.once("value", function (snapshot) {
+                snapshot.forEach(function (childsnap) {
+                    console.log(childsnap.val().question);
+                    if (childsnap.val().question === questionText) {
+                        var newref = firebase.database().ref("QuestionReply/" + courseName + "/" + useridQuestion + "/" + childsnap.key + "/reply/");
+                        newref.once("value", function(snapshot){
+                        var list = snapshot.val()
+                        for(var key in list){
+                            var R = list[key].reply;
+                            var uid = list[key].replierUID;
+                            replies.push(R);
+                            userids.push(uid);
+                        }
+                        res.status(200).json
+                            ({"replies": replies,
+                                "userids": userids
+                            });
+                        });
+                    }
+                });
+            });
+        }
     }
 }
