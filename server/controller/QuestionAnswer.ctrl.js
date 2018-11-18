@@ -11,8 +11,7 @@ module.exports = {
         var question = req.body.userQuestion;
         var ref = firebase.database().ref("Courses/" + courseName);
 
-        ref.push
-        ({"question" : question,
+        ref.push({"question" : question,
           "uid": user.uid,
         });
 

@@ -5,6 +5,7 @@ import Dashboard from './Home/Dashboard';
 import Home from './Home/Home';
 import SignUp from './Home/SignUp';
 import Browser from './Home/Browser';
+import CoursePage from './Home/CoursePage';
 
 class App extends Component {
 
@@ -15,8 +16,9 @@ class App extends Component {
           <div className = "App">
             <Route path = "/" exact component = { Home } />
             <Route path = "/signup" exact component = { SignUp } />
-            <Route path="/dashboard" exact component = { Dashboard } />
-            <Route path="/dashboard/browse" exact component = { Browser } />
+            <Route path= "/dashboard" exact component = { Dashboard } />
+            <Route path= "/dashboard/browse" exact component = { Browser } />
+            <Route path= "/course/:courseName" component = { CoursePage } />
           </div>
         </BrowserRouter>
       </div>

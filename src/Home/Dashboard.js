@@ -7,6 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
+import { Link } from 'react-router-dom';
 import * as firebase from 'firebase';
 
 class Dashboard extends PureComponent {
@@ -99,9 +100,11 @@ class Dashboard extends PureComponent {
                    return (
                         <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
                             <CardContent>
-                                <Typography variant ="headline">
-                                    {data}
-                                </Typography >
+                                <Link to = {"/course/" + data}>
+                                    <Typography variant ="headline">
+                                        {data}
+                                    </Typography >
+                                </Link>
                                 <Button
                                     onClick={(e)=>this.deleteUserCourses(e)}
                                     value={data}
