@@ -25,6 +25,7 @@ class Browser extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.addCourseToUser = this.addCourseToUser.bind(this);
         this.getCourseName = this.getCourseName.bind(this);
+        this.checkLoggedIn = this.checkLoggedIn.bind(this);
     }
     state = {
         anchorEl: null,
@@ -47,6 +48,19 @@ class Browser extends Component {
           [name]: event.target.value,
         });
       };
+
+      componentDidMount(){
+        this.checkLoggedIn();
+      }
+
+      checkLoggedIn(){
+        var prop = this.props;
+        firebase.auth().onAuthStateChanged(function(user) {
+           if (!user) {
+              prop.history.push('/');
+           }
+        });
+     }
 
       getCourseName(e){
           console.log("Clicked");
