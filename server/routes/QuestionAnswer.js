@@ -21,3 +21,4 @@ module.exports = (router) => {
     .route('/getReplies') // function url used by frontend
     .post(QuestionAnswerController.getReplies)
 }
+

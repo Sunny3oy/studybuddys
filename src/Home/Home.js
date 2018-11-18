@@ -16,6 +16,7 @@ class Home extends Component {
     }
    this.handleChange = this.handleChange.bind(this);
    this.login = this.login.bind(this);
+   this.checkLoggedIn = this.checkLoggedIn.bind(this);
 }
 
   handleChange = name => event => {
@@ -23,6 +24,19 @@ class Home extends Component {
       [name]: event.target.value
   });
   }
+
+  componentDidMount(){
+    this.checkLoggedIn();
+  }
+
+  checkLoggedIn(){
+    var prop = this.props;
+    firebase.auth().onAuthStateChanged(function(user) {
+       if (user) {
+          prop.history.push('/dashboard');
+       }
+    });
+ }
 
   login(e){
      e.preventDefault();
