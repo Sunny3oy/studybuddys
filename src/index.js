@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import AOS from 'aos';
 import "../node_modules/aos/dist/aos.css";
 import * as firebase from 'firebase';
+
 require('dotenv').config()
 
 AOS.init();
@@ -23,6 +24,7 @@ var config = {
   };
 
 firebase.initializeApp(config);
+
 
 ReactDOM.render(<MuiThemeProvider theme={theme}>
     <App />
