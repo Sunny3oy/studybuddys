@@ -17,4 +17,8 @@ module.exports = (router) => {
     .route('/checkLoggedIn')
     .get(userAuthController.checkLoggedIn)
 
+    router
+    .route('/HelloWorld')
+    .get(userAuthController.sayHello)
+
 }
