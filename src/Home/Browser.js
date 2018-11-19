@@ -8,6 +8,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Navbar from "./Navbar";
 import axios from 'axios';
+import * as firebase from 'firebase';
 import './Dashboard.css';
 import './Browser.css';
 
@@ -24,6 +25,7 @@ class Browser extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.addCourseToUser = this.addCourseToUser.bind(this);
         this.getCourseName = this.getCourseName.bind(this);
+        this.checkLoggedIn = this.checkLoggedIn.bind(this);
     }
     state = {
         anchorEl: null,
@@ -47,6 +49,19 @@ class Browser extends Component {
         });
       };
 
+      componentDidMount(){
+        this.checkLoggedIn();
+      }
+
+      checkLoggedIn(){
+        var prop = this.props;
+        firebase.auth().onAuthStateChanged(function(user) {
+           if (!user) {
+              prop.history.push('/');
+           }
+        });
+     }
+
       getCourseName(e){
           console.log("Clicked");
           var info = { // JSON object to pass to the api call
@@ -62,13 +77,17 @@ class Browser extends Component {
       }
 
       addCourseToUser(e){
-        e.preventDefault();
-        const x = e.currentTarget.value
-        console.log(x)
-        var course = {
-          courseName: x,
-        };
-        axios.post('https://triple-bonito-221722.appspot.com/api/addCourses', course)
+         e.preventDefault();
+         var course = e.currentTarget.value;
+         firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+               var info = {
+                  id: user.uid,
+                  courseName: course
+               };
+               axios.post('https://triple-bonito-221722.appspot.com/api/addCourses', info)
+            }
+         });
       }
 
       render() {
@@ -97,29 +116,28 @@ class Browser extends Component {
             },
           ];
 
-          const subject = [
-            {
-                value: '',
-                label: '',
-            },
-            {
-              value: 'Art',
-              label: 'Art',
-            },
-            {
-              value: 'Bio',
-              label: 'Bio',
-            },
-            {
-              value: 'Csc',
-              label: 'Csc',
-            },
-            {
-              value: 'Eco',
-              label: 'Eco',
-            },
-          ];
-        const { anchorEl } = this.state;
+          // const subject = [
+          //   {
+          //       value: '',
+          //       label: '',
+          //   },
+          //   {
+          //     value: 'Art',
+          //     label: 'Art',
+          //   },
+          //   {
+          //     value: 'Bio',
+          //     label: 'Bio',
+          //   },
+          //   {
+          //     value: 'Csc',
+          //     label: 'Csc',
+          //   },
+          //   {
+          //     value: 'Eco',
+          //     label: 'Eco',
+          //   },
+          // ];
 
         console.log(this.state.school);
         console.log(this.state.subject);
@@ -198,7 +216,7 @@ class Browser extends Component {
 
                  }
                  <br/>
-  
+
                  {
                   this.state.class.courseID === undefined?
                      loading :

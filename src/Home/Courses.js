@@ -11,14 +11,14 @@ class Courses extends Component {
     render() {
         return (
             <Card 
-                raised = "true"
+                raised = {true}
                 style = {{width: "200px", height: "200px", display: "inline-block", margin: "40px 50px"}}
             >
                 <CardContent >
                     <Typography 
                         align = "center" 
                         variant = "title" 
-                        gutterBottom
+                        gutterBottom = {true}
                     >
                         {this.state.course}
                     </Typography>
