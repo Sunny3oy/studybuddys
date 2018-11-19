@@ -47,6 +47,15 @@ class Navbar extends React.Component {
                 Course Selection
               </Link>
             </ListItem>
+         /*   <ListItem button >
+            <Link
+              to = "/dashboard/notes"
+              style = {{textDecoration: "none", color: "black", width: '100%', height: '50px'}}
+            >
+              Notes
+            </Link>
+            </ListItem>  
+          */
         </List>
       </div>
     );

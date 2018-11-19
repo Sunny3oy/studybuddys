@@ -121,12 +121,14 @@ class Dashboard extends PureComponent {
        
        <Navbar/>
 
-        <h1 className = "dashSec" style={{marginLeft:'150px'}}> My Courses </h1>
+        <h1 className = "dashSec"> My Courses </h1>
 
        
         <div className="flexCenter" style={{marginTop:'50px'}}>
             {classes}
         </div>
+
+        
     </div>
       
      
