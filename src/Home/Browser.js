@@ -11,6 +11,7 @@ import axios from 'axios';
 import * as firebase from 'firebase';
 import './Dashboard.css';
 import './Browser.css';
+import { Link } from 'react-router-dom';
 
 class Browser extends Component {
     constructor(props) {
@@ -229,9 +230,14 @@ class Browser extends Component {
                               <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
                                   <form key = {key}>
                                     <CardContent>
-                                        <Typography variant ="headline">
-                                          {data}
-                                        </Typography >
+                                        
+                                        <Link to = {"/course/" + data}>
+                                    <Typography variant ="headline">
+                                        {data}
+                                    </Typography >
+                                </Link>
+                                          
+                                        
                                         <Typography variant ="headline">
 
                                           <Button

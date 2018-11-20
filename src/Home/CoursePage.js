@@ -11,12 +11,14 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import axios from 'axios';
 import * as firebase from 'firebase';
+import Navbar from "./Navbar";
 
 
 class CoursePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            name:"",
             course: '',
             newQuestion: "",
             questions: ["bloop1", "bloop2", "bloop3", "bloop4", "bloop5", "bloop6"],
@@ -25,12 +27,15 @@ class CoursePage extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.createQuestion = this.createQuestion.bind(this);   
+        this.logout = this.logout.bind(this);
+        this.getUserName = this.getUserName.bind(this);
     }
 
     componentDidMount() {
         const { courseName } = this.props.match.params
 
         fetch(`/course/${courseName}`).then(this.setState({ course: courseName }))
+        this.getUserName();
     }
 
     handleChange = name => event => {
@@ -38,6 +43,27 @@ class CoursePage extends Component {
             [name]: event.target.value,
         });
     };
+
+    logout(e){
+        e.preventDefault();
+        firebase.auth().signOut();
+        this.props.history.push('/');
+     }
+
+   getUserName(e){
+    var page = this;
+    firebase.auth().onAuthStateChanged(function(user) {
+       if (user) {
+          var info = {
+             id: user.uid
+          }
+          axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
+          .then(response => {
+             page.setState({name : response.data.name})
+          })
+       }
+    });
+ }
 
     createQuestion() {
         var course = this.state.course;
@@ -60,7 +86,15 @@ class CoursePage extends Component {
     render() {
 
         return (
-            <div style = {{display: "flex", flexDirection: "column"}}>
+           
+            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
+               <div>
+                    <div style = {{float: "right", display: "inline-block"}}>
+                        <span>{this.state.name}</span>
+                        <Button onClick={this.logout}>Logout</Button>
+                    </div>
+                     <Navbar/>
+             </div>
                 {<Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>}
                 <div className = "flexCenter">
                     {this.state.questions.map((data, key) => {
@@ -107,13 +141,14 @@ class CoursePage extends Component {
                     </Button>
                 </div>
 
-                <div>
+                {/* TO DO  <div>
                     {this.state.people.map((data, key) => {
                         return (
                             <Avatar key = {key} style = {{width: "60px", height: "60px", display: "flex", justifyContent: "center"}}>{data}</Avatar>
                         )
                     })}
-                </div>       
+                </div>    */}
+               
             </div>
         )
     }
