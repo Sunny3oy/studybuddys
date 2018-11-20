@@ -101,7 +101,7 @@ class Dashboard extends PureComponent {
         console.log(this.state.userClass);
 
     let classes = (
-        <h1>You Haven't Selected a Class Yet! <br/> <br/> Select a Class by Clicking on the Left Tab </h1>);
+        <h2><br/><br/><br/><br/>You Haven't Selected a Class Yet! <br/><br/> Select a Class by Clicking on the Left Tab </h2>);
     if(this.state.userClass !== ""){
         classes = (
             <div className="flexRow">
@@ -132,7 +132,7 @@ class Dashboard extends PureComponent {
     }
 
     return (
-      <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="600" style = {{height: "100vh", backgroundImage: "linear-gradient(to right top, #e00a0a, #e44900, #e66b00, #e58800, #e4a300)"}}>
+      <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500" className="browserTitle">
         <div style = {{float: "right", display: "inline-block"}}>
             <span>{this.state.name}</span>
           <Button onClick={this.logout}>Logout</Button>
