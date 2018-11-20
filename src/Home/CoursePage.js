@@ -17,14 +17,14 @@ class CoursePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            course: "",
+            course: '',
             newQuestion: "",
             questions: ["bloop1", "bloop2", "bloop3", "bloop4", "bloop5", "bloop6"],
             response: {0: ["ASDSADASDA","asdad", "asdasda"], 1: ["ASDSADASDA", "jabababab"], 2: ["ASDSADASDA", "hhahahahah"], 3: ["ASDSADASDA", "O"], 4: ["ASDSADASDA", "M"], 5:["ASDSADASDA", "scoob", "G"]},
             people: ["Jack", "Andy", "Bob", "Pauline", "Luis", "Connie", "Sponge"]
         }
         this.handleChange = this.handleChange.bind(this);
-        this.createQuestion = this.createQuestion.bind(this);
+        this.createQuestion = this.createQuestion.bind(this);   
     }
 
     componentDidMount() {
@@ -40,16 +40,19 @@ class CoursePage extends Component {
     };
 
     createQuestion() {
+        var course = this.state.course;
+        var newQuestion = this.state.newQuestion;
         firebase.auth().onAuthStateChanged(function(user){
             if(user) {
                 var question = {
                     id: user.uid,
-                    courseName: this.state.course,
-                    userQuestion: this.state.newQuestion
-                }
+                    courseName: course,
+                    userQuestion: newQuestion
+                };
                 axios.post('https://triple-bonito-221722.appspot.com/api/createQuestion', question)
-                console.log(this.state.course)
-                console.log(this.state.newQuestion)
+                console.log("course is " + course)
+                console.log("question is: " + newQuestion)
+                console.log(question)
             }
         })
     }
