@@ -152,9 +152,9 @@ class Browser extends Component {
         return (
 
             <div className="browserTitle">
+            <div className="nav">
              <Navbar />
-
-
+            </div>
                 <div className = "flexCenter">
                     <h1
                       style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}
