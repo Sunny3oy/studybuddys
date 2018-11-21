@@ -28,15 +28,17 @@ class CoursePage extends PureComponent {
             questions: [],
             createdBy: [],
             replies: [],
-            calendarIsOpen: false
+            calendarIsOpen: false,
+            currentID:"",
+            replyText:""
         }
         this.handleChange = this.handleChange.bind(this);
         this.createQuestion = this.createQuestion.bind(this);   
         this.logout = this.logout.bind(this);
         this.getUserName = this.getUserName.bind(this);
         this.getQuestions = this.getQuestions.bind(this);
-        this.getReplies = this.getReplies.bind(this);
         this.openCalendar = this.openCalendar.bind(this);
+        this.submitAnswer = this.submitAnswer.bind(this);
     }
 
     componentDidMount() {
@@ -44,6 +46,7 @@ class CoursePage extends PureComponent {
         fetch(`/course/${courseName}`).then(this.setState({course : courseName}));
         this.getQuestions(courseName);
         this.getUserName();
+        
     }
 
     handleChange = name => event => {
@@ -69,25 +72,89 @@ class CoursePage extends PureComponent {
                     questions: response.data.questions, 
                     createdBy: response.data.names})
             })
+            
     }
     
-    getReplies(course, question, creator) {
-        var info = {
-            id: "901232",
-            courseName: course,
-            questionText: question,
-            useridQuestion: creator
+    // getReplies(course, question, creator) {
+    //     var info = {
+    //         id: "901232",
+    //         courseName: course,
+    //         questionText: question,
+    //         useridQuestion: creator
+    //     }
+    //     console.log("INFO IS")
+    //     console.log(info)
+    //     axios.post('https://triple-bonito-221722.appspot.com/api/getReplies', info)
+    //         .then(response => {
+    //             console.log("yo")
+    //             console.log(response.data.replies)
+    //             this.setState({replies: response.data.replies})
+    //             console.log(this.state.replies)
+    //         })
+    // }
+    getReplies(ID){
+        var questID = ID;
+        var info={
+            questionID: ID,
         }
-        console.log("INFO IS")
-        console.log(info)
-        axios.post('https://triple-bonito-221722.appspot.com/api/getReplies', info)
-            .then(response => {
-                console.log("yo")
-                console.log(response.data.replies)
-                this.setState({replies: response.data.replies})
-                console.log(this.state.replies)
+        axios.post("https://triple-bonito-221722.appspot.com/api/MgetReplies",info)
+        .then(response=>{
+            console.log(ID);
+            console.log(response.data.replies);
+            this.setState({
+                replies:response.data.replies,
             })
+        })
+       
     }
+    
+    submitAnswer(){
+        console.log(this.state.replyText);
+        var replyT =this.state.replyText;
+        var qID = this.state.currentID;
+        // var qID ="-LRrejiCSp3Z9vGvIzEK"
+        var page = this;
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    var info = {
+                        id: user.uid,
+                        replyText:replyT,
+                        questionID : qID,
+                    }
+                    axios.post('https://triple-bonito-221722.appspot.com/api/MsubmitAnswer', info)
+                }
+                }); 
+                console.log(this.state.replies);
+        this.getReplies(qID);
+    }
+    
+    // submitAnswer() {
+    //     console.log(this.state.replyText)
+    //     var reply = this.state.replyText;
+    //     var questID = ;
+    //     firebase.auth().onAuthStateChanged(function(user) {
+    //         if (user) {
+    //             var info = {
+    //                 id: user.uid,
+    //                 replyText: reply,
+    //                 questionID: ,
+    //             }
+    //             axios.post('https://triple-bonito-221722.appspot.com/api/MsubmitAnswer', info)
+    //         }
+    //         });
+    // }
+
+    // getReplies() {
+    //     var info = {
+    //         questionID: ,
+    //     }
+    //     axios.post('https://triple-bonito-221722.appspot.com/api/MsgetReplies', info)
+    //     .then( response => {
+    //         this.setState({
+    //             replies: response.data.replies
+    //         })
+    //     })
+    // }
 
     getUserName(e){
         var page = this;
@@ -123,6 +190,7 @@ class CoursePage extends PureComponent {
         this.getQuestions(this.state.course);
     }
 
+
     openCalendar() {
         this.setState({
             calendarIsOpen: !this.state.calendarIsOpen
@@ -130,8 +198,6 @@ class CoursePage extends PureComponent {
     }
 
     render() {
-        console.log(this.state.questions.length)
-
         return (
            
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
@@ -161,13 +227,15 @@ class CoursePage extends PureComponent {
                 <div className = "flexCenter">
                     {this.state.questions.map((data, key) => {
                     return (
-                        <ExpansionPanel key = {key} style = {{width: "70%"}}>
+                        <ExpansionPanel onClick={ () => this.getReplies(this.state.questID[key],this.setState({currentID:this.state.questID[key]}))} key = {key} style = {{width: "70%"}} >
                             <ExpansionPanelSummary 
                                 expandIcon={<ExpandMoreIcon/>} 
                                 style = {{borderBottom: "1px solid black"}}
                             >
+                                
                                 <Typography>
                                     {data}
+                                  
                                 </Typography>
                                 <hr/>
                                 <Typography>
@@ -175,7 +243,7 @@ class CoursePage extends PureComponent {
                                 </Typography>
                             </ExpansionPanelSummary>
                             
-                            {console.log(this.state.replies)}
+                            {console.log(this.state.replyText)}
                             {
                                 this.state.replies.map((ans, index) => {
                                     return (
@@ -187,9 +255,23 @@ class CoursePage extends PureComponent {
                                     )
                                 }
                            )}
+                             
+                                 <TextField 
+                                     variant = "filled" 
+                                     multiline = {true} 
+                                     label = "Answer" 
+                                     fullWidth 
+
+                                     onChange= {                                         
+                                         this.handleChange("replyText")
+                                         
+                                    
+                                     }
+                                >
+                                {console.log(this.state.replyText) }
+                                 </TextField>
+                                 <Button type = "submit" onClick = {this.submitAnswer} fullWidth = {true}>Submit</Button>
                             
-                            <TextField variant = "filled" multiline = {true} label = "Answer" fullWidth></TextField>
-                            <Button fullWidth = {true}>Submit</Button>
                         </ExpansionPanel>
                     )}
                 )}
