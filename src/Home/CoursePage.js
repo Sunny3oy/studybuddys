@@ -205,7 +205,7 @@ class CoursePage extends PureComponent {
                      <Navbar/>
                 </div>
                 {<Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>}
-                    <Button 
+                    {/* <Button 
                         className="Calendar"
                         type="submit"
                         onClick={this.openCalendar}>
@@ -219,7 +219,7 @@ class CoursePage extends PureComponent {
                         <Calendar />
                     </MuiPickersUtilsProvider>
                     : null
-                }
+                } */}
                 <div className = "flexCenter">
                     <Typography gutterBottom = {true} variant = "h3">
                         <u>Questions</u>:
