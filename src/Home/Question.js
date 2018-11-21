@@ -1,13 +1,10 @@
 import React, { PureComponent } from 'react';
 import {
     Typography,
-    ExpansionPanel,
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
+    Paper,
     TextField,
     Button,
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
@@ -23,24 +20,34 @@ class Question extends PureComponent {
         this.state = {
             name:"",
             course: '',
-            newQuestion: "",
-            questID: [],
-            questions: [],
-            createdBy: [],
-            
+            questID: "",
+            question: "",
+            createdBy: "",
+            replyText: "",
+            replies: [],
         }
         this.handleChange = this.handleChange.bind(this);
         this.logout = this.logout.bind(this);
         this.getUserName = this.getUserName.bind(this);
-        this.getQuestions = this.getQuestions.bind(this);
+        this.getQuestion = this.getQuestion.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
     }
     componentDidMount() {
-        const { courseName } = this.props.match.params
-        fetch(`/course/${courseName}`).then(this.setState({course : courseName}));
-        this.getQuestions(courseName);
+        const { courseName } = this.props.match.params;
+        const { questionID } = this.props.match.params;
+        fetch(`/course/${courseName}?/${questionID}?`)
+            .then(
+                this.setState({
+                    course : courseName, 
+                    questID: questionID
+                })
+            )
+            .then (
+                this.getQuestion,
+                this.getReplies(questionID)
+            )
         this.getUserName();
-        this.getReplies();
+        
     }
 
     handleChange = name => event => {
@@ -70,41 +77,44 @@ class Question extends PureComponent {
     }
 
     submitAnswer() {
-        console.log(this.state.replyText)
         var reply = this.state.replyText;
-        // var questID = ;
+        var questID = this.state.questID;
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 var info = {
                     id: user.uid,
                     replyText: reply,
-                    // questionID: ,
+                    questionID: questID,
                 }
                 axios.post('https://triple-bonito-221722.appspot.com/api/MsubmitAnswer', info)
             }
-            });
+        });
+        this.getReplies(questID);
     }
-    getReplies() {
+    
+    getReplies(ID) {
         var info = {
-            // questionID: ,
+            questionID: ID,
         }
-        axios.post('https://triple-bonito-221722.appspot.com/api/MsgetReplies', info)
+        axios.post('https://triple-bonito-221722.appspot.com/api/MgetReplies', info)
         .then( response => {
             this.setState({
                 replies: response.data.replies
             })
         })
     }
-    getQuestions(courseNum) {
-        var course = {
-            courseName: courseNum
+    getQuestion() {
+        var questID = {
+            courseName: this.state.course,
+            questionID: this.state.questID
         };
-        axios.post('https://triple-bonito-221722.appspot.com/api/MgetQuestions', course)
+        axios.post('https://triple-bonito-221722.appspot.com/api/MgetSingleQuestion', questID)
             .then(response => {
+                console.log(response.data)
                 this.setState({
-                    questID: response.data.ids,
-                    questions: response.data.questions, 
-                    createdBy: response.data.names})
+                    question: response.data.question,
+                    createdBy: response.data.name
+                })
             })
             
     }
@@ -113,29 +123,57 @@ class Question extends PureComponent {
     render() {
         return (
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
-            <div>
-                 <div style = {{float: "right", display: "inline-block"}}>
-                     <span>{this.state.name}</span>
-                     <Button onClick={this.logout}>Logout</Button>
-                 </div>
-                  <Navbar/>
-          </div>
-             {<Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>}
-                 <Button 
-                     className="Calendar"
-                     type="submit"
-                     onClick={this.openCalendar}>
-                     Meet Up
-                 </Button>
-             {
-                 this.state.calendarIsOpen
-                 ?
-                 <MuiPickersUtilsProvider 
-                     utils={LuxonUtils}>
-                     <Calendar />
-                 </MuiPickersUtilsProvider>
-                 : null
-             }
+                <div>
+                    <div style = {{float: "right", display: "inline-block"}}>
+                        <span>{this.state.name}</span>
+                        <Button onClick={this.logout}>Logout</Button>
+                    </div>
+                    <Navbar/>
+                </div>
+                    <Button 
+                        className="Calendar"
+                        type="submit"
+                        onClick={this.openCalendar}>
+                        Meet Up
+                    </Button>
+                {
+                    this.state.calendarIsOpen
+                    ?
+                    <MuiPickersUtilsProvider 
+                        utils={LuxonUtils}>
+                        <Calendar />
+                    </MuiPickersUtilsProvider>
+                    : null
+                }
+
+                <Typography variant = "h1" style = {{margin: "16px auto"}}><strong>{this.state.question}</strong></Typography>
+                <Typography variant = "h6" style = {{margin: "0px auto"}}><em>Created By: {this.state.createdBy}</em></Typography>
+                <div className = "flexCenter">
+                    {this.state.replies.map((data, key) => {
+                        return (
+                            <Paper className = "flexCenter" style = {{margin: "10px auto", width: "65%", height: "10%"}}>
+                                <Typography gutterBottom = {true} variant = "subtitle">
+                                    <em>{data}</em>
+                                </Typography>
+                                <Typography variant = "subtitle">
+                                    <em>Answered By: {this.state.name}</em>
+                                </Typography>
+                            </Paper>
+                        )
+                    })}
+                    <TextField 
+                        variant = "filled" 
+                        multiline = {true} 
+                        label = "Answer" 
+                        style = {{marginTop: "20px", width: "80%"}}
+                        onChange= {                                         
+                            this.handleChange("replyText")         
+                        }
+                    >
+                    {console.log(this.state.replyText) }
+                    </TextField>
+                    <Button type = "submit" onClick = {this.submitAnswer} style = {{width: "80%"}}>Submit</Button>
+                </div>
             </div>
          )   
         }

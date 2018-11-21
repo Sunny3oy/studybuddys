@@ -1,18 +1,16 @@
 import React, { PureComponent } from 'react';
 import {
     Typography,
-    ExpansionPanel,
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
     TextField,
     Button,
+    Paper
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
 import Navbar from "./Navbar";
 import Calendar from "./Calendar2";
+import { Link } from 'react-router-dom';
 // import Calendar from 'rc-calendar';
 import LuxonUtils from '@date-io/luxon';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
@@ -43,7 +41,7 @@ class CoursePage extends PureComponent {
 
     componentDidMount() {
         const { courseName } = this.props.match.params
-        fetch(`/course/${courseName}`).then(this.setState({course : courseName}));
+        fetch(`/courses/${courseName}`).then(this.setState({course : courseName}));
         this.getQuestions(courseName);
         this.getUserName();
         
@@ -93,7 +91,6 @@ class CoursePage extends PureComponent {
     //         })
     // }
     getReplies(ID){
-        var questID = ID;
         var info={
             questionID: ID,
         }
@@ -113,7 +110,6 @@ class CoursePage extends PureComponent {
         var replyT =this.state.replyText;
         var qID = this.state.currentID;
         // var qID ="-LRrejiCSp3Z9vGvIzEK"
-        var page = this;
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     var info = {
@@ -201,13 +197,13 @@ class CoursePage extends PureComponent {
         return (
            
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
-               <div>
+                <div>
                     <div style = {{float: "right", display: "inline-block"}}>
                         <span>{this.state.name}</span>
                         <Button onClick={this.logout}>Logout</Button>
                     </div>
                      <Navbar/>
-             </div>
+                </div>
                 {<Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>}
                     <Button 
                         className="Calendar"
@@ -225,84 +221,49 @@ class CoursePage extends PureComponent {
                     : null
                 }
                 <div className = "flexCenter">
+                    <Typography gutterBottom = {true} variant = "h3">
+                        <u>Questions</u>:
+                    </Typography>
+                   
                     {this.state.questions.map((data, key) => {
-                    return (
-                        <ExpansionPanel onClick={ () => this.getReplies(this.state.questID[key],this.setState({currentID:this.state.questID[key]}))} key = {key} style = {{width: "70%"}} >
-                            <ExpansionPanelSummary 
-                                expandIcon={<ExpandMoreIcon/>} 
-                                style = {{borderBottom: "1px solid black"}}
-                            >
-                                
-                                <Typography>
-                                    {data}
-                                  
-                                </Typography>
-                                <hr/>
-                                <Typography>
-                                    Created By: {this.state.createdBy[key]}
-                                </Typography>
-                            </ExpansionPanelSummary>
-                            
-                            {console.log(this.state.replyText)}
-                            {
-                                this.state.replies.map((ans, index) => {
-                                    return (
-                                        <ExpansionPanelDetails key = {index}>
-                                            <Typography>
-                                                {ans}
-                                            </Typography>
-                                        </ExpansionPanelDetails>
-                                    )
-                                }
-                           )}
-                             
-                                 <TextField 
-                                     variant = "filled" 
-                                     multiline = {true} 
-                                     label = "Answer" 
-                                     fullWidth 
-
-                                     onChange= {                                         
-                                         this.handleChange("replyText")
-                                         
-                                    
-                                     }
-                                >
-                                {console.log(this.state.replyText) }
-                                 </TextField>
-                                 <Button type = "submit" onClick = {this.submitAnswer} fullWidth = {true}>Submit</Button>
-                            
-                        </ExpansionPanel>
-                    )}
-                )}
-                </div>
-                <div style = {{margin: "15px 0"}}>
-                    <TextField 
-                        variant = "outlined"
-                        multiline = {true} 
-                        label = "Ask a Question"
-                        onChange = {this.handleChange("newQuestion")}
-                    >
-                    </TextField>
-                    <br/>
-                    <Button 
-                        type = "submit" 
-                        variant = "contained"
-                        onClick = {this.createQuestion}
-                        style = {{margin: "15px 0"}}
-                    >
-                        Ask Away
-                    </Button>
-                </div>
-                {/* TO DO  <div>
-                    {this.state.people.map((data, key) => {
                         return (
-                            <Avatar key = {key} style = {{width: "60px", height: "60px", display: "flex", justifyContent: "center"}}>{data}</Avatar>
+                            
+                            <Paper className = "flexCenter" style = {{margin: "10px auto", width: "65%", height: "10%"}}>
+                                <Link to = {"/course/" + this.state.course + "/" + this.state.questID[key]}>
+                                    <Typography style = {{marginTop: "15px"}} gutterBottom = {true} variant = "h5">
+                                    
+                                            {data}
+                                        
+                                    </Typography>
+                                </Link>
+                            </Paper>
                         )
                     })}
-                </div>    */}
-               
+            
+                    
+                        <TextField 
+                            variant = "outlined"
+                            multiline = {true} 
+                            label = "Ask a Question"
+                            onChange = {this.handleChange("newQuestion")}
+                            style = {{marginTop: "20px", width: "80%"}}
+                        >
+                        </TextField>
+                        <br/>
+                        <Button 
+                            type = "submit"
+                            gutterBottom = {true} 
+                            variant = "contained"
+                            onClick = {this.createQuestion}
+                            style = {{width: "80%"}}
+                        >
+                            Ask Away
+                        </Button>
+                   
+                </div>
             </div>
+
+               
         )
     }
 }
