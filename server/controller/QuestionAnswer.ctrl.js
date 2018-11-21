@@ -45,7 +45,7 @@ module.exports = {
       }
       else{
          var courseName = req.body.courseName;
-         var ref = firebase.database().ref("Courses/" + courseName);
+         var ref = firebase.database().ref("CoursesQuestions/" + courseName);
          var questions = [];
          var user = [];
          ref.once("value", function(snapshot){
