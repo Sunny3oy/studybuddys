@@ -91,7 +91,18 @@ html, body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  flex-direction:row;
-  
+  flex-direction:row; 
+  font-family: 'Inconsolata', monospace;
 }
 
+.nav {  
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0 auto ;
+  padding: 0 40px;
+  height: initial;
+  transition: height .3s ease;
+  background: #dddddd;
+  display: inline-block;
+}

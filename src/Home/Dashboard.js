@@ -130,16 +130,18 @@ class Dashboard extends PureComponent {
             </div>
         )
     }
-
+// need some help with this navbar in dashboard
     return (
       <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500" className="browserTitle">
-        <div style = {{float: "right", display: "inline-block"}}>
-            <span>{this.state.name}</span>
+      
+        <div className="nav" role="navigation">
+            <p>{this.state.name}</p>
           <Button onClick={this.logout}>Logout</Button>
+            
+        <Navbar/>
         </div>
-
-       <Navbar/>
-
+     
+    
         <h1 className = "dashSec" style={{marginLeft:'150px'}}> My Courses </h1>
 
 
