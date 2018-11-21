@@ -5,7 +5,7 @@ import Dashboard from './Home/Dashboard';
 import Home from './Home/Home';
 import SignUp from './Home/SignUp';
 import Browser from './Home/Browser';
-import Profile from './Home/Profile';
+// import Profile from './Home/Profile';
 import * as firebase from 'firebase';
 import CoursePage from './Home/CoursePage';
 
