@@ -19,7 +19,7 @@ The goal of this project is to help connect students with each other, helping th
     <td>Continuous Integration/ Deployment & Documenter</td>
   </tr>
   <tr>
-    <td>Charlie Dine</td>
+    <td>Charlie Ding</td>
     <td>Designer</td>
   </tr>
   <tr>
