@@ -11,7 +11,6 @@ const router = express.Router()
 let port = 8080 || process.env.PORT
 
 routes(router)
-
 const API_KEY = process.env.Firebase_API_Key;
 const SENDER_ID = process.env.Firebase_Sender_ID;
 

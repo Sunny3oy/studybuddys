@@ -16,4 +16,9 @@ module.exports = (router) => {
     router
     .route('/sumbitAnswer') // function url used by frontend
     .post(QuestionAnswerController.sumbitAnswer)
+
+    router
+    .route('/getReplies') // function url used by frontend
+    .post(QuestionAnswerController.getReplies)
 }
+

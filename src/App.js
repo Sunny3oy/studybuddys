@@ -7,6 +7,7 @@ import SignUp from './Home/SignUp';
 import Browser from './Home/Browser';
 import Profile from './Home/Profile';
 import * as firebase from 'firebase';
+import CoursePage from './Home/CoursePage';
 
 
 class App extends Component {
@@ -48,9 +49,9 @@ componentWillUnMount(){
           <div className = "App">
             <Route path = "/" exact component = { Home } />
             <Route path = "/signup" exact component = { SignUp } />
-            <Route path="/dashboard" exact component = { Dashboard } />
-            <Route path="/dashboard/browse" exact component = { Browser } />
-            <Route path="/Profile" exact component = { Profile } />
+            <Route path= "/dashboard" exact component = { Dashboard } />
+            <Route path= "/dashboard/browse" exact component = { Browser } />
+            <Route path= "/course/:courseName" component = { CoursePage } />
           </div>
         </BrowserRouter>
       </div>
