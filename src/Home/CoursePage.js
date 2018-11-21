@@ -24,10 +24,10 @@ class CoursePage extends PureComponent {
             name:"",
             course: '',
             newQuestion: "",
+            questID: [],
             questions: [],
+            createdBy: [],
             replies: [],
-            creator: [],
-            people: ["Jack", "Andy", "Bob", "Pauline", "Luis", "Connie", "Sponge"],
             calendarIsOpen: false
         }
         this.handleChange = this.handleChange.bind(this);
@@ -62,9 +62,12 @@ class CoursePage extends PureComponent {
         var course = {
             courseName: courseNum
         };
-        axios.post('https://triple-bonito-221722.appspot.com/api/getQuestions', course)
+        axios.post('https://triple-bonito-221722.appspot.com/api/MgetQuestions', course)
             .then(response => {
-                this.setState({questions: response.data.questions, creator: response.data.users})
+                this.setState({
+                    questID: response.data.ids,
+                    questions: response.data.questions, 
+                    createdBy: response.data.names})
             })
     }
     
@@ -111,7 +114,7 @@ class CoursePage extends PureComponent {
                     courseName: course,
                     userQuestion: newQuestion
                 };
-                axios.post('https://triple-bonito-221722.appspot.com/api/createQuestion', question)
+                axios.post('https://triple-bonito-221722.appspot.com/api/McreateQuestion', question)
                 console.log("course is " + course)
                 console.log("question is: " + newQuestion)
                 console.log(question)
@@ -165,6 +168,10 @@ class CoursePage extends PureComponent {
                             >
                                 <Typography>
                                     {data}
+                                </Typography>
+                                <hr/>
+                                <Typography>
+                                    Created By: {this.state.createdBy[key]}
                                 </Typography>
                             </ExpansionPanelSummary>
                             
