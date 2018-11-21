@@ -117,7 +117,8 @@ class CoursePage extends Component {
                 {
                     this.state.calendarIsOpen
                     ?
-                    <MuiPickersUtilsProvider utils={LuxonUtils}>
+                    <MuiPickersUtilsProvider 
+                        utils={LuxonUtils}>
                         <Calendar />
                     </MuiPickersUtilsProvider>
                     : null
