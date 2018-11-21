@@ -1,2 +1,0 @@
-PERM 7-SPR
-PERM 7-WIN

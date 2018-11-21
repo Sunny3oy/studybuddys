@@ -75,7 +75,7 @@ module.exports = {
       }
       else{
          var courseName = req.body.courseName;
-         var ref = firebase.database().ref("Courses/" + courseName);
+         var ref = firebase.database().ref("CoursesQuestions/" + courseName);
          var questions = [];
          var user = [];
          ref.once("value", function(snapshot){
@@ -116,6 +116,26 @@ module.exports = {
                   questions : questionsList,
                   ids : idsList
               })
+          })
+      }
+    },
+
+    MgetSingleQuestion: (req, res, next) =>{
+      if(req.body.courseName === undefined){
+         res.status(400).json({message: "Missing course name"});
+      }
+      else if(req.body.questionID === undefined){
+         res.status(400).json({message: "Missing questionID"});
+      }
+      else{
+          var courseName = req.body.courseName;
+          var questionID = req.body.questionID;
+          var ref = firebase.database().ref("MCourseQuestions/" + courseName + "/" + questionID);
+          ref.once("value", function(snapshot){
+             res.status(200).json({
+                 name : snapshot.val().name,
+                 question : snapshot.val().question
+             })
           })
       }
     },

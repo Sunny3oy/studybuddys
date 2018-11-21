@@ -1,2 +1,0 @@
-PERM 6-SPR
-PERM 6-WIN

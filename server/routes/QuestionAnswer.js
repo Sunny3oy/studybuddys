@@ -22,6 +22,10 @@ module.exports = (router) => {
     .post(QuestionAnswerController.MgetQuestions)
 
     router
+    .route('/MgetSingleQuestion') // function url used by frontend
+    .post(QuestionAnswerController.MgetSingleQuestion)
+
+    router
     .route('/sumbitAnswer') // function url used by frontend
     .post(QuestionAnswerController.sumbitAnswer)
 

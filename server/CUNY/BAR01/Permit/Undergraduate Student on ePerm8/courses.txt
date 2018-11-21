@@ -1,2 +1,0 @@
-PERM 5-SPR
-PERM 5-WIN

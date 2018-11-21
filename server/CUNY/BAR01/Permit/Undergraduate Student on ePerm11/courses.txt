@@ -1,2 +1,0 @@
-PERM 8-SPR
-PERM 8-WIN

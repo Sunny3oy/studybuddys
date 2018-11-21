@@ -2,7 +2,7 @@ const testFolder = './CUNY/';
 const fs = require('fs');
 
 module.exports = {
-    getCoursesOld: (req, res, next) => {
+    getCourses: (req, res, next) => {
         var courses = [];
         if((req.body.schoolName == "CUNY Baruch") && (req.body.subject == "math")){
             courses = ["MTH 2120-GOR","MTH 2140-HMWA","MTH 2140-STRA","MTH 2160-SMWA","MTH 2160-KMWA","MTH 3905-RID","MTH 3906-RID","MTH 3907-RID","MTH 3908-RID","MTH 3909-HOW","MTH 3910-HOW","MTH 3911-HOW","MTH 3912-HOW","MTH 4000-HTRA","MTH 4009-2FTR","MTH 4010-PMWA","MTH 4010-EMWA","MTH 4130-HMWA","MTH 4421-STRA","MTH 4430-JMWA","MTH 4451-SMWA","MTH 4500-STRA","MTH 4500-KTRA"];
@@ -63,21 +63,6 @@ module.exports = {
       }
     },
 
-    getCourses: (req, res, next) => {
-      if(req.body.collegeName === undefined){
-         res.status(400).json({message : "Missing collegeName"});
-      }
-      else if(req.body.subjectName === undefined){
-         res.status(400).json({message : "Missing subjectName"});
-      }
-      else{
-         var college = req.body.collegeName;
-         var subject = req.body.subjectName;
-         var files = fs.readdirSync('./CUNY/' + college + '/' + subject);
-         res.status(200).json({subjects : files});
-      }
-    },
-
     getSections: (req, res, next) => {
       if(req.body.collegeName === undefined){
          res.status(400).json({message : "Missing collegeName"});
@@ -85,14 +70,11 @@ module.exports = {
       else if(req.body.subjectName === undefined){
          res.status(400).json({message : "Missing subjectName"});
       }
-      else if(req.body.courseName === undefined){
-         res.status(400).json({message : "Missing courseName"});
-      }
       else{
          var college = req.body.collegeName;
          var subject = req.body.subjectName;
          var course = req.body.courseName;
-         var contents = fs.readFileSync('./CUNY/' + college + '/' + subject + '/' + course + '/courses.txt', 'utf8');
+         var contents = fs.readFileSync('./CUNY/' + college + '/' + subject + '/courses.txt', 'utf8');
          var results = contents.split("\n");
          if(results[results.length - 1] == ""){
             results.length = results.length - 1
