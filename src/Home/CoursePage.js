@@ -25,7 +25,8 @@ class CoursePage extends PureComponent {
             course: '',
             newQuestion: "",
             questions: [],
-            response: {0: ["ASDSADASDA","asdad", "asdasda"], 1: ["ASDSADASDA", "jabababab"], 2: ["ASDSADASDA", "hhahahahah"], 3: ["ASDSADASDA", "O"], 4: ["ASDSADASDA", "M"], 5:["ASDSADASDA", "scoob", "G"]},
+            replies: [],
+            creator: [],
             people: ["Jack", "Andy", "Bob", "Pauline", "Luis", "Connie", "Sponge"],
             calendarIsOpen: false
         }
@@ -34,14 +35,15 @@ class CoursePage extends PureComponent {
         this.logout = this.logout.bind(this);
         this.getUserName = this.getUserName.bind(this);
         this.getQuestions = this.getQuestions.bind(this);
+        this.getReplies = this.getReplies.bind(this);
         this.openCalendar = this.openCalendar.bind(this);
     }
 
     componentDidMount() {
         const { courseName } = this.props.match.params
-        fetch(`/course/${courseName}`).then(this.setState({ course: courseName }));
+        fetch(`/course/${courseName}`).then(this.setState({course : courseName}));
+        this.getQuestions(courseName);
         this.getUserName();
-        this.getQuestions();
     }
 
     handleChange = name => event => {
@@ -56,15 +58,31 @@ class CoursePage extends PureComponent {
         this.props.history.push('/');
     }
 
-    getQuestions() {
+    getQuestions(courseNum) {
         var course = {
-            courseName: this.state.course
+            courseName: courseNum
         };
-        console.log("hi " + this.state.course)
         axios.post('https://triple-bonito-221722.appspot.com/api/getQuestions', course)
             .then(response => {
-                this.setState({questions: response.data.questions})
-                console.log(response.data);
+                this.setState({questions: response.data.questions, creator: response.data.users})
+            })
+    }
+    
+    getReplies(course, question, creator) {
+        var info = {
+            id: "901232",
+            courseName: course,
+            questionText: question,
+            useridQuestion: creator
+        }
+        console.log("INFO IS")
+        console.log(info)
+        axios.post('https://triple-bonito-221722.appspot.com/api/getReplies', info)
+            .then(response => {
+                console.log("yo")
+                console.log(response.data.replies)
+                this.setState({replies: response.data.replies})
+                console.log(this.state.replies)
             })
     }
 
@@ -77,7 +95,7 @@ class CoursePage extends PureComponent {
             }
             axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
             .then(response => {
-                page.setState({name : response.data.name})
+                page.setState({name: response.data.name})
             })
         }
         });
@@ -99,7 +117,7 @@ class CoursePage extends PureComponent {
                 console.log(question)
             }
         })
-        this.getQuestions();
+        this.getQuestions(this.state.course);
     }
 
     openCalendar() {
@@ -109,6 +127,7 @@ class CoursePage extends PureComponent {
     }
 
     render() {
+        console.log(this.state.questions.length)
 
         return (
            
@@ -121,11 +140,11 @@ class CoursePage extends PureComponent {
                      <Navbar/>
              </div>
                 {<Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>}
-                <Button 
-                    className="Calendar"
-                    type="submit"
-                    onClick={this.openCalendar}>
-                    Meet Up
+                    <Button 
+                        className="Calendar"
+                        type="submit"
+                        onClick={this.openCalendar}>
+                        Meet Up
                     </Button>
                 {
                     this.state.calendarIsOpen
@@ -148,22 +167,26 @@ class CoursePage extends PureComponent {
                                     {data}
                                 </Typography>
                             </ExpansionPanelSummary>
-                            {this.state.response[key].map((ans, index) => {
-                                return (
-                                    <ExpansionPanelDetails key = {index}>
-                                        <Typography>
-                                            {ans}
-                                        </Typography>
-                                    </ExpansionPanelDetails>
-                                )
-                            })}
+                            
+                            {console.log(this.state.replies)}
+                            {
+                                this.state.replies.map((ans, index) => {
+                                    return (
+                                        <ExpansionPanelDetails key = {index}>
+                                            <Typography>
+                                                {ans}
+                                            </Typography>
+                                        </ExpansionPanelDetails>
+                                    )
+                                }
+                           )}
+                            
                             <TextField variant = "filled" multiline = {true} label = "Answer" fullWidth></TextField>
                             <Button fullWidth = {true}>Submit</Button>
                         </ExpansionPanel>
                     )}
                 )}
                 </div>
-
                 <div style = {{margin: "15px 0"}}>
                     <TextField 
                         variant = "outlined"
@@ -182,7 +205,6 @@ class CoursePage extends PureComponent {
                         Ask Away
                     </Button>
                 </div>
-
                 {/* TO DO  <div>
                     {this.state.people.map((data, key) => {
                         return (
@@ -195,5 +217,4 @@ class CoursePage extends PureComponent {
         )
     }
 }
-
 export default CoursePage;
