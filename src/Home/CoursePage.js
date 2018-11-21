@@ -8,10 +8,14 @@ import {
     Button,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
 import Navbar from "./Navbar";
-
+import Calendar from "./Calendar2";
+// import Calendar from 'rc-calendar';
+import LuxonUtils from '@date-io/luxon';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 
 class CoursePage extends PureComponent {
     constructor(props) {
@@ -22,13 +26,15 @@ class CoursePage extends PureComponent {
             newQuestion: "",
             questions: [],
             response: {0: ["ASDSADASDA","asdad", "asdasda"], 1: ["ASDSADASDA", "jabababab"], 2: ["ASDSADASDA", "hhahahahah"], 3: ["ASDSADASDA", "O"], 4: ["ASDSADASDA", "M"], 5:["ASDSADASDA", "scoob", "G"]},
-            people: ["Jack", "Andy", "Bob", "Pauline", "Luis", "Connie", "Sponge"]
+            people: ["Jack", "Andy", "Bob", "Pauline", "Luis", "Connie", "Sponge"],
+            calendarIsOpen: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.createQuestion = this.createQuestion.bind(this);   
         this.logout = this.logout.bind(this);
         this.getUserName = this.getUserName.bind(this);
         this.getQuestions = this.getQuestions.bind(this);
+        this.openCalendar = this.openCalendar.bind(this);
     }
 
     componentDidMount() {
@@ -96,6 +102,12 @@ class CoursePage extends PureComponent {
         this.getQuestions();
     }
 
+    openCalendar() {
+        this.setState({
+            calendarIsOpen: !this.state.calendarIsOpen
+        })
+    }
+
     render() {
 
         return (
@@ -109,6 +121,21 @@ class CoursePage extends PureComponent {
                      <Navbar/>
              </div>
                 {<Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>}
+                <Button 
+                    className="Calendar"
+                    type="submit"
+                    onClick={this.openCalendar}>
+                    Meet Up
+                    </Button>
+                {
+                    this.state.calendarIsOpen
+                    ?
+                    <MuiPickersUtilsProvider 
+                        utils={LuxonUtils}>
+                        <Calendar />
+                    </MuiPickersUtilsProvider>
+                    : null
+                }
                 <div className = "flexCenter">
                     {this.state.questions.map((data, key) => {
                     return (
