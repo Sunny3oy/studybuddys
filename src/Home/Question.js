@@ -9,10 +9,10 @@ import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
 import Navbar from "./Navbar";
-import Calendar from "./Calendar2";
+// import Calendar from "./Calendar2";
 // import Calendar from 'rc-calendar';
-import LuxonUtils from '@date-io/luxon';
-import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+// import LuxonUtils from '@date-io/luxon';
+// import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 
 class Question extends PureComponent {
     constructor(props) {
@@ -132,7 +132,7 @@ class Question extends PureComponent {
                     </div>
                     <Navbar/>
                 </div>
-                    <Button 
+                    {/* <Button 
                         className="Calendar"
                         type="submit"
                         onClick={this.openCalendar}>
@@ -146,7 +146,7 @@ class Question extends PureComponent {
                         <Calendar />
                     </MuiPickersUtilsProvider>
                     : null
-                }
+                } */}
 
                 <Typography variant = "h1" style = {{margin: "16px auto"}}><strong>{this.state.question}</strong></Typography>
                 <Typography variant = "h6" style = {{margin: "0px auto"}}><em>Created By: {this.state.createdBy}</em></Typography>
