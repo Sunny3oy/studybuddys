@@ -1,13 +1,13 @@
 import React, { Fragment, PureComponent } from 'react';
 import { DatePicker } from 'material-ui-pickers';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
-import orange from '@material-ui/core/colors/orange';
+import amber from '@material-ui/core/colors/amber';
 
 const materialTheme = createMuiTheme({
     overrides: {
       MuiPickersToolbar: {
         toolbar: {
-          backgroundColor: orange.A200,
+          backgroundColor: amber.A200,
         },
       },
       MuiPickersCalendarHeader: {
@@ -18,18 +18,18 @@ const materialTheme = createMuiTheme({
       },
       MuiPickersDay: {
         day: {
-          color: orange.A700,
+          color: amber.A700,
         },
         selected: {
-          backgroundColor: orange['400'],
+          backgroundColor: amber['400'],
         },
         current: {
-          color: orange['900'],
+          color: amber['900'],
         },
       },
       MuiPickersModal: {
         dialogAction: {
-          color: orange['400'],
+          color: amber['400'],
         },
       },
     },
