@@ -56,7 +56,7 @@ module.exports = {
     },
 
     sayHello: (req, res, next) => {
-        res.status(200).json({message : 'Hello World'})
+        res.status(200).json({message : 'Testing continuous deployment'})
     },
 
     checkLoggedIn: (req, res, next) => {
