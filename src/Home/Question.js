@@ -27,6 +27,7 @@ class Question extends PureComponent {
             replies: [],
             replier: [],
         }
+        this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.logout = this.logout.bind(this);
         this.getUserName = this.getUserName.bind(this);
@@ -34,6 +35,7 @@ class Question extends PureComponent {
         this.submitAnswer = this.submitAnswer.bind(this);
     }
     componentDidMount() {
+        this.checkLoggedIn();
         const { courseName } = this.props.match.params;
         const { questionID } = this.props.match.params;
         fetch(`/course/${courseName}?/${questionID}?`)
@@ -50,6 +52,15 @@ class Question extends PureComponent {
         this.getUserName();
         
     }
+
+    checkLoggedIn(){
+        var prop = this.props;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+            prop.history.push('/');
+            }
+        });
+  }
 
     handleChange = name => event => {
         this.setState({
