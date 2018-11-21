@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
     Typography,
     ExpansionPanel,
@@ -6,7 +6,6 @@ import {
     ExpansionPanelDetails,
     TextField,
     Button,
-    Avatar
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import axios from 'axios';
@@ -14,14 +13,14 @@ import * as firebase from 'firebase';
 import Navbar from "./Navbar";
 
 
-class CoursePage extends Component {
+class CoursePage extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
             name:"",
             course: '',
             newQuestion: "",
-            questions: ["bloop1", "bloop2", "bloop3", "bloop4", "bloop5", "bloop6"],
+            questions: [],
             response: {0: ["ASDSADASDA","asdad", "asdasda"], 1: ["ASDSADASDA", "jabababab"], 2: ["ASDSADASDA", "hhahahahah"], 3: ["ASDSADASDA", "O"], 4: ["ASDSADASDA", "M"], 5:["ASDSADASDA", "scoob", "G"]},
             people: ["Jack", "Andy", "Bob", "Pauline", "Luis", "Connie", "Sponge"]
         }
@@ -29,13 +28,14 @@ class CoursePage extends Component {
         this.createQuestion = this.createQuestion.bind(this);   
         this.logout = this.logout.bind(this);
         this.getUserName = this.getUserName.bind(this);
+        this.getQuestions = this.getQuestions.bind(this);
     }
 
     componentDidMount() {
         const { courseName } = this.props.match.params
-
-        fetch(`/course/${courseName}`).then(this.setState({ course: courseName }))
+        fetch(`/course/${courseName}`).then(this.setState({ course: courseName }));
         this.getUserName();
+        this.getQuestions();
     }
 
     handleChange = name => event => {
@@ -48,22 +48,34 @@ class CoursePage extends Component {
         e.preventDefault();
         firebase.auth().signOut();
         this.props.history.push('/');
-     }
+    }
 
-   getUserName(e){
-    var page = this;
-    firebase.auth().onAuthStateChanged(function(user) {
-       if (user) {
-          var info = {
-             id: user.uid
-          }
-          axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
-          .then(response => {
-             page.setState({name : response.data.name})
-          })
-       }
-    });
- }
+    getQuestions() {
+        var course = {
+            courseName: this.state.course
+        };
+        console.log("hi " + this.state.course)
+        axios.post('https://triple-bonito-221722.appspot.com/api/getQuestions', course)
+            .then(response => {
+                this.setState({questions: response.data.questions})
+                console.log(response.data);
+            })
+    }
+
+    getUserName(e){
+        var page = this;
+        firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            var info = {
+                id: user.uid
+            }
+            axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
+            .then(response => {
+                page.setState({name : response.data.name})
+            })
+        }
+        });
+    }
 
     createQuestion() {
         var course = this.state.course;
@@ -81,6 +93,7 @@ class CoursePage extends Component {
                 console.log(question)
             }
         })
+        this.getQuestions();
     }
 
     render() {
@@ -104,7 +117,9 @@ class CoursePage extends Component {
                                 expandIcon={<ExpandMoreIcon/>} 
                                 style = {{borderBottom: "1px solid black"}}
                             >
-                                <Typography>{data}</Typography>
+                                <Typography>
+                                    {data}
+                                </Typography>
                             </ExpansionPanelSummary>
                             {this.state.response[key].map((ans, index) => {
                                 return (
