@@ -95,25 +95,57 @@ class Browser extends Component {
         console.log(this.state.class)
         const schools = [
             {
-                value: '',
-                label: '',
-            },
-            {
-              value: 'CUNY CCNY',
+              value: 'CTY01',
               label: 'The City College Of New York',
             },
             {
-              value: 'CUNY Baruch',
+              value: 'BAR01',
               label: 'Baruch College',
             },
             {
-              value: 'CUNY York',
-              label: 'York College',
+              value: 'BCC01',
+              label: 'Bronx Community College',
             },
             {
-              value: 'CUNY Queens',
+              value: 'BKL01',
+              label: 'Brooklyn College',
+            },
+            {
+              value: 'BMC01',
+              label: 'Borough of Manhattan Community College',
+            },
+            {
+              value: 'CSI01',
+              label: 'College of Staten Island',
+            },
+            {
+              value: 'HTR01',
+              label: 'Hunter College',
+            },
+            {
+              value: 'JJC01',
+              label: 'John Jay College of Criminal Justice',
+            },
+            {
+              value: 'LEH01',
+              label: 'Lehman College',
+            },
+            {
+              value: 'NYT01',
+              label: 'New York City College of Technology',
+            },
+            {
+              value: 'QCC01',
+              label: 'Queensborough Community College',
+            },
+            {
+              value: 'QNS01',
               label: 'Queens College',
             },
+            {
+              value: 'YRK01',
+              label: 'York College',
+            }
           ];
 
           // const subject = [
