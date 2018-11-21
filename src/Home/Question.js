@@ -25,6 +25,7 @@ class Question extends PureComponent {
             createdBy: "",
             replyText: "",
             replies: [],
+            replier: [],
         }
         this.handleChange = this.handleChange.bind(this);
         this.logout = this.logout.bind(this);
@@ -99,7 +100,8 @@ class Question extends PureComponent {
         axios.post('https://triple-bonito-221722.appspot.com/api/MgetReplies', info)
         .then( response => {
             this.setState({
-                replies: response.data.replies
+                replies: response.data.replies,
+                replier: response.data.names
             })
         })
     }
@@ -156,7 +158,7 @@ class Question extends PureComponent {
                                     <em>{data}</em>
                                 </Typography>
                                 <Typography variant = "subtitle">
-                                    <em>Answered By: {this.state.name}</em>
+                                    <em>Answered By: {this.state.replier[key]}</em>
                                 </Typography>
                             </Paper>
                         )
