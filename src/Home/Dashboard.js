@@ -15,7 +15,7 @@ class Dashboard extends PureComponent {
       super(props);
       this.state = {
         name: "",
-        userClass: "",
+         userClass: "",
       }
       this.logout = this.logout.bind(this);
       this.getUserName = this.getUserName.bind(this);
@@ -111,11 +111,13 @@ class Dashboard extends PureComponent {
                    return (
                         <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
                             <CardContent>
+                     
                                 <Link to = {"/courses/" + data}>
                                     <Typography variant ="headline">
                                         {data}
                                     </Typography >
                                 </Link>
+                     
                                 <Button
                                     onClick={(e)=>this.deleteUserCourses(e)}
                                     value={data}
@@ -140,7 +142,7 @@ class Dashboard extends PureComponent {
         <div className = "nav">
             <Navbar/>
             
-            <div className = "bitch" >
+            <div className = "nav_b" >
                 <span>{this.state.name}</span>
                 <Button onClick={this.logout} style={{color:'white'}}>Logout</Button>
             </div>

@@ -155,6 +155,7 @@ class Browser extends Component {
             <div className="browserTitle">
             <div className="nav">
              <Navbar />
+
             </div>
                 <div className = "flexCenter">
                     <h1

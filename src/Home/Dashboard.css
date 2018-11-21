@@ -47,6 +47,7 @@ html, body {
   padding: 15px 0;
   text-decoration: none !important;
   color: white;
+
 }
 
 .navItems:hover {
@@ -93,6 +94,7 @@ html, body {
   text-align: center;
   flex-direction:row; 
   font-family: 'Inconsolata', monospace;
+  margin-left:7%;
 }
 
 .nav {  
@@ -106,6 +108,9 @@ html, body {
   justify-content: flex-end;
 } */
 
-.bitch {
-  margin-left: 80%;
+.nav_b {
+  margin-left: 74%;
+  font-size: 23px;
+  padding-top: 7px;
+  
 }
