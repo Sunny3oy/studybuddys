@@ -9,11 +9,11 @@ import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
 import Navbar from "./Navbar";
-import Calendar from "./Calendar2";
+// import Calendar from "./Calendar2";
 import { Link } from 'react-router-dom';
 // import Calendar from 'rc-calendar';
-import LuxonUtils from '@date-io/luxon';
-import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+// import LuxonUtils from '@date-io/luxon';
+// import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 
 class CoursePage extends PureComponent {
     constructor(props) {
@@ -30,6 +30,7 @@ class CoursePage extends PureComponent {
             currentID:"",
             replyText:""
         }
+        this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createQuestion = this.createQuestion.bind(this);   
         this.logout = this.logout.bind(this);
@@ -45,6 +46,15 @@ class CoursePage extends PureComponent {
         this.getQuestions(courseName);
         this.getUserName();
         
+    }
+
+    checkLoggedIn() {
+        var prop = this.props;
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (!user) {
+                prop.history.push('/');
+            }
+        });
     }
 
     handleChange = name => event => {
