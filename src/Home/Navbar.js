@@ -54,7 +54,7 @@ class Navbar extends React.Component {
     return (
       <div>
         <Button style={{float: "left"}} onClick={this.toggleDrawer('left', true)}>
-          <Menu fontSize = "large"></Menu></Button>
+          <Menu fontSize = "large" style = {{color: "white"}}></Menu></Button>
         <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
           <div
             tabIndex={0}
