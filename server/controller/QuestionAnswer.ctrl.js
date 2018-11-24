@@ -5,7 +5,7 @@ module.exports = {
    // this will take in the current course and question
 
    //Post: question is stored in the backend under the course
-   McreateQuestion: (req, res, next) =>{
+   createQuestion: (req, res, next) =>{
       if(req.body.id === undefined){
          res.status(400).json({message: "Missing id"});
       }
@@ -39,7 +39,7 @@ module.exports = {
    },
    //pre: should pass in the course name
    //post: returns all the questions for the course if any along with the uid that made the questions
-   MgetQuestions: (req, res, next) =>{
+   getQuestions: (req, res, next) =>{
       if(req.body.courseName === undefined){
          res.status(400).json({message: "Missing course name"});
       }
@@ -64,7 +64,7 @@ module.exports = {
       }
    },
 
-   MgetSingleQuestion: (req, res, next) =>{
+   getSingleQuestion: (req, res, next) =>{
       if(req.body.courseName === undefined){
          res.status(400).json({message: "Missing course name"});
       }
@@ -86,7 +86,7 @@ module.exports = {
    //pre: User is logged in
    //takes in the current course,text for reply,question, posterID
    //post: posts a reply to a question that will be stored in the backend.
-   MsubmitAnswer: (req, res, next) =>{
+   submitAnswer: (req, res, next) =>{
       if(req.body.id === undefined){
          res.status(400).json({message: "Missing id"});
       }
@@ -112,7 +112,7 @@ module.exports = {
 
    },
 
-   MgetReplies: (req, res, next) =>{
+   getReplies: (req, res, next) =>{
       if(req.body.questionID === undefined){
          res.status(400).json({message: "Missing questionID"});
       }
