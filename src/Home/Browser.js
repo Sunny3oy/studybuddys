@@ -1,9 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component,PureComponent} from 'react';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
 import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Navbar from "./Navbar";
@@ -13,20 +15,24 @@ import './Dashboard.css';
 import './Browser.css';
 import { Link } from 'react-router-dom';
 
-class Browser extends Component {
+class Browser extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-          school:'',
+          school:'CTY01',
           subject:'',
           class:[],
           userClasses: [],
           loading: true,
+          newSubject:[],
         }
         this.handleChange = this.handleChange.bind(this);
         this.addCourseToUser = this.addCourseToUser.bind(this);
         this.getCourseName = this.getCourseName.bind(this);
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
+        this.getSubjects = this.getSubjects.bind(this);
+        this.getSubjectsTwice = this.getSubjectsTwice.bind(this);
+        this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
     }
     state = {
         anchorEl: null,
@@ -40,6 +46,11 @@ class Browser extends Component {
         this.setState({userClasses: event.target.value})
       }
 
+      handleMenuItemClick = (event, index) => {
+        this.setState({ school: event.value });
+        this.getSubjects();
+      };
+
       handleClose = () => {
         this.setState({ anchorEl: null });
       };
@@ -52,6 +63,7 @@ class Browser extends Component {
 
       componentDidMount(){
         this.checkLoggedIn();
+        this.getSubjects();
       }
 
       checkLoggedIn(){
@@ -91,9 +103,30 @@ class Browser extends Component {
          });
       }
 
+      getSubjects(){
+        var schoolValue = this.state.school;
+        var info ={
+          collegeName: schoolValue,
+        }
+        axios.post('https://triple-bonito-221722.appspot.com/api/getSubjects',info).then(response => {
+          this.setState({
+            newSubject:response.data.subjects,
+          })
+          console.log(response);
+        })
+        
+        console.log(this.state.newSubject);
+      }
+      
+      getSubjectsTwice(){
+        this.getSubjects();
+        this.getSubjects();
+      }
+
       render() {
 
         console.log(this.state.class)
+        console.log(this.state.school)
         const schools = [
             {
               value: 'CTY01',
@@ -149,28 +182,28 @@ class Browser extends Component {
             }
           ];
 
-          // const subject = [
-          //   {
-          //       value: '',
-          //       label: '',
-          //   },
-          //   {
-          //     value: 'Art',
-          //     label: 'Art',
-          //   },
-          //   {
-          //     value: 'Bio',
-          //     label: 'Bio',
-          //   },
-          //   {
-          //     value: 'Csc',
-          //     label: 'Csc',
-          //   },
-          //   {
-          //     value: 'Eco',
-          //     label: 'Eco',
-          //   },
-          // ];
+          const subject = [
+            {
+                value: '',
+                label: '',
+            },
+            {
+              value: 'Art',
+              label: 'Art',
+            },
+            {
+              value: 'Bio',
+              label: 'Bio',
+            },
+            {
+              value: 'Csc',
+              label: 'Csc',
+            },
+            {
+              value: 'Eco',
+              label: 'Eco',
+            },
+          ];
 
         console.log(this.state.school);
         console.log(this.state.subject);
@@ -199,31 +232,41 @@ class Browser extends Component {
 
 
                 <div style = {{height:'65vh'}}>
-                <TextField
+                {/* <TextField
                     select
                     label="Select"
                     value={this.state.school}
                     onChange={this.handleChange('school')}
+                    
                     helperText="Please select your school"
                     margin="normal"
                     variant="outlined"
                     data-aos="fade-down"
                     data-aos-easing="linear"
-                    data-aos-duration="400">
-
-                    {schools.map(option => (
-                      <MenuItem key={option.value} value={option.value}>
+                    data-aos-duration="400"> */}
+                    <Select 
+                       onChange={this.handleChange('school')}
+                       value={this.state.school}
+                       style={{width:'100%'}}
+                    >
+                    {schools.map((option,key) => (
+                      <MenuItem key={key} value={option.value}>
+                      <Button onClick = {this.getSubjects}>
+                        
                           {option.label}
+                      </Button>
                       </MenuItem>
                     ))}
-                </TextField>
+                    </Select>
+                {/* </TextField> */}
 
                 <br/>
                 <div className="flexCenter">
+                {console.log(this.state.newSubject)}
                  {
                     this.state.school !== ''?
                       <TextField
-                        required
+                        select
                         label="Select"
                         value={this.state.subject}
                         onChange={this.handleChange('subject')}
@@ -234,14 +277,25 @@ class Browser extends Component {
                         data-aos-easing="linear"
                         data-aos-duration="400"
                       >
-                      </TextField>
+                
+                      {this.state.newSubject.map((option,key) => (
+                      <MenuItem key={key} value={option.value} onClick={event => this.handleMenuItemClick(event, key)}>
+                          {option}
+                      </MenuItem>
+                      
+                    ))}
+                     
+                       </TextField>
 
                 : null
 
                  }
                  </div>
-                 {this.state.school !==''?
-                    <Button
+                 {this.state.subject !==''?
+                    <Button 
+                        data-aos="fade-down"
+                        data-aos-easing="linear"
+                        data-aos-duration="400"
                         onClick={(this.getCourseName)}
                         type = 'submit'
                         >
