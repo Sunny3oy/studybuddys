@@ -1,38 +1,36 @@
-import React, {Component,PureComponent} from 'react';
+import * as firebase from 'firebase';
+import './Browser.css';
+import './Dashboard.css';
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import Typography from '@material-ui/core/Typography';
-import GridList from '@material-ui/core/GridList';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Navbar from "./Navbar";
-import axios from 'axios';
-import * as firebase from 'firebase';
-import './Dashboard.css';
-import './Browser.css';
+import GridList from '@material-ui/core/GridList';
 import { Link } from 'react-router-dom';
+import MenuItem from '@material-ui/core/MenuItem';
+import Navbar from "./Navbar";
+import React, {Component} from 'react';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 
-class Browser extends PureComponent {
+
+class Browser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          school:'CTY01',
+          name: "",
+          school:'',
           subject:'',
           class:[],
           userClasses: [],
           loading: true,
-          newSubject:[],
         }
+        this.logout = this.logout.bind(this);
+        this.getUserName = this.getUserName.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.addCourseToUser = this.addCourseToUser.bind(this);
         this.getCourseName = this.getCourseName.bind(this);
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
-        this.getSubjects = this.getSubjects.bind(this);
-        this.getSubjectsTwice = this.getSubjectsTwice.bind(this);
-        this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
     }
     state = {
         anchorEl: null,
@@ -46,11 +44,6 @@ class Browser extends PureComponent {
         this.setState({userClasses: event.target.value})
       }
 
-      handleMenuItemClick = (event, index) => {
-        this.setState({ school: event.value });
-        this.getSubjects();
-      };
-
       handleClose = () => {
         this.setState({ anchorEl: null });
       };
@@ -61,9 +54,17 @@ class Browser extends PureComponent {
         });
       };
 
+      logout(e){
+        e.preventDefault();
+        firebase.auth().signOut();
+        this.props.history.push('/');
+      }
+
       componentDidMount(){
+        this.getUserName();
         this.checkLoggedIn();
-        this.getSubjects();
+        
+
       }
 
       checkLoggedIn(){
@@ -73,6 +74,21 @@ class Browser extends PureComponent {
               prop.history.push('/');
            }
         });
+     }
+
+     getUserName(e){
+       var page = this;
+       firebase.auth().onAuthStateChanged(function(user){
+         if (user) {
+           var info = {
+             id: user.uid
+           }
+           axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
+           .then(response =>{
+             page.setState({name: response.data.name})
+           })
+         }
+       });
      }
 
       getCourseName(e){
@@ -103,107 +119,54 @@ class Browser extends PureComponent {
          });
       }
 
-      getSubjects(){
-        var schoolValue = this.state.school;
-        var info ={
-          collegeName: schoolValue,
-        }
-        axios.post('https://triple-bonito-221722.appspot.com/api/getSubjects',info).then(response => {
-          this.setState({
-            newSubject:response.data.subjects,
-          })
-          console.log(response);
-        })
-        
-        console.log(this.state.newSubject);
-      }
-      
-      getSubjectsTwice(){
-        this.getSubjects();
-        this.getSubjects();
-      }
-
       render() {
 
         console.log(this.state.class)
-        console.log(this.state.school)
         const schools = [
-            {
-              value: 'CTY01',
-              label: 'The City College Of New York',
-            },
-            {
-              value: 'BAR01',
-              label: 'Baruch College',
-            },
-            {
-              value: 'BCC01',
-              label: 'Bronx Community College',
-            },
-            {
-              value: 'BKL01',
-              label: 'Brooklyn College',
-            },
-            {
-              value: 'BMC01',
-              label: 'Borough of Manhattan Community College',
-            },
-            {
-              value: 'CSI01',
-              label: 'College of Staten Island',
-            },
-            {
-              value: 'HTR01',
-              label: 'Hunter College',
-            },
-            {
-              value: 'JJC01',
-              label: 'John Jay College of Criminal Justice',
-            },
-            {
-              value: 'LEH01',
-              label: 'Lehman College',
-            },
-            {
-              value: 'NYT01',
-              label: 'New York City College of Technology',
-            },
-            {
-              value: 'QCC01',
-              label: 'Queensborough Community College',
-            },
-            {
-              value: 'QNS01',
-              label: 'Queens College',
-            },
-            {
-              value: 'YRK01',
-              label: 'York College',
-            }
-          ];
-
-          const subject = [
             {
                 value: '',
                 label: '',
             },
             {
-              value: 'Art',
-              label: 'Art',
+              value: 'CUNY CCNY',
+              label: 'The City College Of New York',
             },
             {
-              value: 'Bio',
-              label: 'Bio',
+              value: 'CUNY Baruch',
+              label: 'Baruch College',
             },
             {
-              value: 'Csc',
-              label: 'Csc',
+              value: 'CUNY York',
+              label: 'York College',
             },
             {
-              value: 'Eco',
-              label: 'Eco',
+              value: 'CUNY Queens',
+              label: 'Queens College',
             },
           ];
+
+          // const subject = [
+          //   {
+          //       value: '',
+          //       label: '',
+          //   },
+          //   {
+          //     value: 'Art',
+          //     label: 'Art',
+          //   },
+          //   {
+          //     value: 'Bio',
+          //     label: 'Bio',
+          //   },
+          //   {
+          //     value: 'Csc',
+          //     label: 'Csc',
+          //   },
+          //   {
+          //     value: 'Eco',
+          //     label: 'Eco',
+          //   },
+          // ];
 
         console.log(this.state.school);
         console.log(this.state.subject);
@@ -220,7 +183,10 @@ class Browser extends PureComponent {
             <div className="browserTitle">
             <div className="nav">
              <Navbar />
-
+                <div className="nav_b">
+                <span>{this.state.name}</span>
+                <Button onClick={this.logout} style={{color:'white'}}>Logout</Button>
+                </div>
             </div>
                 <div className = "flexCenter">
                     <h1
@@ -232,41 +198,31 @@ class Browser extends PureComponent {
 
 
                 <div style = {{height:'65vh'}}>
-                {/* <TextField
+                <TextField
                     select
                     label="Select"
                     value={this.state.school}
                     onChange={this.handleChange('school')}
-                    
                     helperText="Please select your school"
                     margin="normal"
                     variant="outlined"
                     data-aos="fade-down"
                     data-aos-easing="linear"
-                    data-aos-duration="400"> */}
-                    <Select 
-                       onChange={this.handleChange('school')}
-                       value={this.state.school}
-                       style={{width:'100%'}}
-                    >
-                    {schools.map((option,key) => (
-                      <MenuItem key={key} value={option.value}>
-                      <Button onClick = {this.getSubjects}>
-                        
+                    data-aos-duration="400">
+
+                    {schools.map(option => (
+                      <MenuItem key={option.value} value={option.value}>
                           {option.label}
-                      </Button>
                       </MenuItem>
                     ))}
-                    </Select>
-                {/* </TextField> */}
+                </TextField>
 
                 <br/>
                 <div className="flexCenter">
-                {console.log(this.state.newSubject)}
                  {
                     this.state.school !== ''?
                       <TextField
-                        select
+                        required
                         label="Select"
                         value={this.state.subject}
                         onChange={this.handleChange('subject')}
@@ -277,25 +233,14 @@ class Browser extends PureComponent {
                         data-aos-easing="linear"
                         data-aos-duration="400"
                       >
-                
-                      {this.state.newSubject.map((option,key) => (
-                      <MenuItem key={key} value={option.value} onClick={event => this.handleMenuItemClick(event, key)}>
-                          {option}
-                      </MenuItem>
-                      
-                    ))}
-                     
-                       </TextField>
+                      </TextField>
 
                 : null
 
                  }
                  </div>
-                 {this.state.subject !==''?
-                    <Button 
-                        data-aos="fade-down"
-                        data-aos-easing="linear"
-                        data-aos-duration="400"
+                 {this.state.school !==''?
+                    <Button
                         onClick={(this.getCourseName)}
                         type = 'submit'
                         >
