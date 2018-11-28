@@ -9,10 +9,10 @@ import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
 import Navbar from "./Navbar";
-import Calendar from "./Calendar2";
+// import Calendar from "./Calendar2";
 // import Calendar from 'rc-calendar';
-import LuxonUtils from '@date-io/luxon';
-import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+// import LuxonUtils from '@date-io/luxon';
+// import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 
 class Question extends PureComponent {
     constructor(props) {
@@ -27,6 +27,7 @@ class Question extends PureComponent {
             replies: [],
             replier: [],
         }
+        this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.logout = this.logout.bind(this);
         this.getUserName = this.getUserName.bind(this);
@@ -34,6 +35,7 @@ class Question extends PureComponent {
         this.submitAnswer = this.submitAnswer.bind(this);
     }
     componentDidMount() {
+        this.checkLoggedIn();
         const { courseName } = this.props.match.params;
         const { questionID } = this.props.match.params;
         fetch(`/course/${courseName}?/${questionID}?`)
@@ -50,6 +52,15 @@ class Question extends PureComponent {
         this.getUserName();
         
     }
+
+    checkLoggedIn(){
+        var prop = this.props;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+            prop.history.push('/');
+            }
+        });
+  }
 
     handleChange = name => event => {
         this.setState({
@@ -69,7 +80,7 @@ class Question extends PureComponent {
             var info = {
                 id: user.uid
             }
-            axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
+            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
             .then(response => {
                 page.setState({name: response.data.name})
             })
@@ -87,7 +98,7 @@ class Question extends PureComponent {
                     replyText: reply,
                     questionID: questID,
                 }
-                axios.post('https://triple-bonito-221722.appspot.com/api/MsubmitAnswer', info)
+                axios.post('https://studybuddys-223920.appspot.com/api/submitAnswer', info)
             }
         });
         this.getReplies(questID);
@@ -97,7 +108,7 @@ class Question extends PureComponent {
         var info = {
             questionID: ID,
         }
-        axios.post('https://triple-bonito-221722.appspot.com/api/MgetReplies', info)
+        axios.post('https://studybuddys-223920.appspot.com/api/getReplies', info)
         .then( response => {
             this.setState({
                 replies: response.data.replies,
@@ -110,7 +121,7 @@ class Question extends PureComponent {
             courseName: this.state.course,
             questionID: this.state.questID
         };
-        axios.post('https://triple-bonito-221722.appspot.com/api/MgetSingleQuestion', questID)
+        axios.post('https://studybuddys-223920.appspot.com/api/getSingleQuestion', questID)
             .then(response => {
                 console.log(response.data)
                 this.setState({
@@ -132,7 +143,7 @@ class Question extends PureComponent {
                     </div>
                     <Navbar/>
                 </div>
-                    <Button 
+                    {/* <Button 
                         className="Calendar"
                         type="submit"
                         onClick={this.openCalendar}>
@@ -146,7 +157,7 @@ class Question extends PureComponent {
                         <Calendar />
                     </MuiPickersUtilsProvider>
                     : null
-                }
+                } */}
 
                 <Typography variant = "h1" style = {{margin: "16px auto"}}><strong>{this.state.question}</strong></Typography>
                 <Typography variant = "h6" style = {{margin: "0px auto"}}><em>Created By: {this.state.createdBy}</em></Typography>

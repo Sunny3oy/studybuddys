@@ -14,11 +14,14 @@ module.exports = (router) => {
     .post(QuestionAnswerController.getQuestions)
 
     router
-    .route('/sumbitAnswer') // function url used by frontend
-    .post(QuestionAnswerController.sumbitAnswer)
+    .route('/getSingleQuestion') // function url used by frontend
+    .post(QuestionAnswerController.getSingleQuestion)
+
+    router
+    .route('/submitAnswer') // function url used by frontend
+    .post(QuestionAnswerController.submitAnswer)
 
     router
     .route('/getReplies') // function url used by frontend
     .post(QuestionAnswerController.getReplies)
 }
-
