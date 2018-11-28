@@ -1,25 +1,34 @@
 language: node_js
 node_js:
-- '10'
+  - '10'
+
 cache:
   directories:
   - node_modules
+
 before_script:
-- npm install firebase-tools
-- npm install
+  - npm install firebase-tools
+  - npm install
+  - cd server
+  - npm install
+  - cd ..
+
 jobs:
   include:
   - stage: test
     name: Testing
     script:
-    - npm test
+      - npm test
   - stage: deploy
     name: Deploying to Firebase
     if: "(branch = master) AND (type NOT IN (pull_request))"
     script:
-    - npm run build
-    - firebase deploy --non-interactive --token $FIREBASE_TOKEN
-env:
-  global:
-  - secure: cyWNirSyLricD0gzVV7FJwTDwXWhm4x+NHQbGU7vVTq/eKin951QPt28i3PPMOo1OISBabz6/kc2DTV1gvIMGUufg38Dy0uhPBG5kbd8IV+PtdOBxtB5L3ALxLADKs/vXP0jbsgLdBQXIHOBjvQygPv7GXUjEvbeRQufx1Ty1M97lHMmqaDbANL/YmPc7coOrl9R9h7PUgb0Fd34OAt13s/DHIQqgFcrrc27+zv3lH68FEI0moa91BbZ2mOlhYdtA/on1C1HVog6qIhr50zuLh95+zmqbgrEkOFtf/8vx0gZwG2vT4KMp23QV5S9iZUk6rnhxWbirE7rs+hLwGogc0WHybqdu/1gqAsOeKzsFWq2icURRfB1owbHuy8Npjf4A6LbXVyt7ELGbUJVteHWqLugPdbr2T8zSQw7jid5AQShk2oQ3HZoGgy/PIkwhx05fuFM6dScGIbDDza5S/OEB88YKSQHZMWyId6VU4j4aBQP6u2ZSzbZ4H/nkx++q+mGpiWhtJwsRm2OOJPWEijjpS3erfLZWTPv54hb0nzBbPvqNSrPLZ4lzhTCMcTKNOgChJh9o2nFTwSxBAilttY0yfF8zB7A3aOk20k6NTdNCIECT2sUPK+aTYg3rRcWRP4U3a79riGtuyotG7uA3sQ/DvLIHEFdL4fGAeLexe0sY5Q=
-  - secure: W0bQkULlhQ7SSMxZKH/gbVDdGlfEdR2uGWRmowge4lubm/j4lkixJSPamMesveb+xGbpSeQuA5tThlqp6o2f8QvzvuhcJe4tyMzUdWHHbL3IPB1Rba52o+KT2yveHUfOXGsc51cnNA5B4xf7scSuuEct+T1fle/TCK6r9tWTVAvIGgCjbMMMlx2ko7KOUpKgtfmITA0JyuwpQoWFF4dxt8QvY34eBaL0AUDnnK80xa3I3JeheSbmC8cD6EHghslhjM8gy4GBiF89av7GEpjNg27UZh9QgZE1uN2QBZ5lSMSMr4EC4C8f52jBaeKkmbd9QvNC6gQWJlI/VgiTCCNM9pQoOiXzL2n+XxjYcpnoYAzxd1+RsinyVjNkR1UbqNRTodwM7GcVzJUHAuUYaqIsLXLUPenk2nyUgd8gEmV4y0jCYbXlbsyp14ZpSOPNa6YrqflxtIezYt8EJrFmZoNjRMoEM6mCSOcrVRp/m659+Q2yS4XFEYMpEFE7S2N6xJIh+xHn87Z/EkzQvcnR0tNEYNkBLSLU+9iNxgL1BAZHSLVOqWlU1G0NNKQV2FkUcqMSRGgT+ugFgNszxRhJLo2r0S8FeBJpZfVMCXpiJml8nb+yrosTWw31KUAvG9YJax2E7q7XaY/DJSekSruHyoO4vaY2tRgbLOp56c8zRP8OrHg=
+      - npm run build
+      - firebase deploy --non-interactive --token $FIREBASE_TOKEN
+  - stage: deployGAE
+    name: Deploying to GAE
+    if: "(branch = master) AND (type NOT IN (pull_request))"
+    deploy:
+      provider: gae
+      keyfile: "backend.json.enc"
+      project: "triple-bonito-221722"
