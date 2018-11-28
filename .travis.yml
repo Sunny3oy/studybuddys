@@ -11,7 +11,7 @@ before_script:
 - npm install
 - cd ..
 before_install:
-- openssl aes-256-cbc -K $encrypted_73a2f6f70abc_key
+- openssl aes-256-cbc -K $encrypted_73a2f6f70abc_key -iv $encrypted_73a2f6f70abc_iv
   -in studybuddys-64d5bf7f48d8.json.enc -out studybuddys-64d5bf7f48d8.json -d
 jobs:
   include:
