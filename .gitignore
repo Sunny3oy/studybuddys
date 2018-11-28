@@ -2,11 +2,8 @@
 
 # dependencies
 /node_modules
-<<<<<<< HEAD
 /server/backend.json
-=======
-/server/node_modules
->>>>>>> master
+backend.json.enc
 
 # testing
 /coverage
