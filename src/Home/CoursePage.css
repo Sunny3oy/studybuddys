@@ -5,10 +5,23 @@
 
 .Calendar{
     padding: 45px 70px;
-    display: flex;
+    display: block;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    
+    width: 10%;
 }
+
+.browserTitle{
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    font-family: 'Inconsolata', monospace;
+    font-size: 40px;
+  }
+
+  .nav {  
+    width: 100vw; 
+    z-index: 1 !important;
+    color:white;
+  }

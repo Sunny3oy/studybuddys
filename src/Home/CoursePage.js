@@ -207,13 +207,13 @@ class CoursePage extends PureComponent {
     render() {
         return (
 
-            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
-                <div>
-                    <div style = {{float: "right", display: "inline-block"}}>
-                        <span>{this.state.name}</span>
-                        <Button onClick={this.logout}>Logout</Button>
+            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "block"}}>
+                <div className = "nav">
+                 <Navbar/>
+                    <div className = "nav_b" >
+                    <span>{this.state.name}</span>
+                    <Button onClick={this.logout} style={{color:'white'}}>Logout</Button>
                     </div>
-                     <Navbar/>
                 </div>
                 {<Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>}
                     <Button
