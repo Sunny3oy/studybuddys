@@ -1,10 +1,8 @@
-import React, {Component,PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
-import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -19,12 +17,12 @@ class Browser extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-          school:'CTY01',
-          subject:'',
+          school:'',
+          selectedSubject:'',
           class:[],
           userClasses: [],
           loading: true,
-          newSubject:[],
+          allSubject:[],
         }
         this.handleChange = this.handleChange.bind(this);
         this.addCourseToUser = this.addCourseToUser.bind(this);
@@ -32,7 +30,6 @@ class Browser extends PureComponent {
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.getSubjects = this.getSubjects.bind(this);
         this.getSubjectsTwice = this.getSubjectsTwice.bind(this);
-        this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
     }
     state = {
         anchorEl: null,
@@ -43,13 +40,8 @@ class Browser extends PureComponent {
       // };
 
       handleClick(event) {
-        this.setState({userClasses: event.target.value})
+        this.getSubjects()
       }
-
-      handleMenuItemClick = (event, index) => {
-        this.setState({ school: event.value });
-        this.getSubjects();
-      };
 
       handleClose = () => {
         this.setState({ anchorEl: null });
@@ -59,11 +51,11 @@ class Browser extends PureComponent {
         this.setState({
           [name]: event.target.value,
         });
+        this.getSubjects()
       };
 
       componentDidMount(){
         this.checkLoggedIn();
-        this.getSubjects();
       }
 
       checkLoggedIn(){
@@ -74,18 +66,21 @@ class Browser extends PureComponent {
            }
         });
      }
-
+      // TODO: test this
       getCourseName(e){
-          console.log("Clicked");
+        console.log("===================== Inside of getCourseName() =====================")
+        console.log("college " + this.state.school)
+        console.log("selected " + this.state.selectedSubject)
           var info = { // JSON object to pass to the api call
-              schoolName: this.state.school,
-              subject: this.state.subject
+              collegeName: this.state.school,
+              subjectName: this.state.selectedSubject
           };
-          axios.post('https://triple-bonito-221722.appspot.com/api/getCourses', info)
+          axios.post('https://triple-bonito-221722.appspot.com/api/getSections', info)
           .then(response => {
-              console.log("Response: " + response.data.courseID);
-              this.setState({class : response.data});
-          })
+              this.setState({ class: response.data });
+              console.log(response)
+            }
+          )
           this.setState({loading: false});
       }
 
@@ -104,18 +99,19 @@ class Browser extends PureComponent {
       }
 
       getSubjects(){
+        console.log("===================== Inside of getSubjects() =====================")
         var schoolValue = this.state.school;
+        console.log("this.state.school: " + this.state.school)
         var info ={
           collegeName: schoolValue,
         }
         axios.post('https://triple-bonito-221722.appspot.com/api/getSubjects',info).then(response => {
           this.setState({
-            newSubject:response.data.subjects,
+            allSubject:response.data.subjects,
           })
-          console.log(response);
         })
         
-        console.log(this.state.newSubject);
+        console.log("this.state.allSubject: " + this.state.allSubject);
       }
       
       getSubjectsTwice(){
@@ -124,9 +120,9 @@ class Browser extends PureComponent {
       }
 
       render() {
-
-        console.log(this.state.class)
-        console.log(this.state.school)
+        console.log("===================== Inside of render() =====================")
+        console.log("this.state.class: " + this.state.class.courseID)
+        console.log("this.state.allSubject: " + this.state.allSubject)
         const schools = [
             {
               value: 'CTY01',
@@ -182,33 +178,28 @@ class Browser extends PureComponent {
             }
           ];
 
-          const subject = [
-            {
-                value: '',
-                label: '',
-            },
-            {
-              value: 'Art',
-              label: 'Art',
-            },
-            {
-              value: 'Bio',
-              label: 'Bio',
-            },
-            {
-              value: 'Csc',
-              label: 'Csc',
-            },
-            {
-              value: 'Eco',
-              label: 'Eco',
-            },
-          ];
-
-        console.log(this.state.school);
-        console.log(this.state.subject);
-        console.log(this.state.class);
-        console.log(this.state.userClasses);
+          // const subject = [
+          //   {
+          //       value: '',
+          //       label: '',
+          //   },
+          //   {
+          //     value: 'Art',
+          //     label: 'Art',
+          //   },
+          //   {
+          //     value: 'Bio',
+          //     label: 'Bio',
+          //   },
+          //   {
+          //     value: 'Csc',
+          //     label: 'Csc',
+          //   },
+          //   {
+          //     value: 'Eco',
+          //     label: 'Eco',
+          //   },
+          // ];
 
           let loading = (null)
           if (this.state.loading === false) {
@@ -218,17 +209,18 @@ class Browser extends PureComponent {
         return (
 
             <div className="browserTitle">
-            <div className="nav">
-             <Navbar />
-
-            </div>
-                <div className = "flexCenter">
-                    <h1
-                      style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}
-                      data-aos="fade-down"
-                      data-aos-easing="linear"
-                      data-aos-duration="400"> Select a Class
-                    </h1>
+              <div className="nav">
+                <Navbar />
+              </div>
+              <div className = "flexCenter">
+                  <h1
+                    style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}
+                    data-aos="fade-down"
+                    data-aos-easing="linear"
+                    data-aos-duration="400"
+                  > 
+                    Select a Class
+                  </h1>
 
 
                 <div style = {{height:'65vh'}}>
@@ -251,10 +243,9 @@ class Browser extends PureComponent {
                     >
                     {schools.map((option,key) => (
                       <MenuItem key={key} value={option.value}>
-                      <Button onClick = {this.getSubjects}>
-                        
-                          {option.label}
-                      </Button>
+                        {/* <Button onClick = {this.getSubjects}> */}
+                            {option.label}
+                        {/* </Button> */}
                       </MenuItem>
                     ))}
                     </Select>
@@ -262,84 +253,78 @@ class Browser extends PureComponent {
 
                 <br/>
                 <div className="flexCenter">
-                {console.log(this.state.newSubject)}
-                 {
+                  { // TODO: fix this
                     this.state.school !== ''?
-                      <TextField
-                        select
-                        label="Select"
-                        value={this.state.subject}
-                        onChange={this.handleChange('subject')}
-                        helperText="Please select your Subject"
-                        margin="normal"
-                        variant="outlined"
-                        data-aos="fade-left"
-                        data-aos-easing="linear"
-                        data-aos-duration="400"
+                      <Select
+                        value={this.state.selectedSubject}
+                        onChange={this.handleChange('selectedSubject')}
+                        style={{width:'100%'}}
                       >
-                
-                      {this.state.newSubject.map((option,key) => (
-                      <MenuItem key={key} value={option.value} onClick={event => this.handleMenuItemClick(event, key)}>
-                          {option}
-                      </MenuItem>
-                      
-                    ))}
-                     
-                       </TextField>
+                        {this.state.allSubject.map((option,key) => {
+                          return (
+                            <MenuItem 
+                              key={key} 
+                              value={option} 
+                            >
+                                {console.log(this.state.selectedSubject)}
+                                {option}
+                            </MenuItem>
+                          )
+                        })}
+                      </Select>
 
-                : null
-
-                 }
-                 </div>
-                 {this.state.subject !==''?
+                    : null
+                  }
+                </div>
+                  {this.state.selectedSubject !==''?
                     <Button 
-                        data-aos="fade-down"
-                        data-aos-easing="linear"
-                        data-aos-duration="400"
-                        onClick={(this.getCourseName)}
-                        type = 'submit'
-                        >
-                        Submit
+                      data-aos="fade-down"
+                      data-aos-easing="linear"
+                      data-aos-duration="400"
+                      onClick={(this.getCourseName)}
+                      type = 'submit'
+                    >
+                      Submit
                     </Button>:null
 
-                 }
-                 <br/>
+                  }
+                <br/>
 
-                 {
-                  this.state.class.courseID === undefined?
+                {
+                  this.state.class.sections === undefined?
                      loading :
                     <div className="flexRow" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
-                       <GridList  cols={3} padding={150} >
+                      <GridList  cols={3} padding={150} >
                        {console.log("Course list: " + this.state.class.courseID)}
-                         {this.state.class.courseID.map((data, key) => {
+                         {this.state.class.sections.map((data, key) => {
                           return(
 
-                              <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
-                                  <form key = {key}>
-                                    <CardContent>
-                                        
-                                        <Link to = {"/course/" + data}>
+                              <Card 
+                                key = {key} 
+                                value={data} 
+                                className ="flexRow" 
+                                style={{width:'250px',height:'250px',margin:'10px 10px'}}
+                              >
+                                <form key = {key}>
+                                  <CardContent>
+                                    <Link to = {"/course/" + data}>
+                                      <Typography variant ="headline">
+                                          {data}
+                                      </Typography >
+                                    </Link>
                                     <Typography variant ="headline">
-                                        {data}
+                                      <Button
+                                        onClick={(e)=>this.addCourseToUser(e)}
+                                        value={data}
+                                        type = "submit"
+                                        variant = "outlined"
+                                        style = {{marginTop:'15px'}}
+                                      >
+                                        Add Course
+                                      </Button>
                                     </Typography >
-                                </Link>
-                                          
-                                        
-                                        <Typography variant ="headline">
-
-                                          <Button
-                                            onClick={(e)=>this.addCourseToUser(e)}
-                                            value={data}
-                                            type = "submit"
-                                            variant = "outlined"
-                                            style = {{marginTop:'15px'}}
-                                          >
-                                            Add Course
-                                          </Button>
-
-                                        </Typography >
-                                    </CardContent>
-                                  </form>
+                                  </CardContent>
+                                </form>
                               </Card>
                             )
                           })}
@@ -348,9 +333,8 @@ class Browser extends PureComponent {
                     </div>
 
                   }
-                  </div>
+                </div>
               </div>
-
             </div>
         )
     }
