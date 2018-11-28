@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
-import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Navbar from "./Navbar";
@@ -13,20 +13,23 @@ import './Dashboard.css';
 import './Browser.css';
 import { Link } from 'react-router-dom';
 
-class Browser extends Component {
+class Browser extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
           school:'',
-          subject:'',
+          selectedSubject:'',
           class:[],
           userClasses: [],
           loading: true,
+          allSubject:[],
         }
         this.handleChange = this.handleChange.bind(this);
         this.addCourseToUser = this.addCourseToUser.bind(this);
         this.getCourseName = this.getCourseName.bind(this);
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
+        this.getSubjects = this.getSubjects.bind(this);
+        this.getSubjectsTwice = this.getSubjectsTwice.bind(this);
     }
     state = {
         anchorEl: null,
@@ -37,7 +40,7 @@ class Browser extends Component {
       // };
 
       handleClick(event) {
-        this.setState({userClasses: event.target.value})
+        this.getSubjects()
       }
 
       handleClose = () => {
@@ -48,6 +51,7 @@ class Browser extends Component {
         this.setState({
           [name]: event.target.value,
         });
+        this.getSubjects()
       };
 
       componentDidMount(){
@@ -62,18 +66,21 @@ class Browser extends Component {
            }
         });
      }
-
+      // TODO: test this
       getCourseName(e){
-          console.log("Clicked");
+        console.log("===================== Inside of getCourseName() =====================")
+        console.log("college " + this.state.school)
+        console.log("selected " + this.state.selectedSubject)
           var info = { // JSON object to pass to the api call
-              schoolName: this.state.school,
-              subject: this.state.subject
+              collegeName: this.state.school,
+              subjectName: this.state.selectedSubject
           };
-          axios.post('https://triple-bonito-221722.appspot.com/api/getCourses', info)
+          axios.post('https://triple-bonito-221722.appspot.com/api/getSections', info)
           .then(response => {
-              console.log("Response: " + response.data.courseID);
-              this.setState({class : response.data});
-          })
+              this.setState({ class: response.data });
+              console.log(response)
+            }
+          )
           this.setState({loading: false});
       }
 
@@ -91,30 +98,84 @@ class Browser extends Component {
          });
       }
 
-      render() {
+      getSubjects(){
+        console.log("===================== Inside of getSubjects() =====================")
+        var schoolValue = this.state.school;
+        console.log("this.state.school: " + this.state.school)
+        var info ={
+          collegeName: schoolValue,
+        }
+        axios.post('https://triple-bonito-221722.appspot.com/api/getSubjects',info).then(response => {
+          this.setState({
+            allSubject:response.data.subjects,
+          })
+        })
+        
+        console.log("this.state.allSubject: " + this.state.allSubject);
+      }
+      
+      getSubjectsTwice(){
+        this.getSubjects();
+        this.getSubjects();
+      }
 
-        console.log(this.state.class)
+      render() {
+        console.log("===================== Inside of render() =====================")
+        console.log("this.state.class: " + this.state.class.courseID)
+        console.log("this.state.allSubject: " + this.state.allSubject)
         const schools = [
             {
-                value: '',
-                label: '',
-            },
-            {
-              value: 'CUNY CCNY',
+              value: 'CTY01',
               label: 'The City College Of New York',
             },
             {
-              value: 'CUNY Baruch',
+              value: 'BAR01',
               label: 'Baruch College',
             },
             {
-              value: 'CUNY York',
-              label: 'York College',
+              value: 'BCC01',
+              label: 'Bronx Community College',
             },
             {
-              value: 'CUNY Queens',
+              value: 'BKL01',
+              label: 'Brooklyn College',
+            },
+            {
+              value: 'BMC01',
+              label: 'Borough of Manhattan Community College',
+            },
+            {
+              value: 'CSI01',
+              label: 'College of Staten Island',
+            },
+            {
+              value: 'HTR01',
+              label: 'Hunter College',
+            },
+            {
+              value: 'JJC01',
+              label: 'John Jay College of Criminal Justice',
+            },
+            {
+              value: 'LEH01',
+              label: 'Lehman College',
+            },
+            {
+              value: 'NYT01',
+              label: 'New York City College of Technology',
+            },
+            {
+              value: 'QCC01',
+              label: 'Queensborough Community College',
+            },
+            {
+              value: 'QNS01',
               label: 'Queens College',
             },
+            {
+              value: 'YRK01',
+              label: 'York College',
+            }
           ];
 
           // const subject = [
@@ -140,11 +201,6 @@ class Browser extends Component {
           //   },
           // ];
 
-        console.log(this.state.school);
-        console.log(this.state.subject);
-        console.log(this.state.class);
-        console.log(this.state.userClasses);
-
           let loading = (null)
           if (this.state.loading === false) {
             loading = (<h1>Loading...</h1>)
@@ -153,106 +209,122 @@ class Browser extends Component {
         return (
 
             <div className="browserTitle">
-             <Navbar />
-
-
-                <div className = "flexCenter">
-                    <h1
-                      style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}
-                      data-aos="fade-down"
-                      data-aos-easing="linear"
-                      data-aos-duration="400"> Select a Class
-                    </h1>
+              <div className="nav">
+                <Navbar />
+              </div>
+              <div className = "flexCenter">
+                  <h1
+                    style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}
+                    data-aos="fade-down"
+                    data-aos-easing="linear"
+                    data-aos-duration="400"
+                  > 
+                    Select a Class
+                  </h1>
 
 
                 <div style = {{height:'65vh'}}>
-                <TextField
+                {/* <TextField
                     select
                     label="Select"
                     value={this.state.school}
                     onChange={this.handleChange('school')}
+                    
                     helperText="Please select your school"
                     margin="normal"
                     variant="outlined"
                     data-aos="fade-down"
                     data-aos-easing="linear"
-                    data-aos-duration="400">
-
-                    {schools.map(option => (
-                      <MenuItem key={option.value} value={option.value}>
-                          {option.label}
+                    data-aos-duration="400"> */}
+                    <Select 
+                       onChange={this.handleChange('school')}
+                       value={this.state.school}
+                       style={{width:'100%'}}
+                    >
+                    {schools.map((option,key) => (
+                      <MenuItem key={key} value={option.value}>
+                        {/* <Button onClick = {this.getSubjects}> */}
+                            {option.label}
+                        {/* </Button> */}
                       </MenuItem>
                     ))}
-                </TextField>
+                    </Select>
+                {/* </TextField> */}
 
                 <br/>
                 <div className="flexCenter">
-                 {
+                  { // TODO: fix this
                     this.state.school !== ''?
-                      <TextField
-                        required
-                        label="Select"
-                        value={this.state.subject}
-                        onChange={this.handleChange('subject')}
-                        helperText="Please select your Subject"
-                        margin="normal"
-                        variant="outlined"
-                        data-aos="fade-left"
-                        data-aos-easing="linear"
-                        data-aos-duration="400"
+                      <Select
+                        value={this.state.selectedSubject}
+                        onChange={this.handleChange('selectedSubject')}
+                        style={{width:'100%'}}
                       >
-                      </TextField>
+                        {this.state.allSubject.map((option,key) => {
+                          return (
+                            <MenuItem 
+                              key={key} 
+                              value={option} 
+                            >
+                                {console.log(this.state.selectedSubject)}
+                                {option}
+                            </MenuItem>
+                          )
+                        })}
+                      </Select>
 
-                : null
-
-                 }
-                 </div>
-                 {this.state.school !==''?
-                    <Button
-                        onClick={(this.getCourseName)}
-                        type = 'submit'
-                        >
-                        Submit
+                    : null
+                  }
+                </div>
+                  {this.state.selectedSubject !==''?
+                    <Button 
+                      data-aos="fade-down"
+                      data-aos-easing="linear"
+                      data-aos-duration="400"
+                      onClick={(this.getCourseName)}
+                      type = 'submit'
+                    >
+                      Submit
                     </Button>:null
 
-                 }
-                 <br/>
+                  }
+                <br/>
 
-                 {
-                  this.state.class.courseID === undefined?
+                {
+                  this.state.class.sections === undefined?
                      loading :
                     <div className="flexRow" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500">
-                       <GridList  cols={3} padding={150} >
+                      <GridList  cols={3} padding={150} >
                        {console.log("Course list: " + this.state.class.courseID)}
-                         {this.state.class.courseID.map((data, key) => {
+                         {this.state.class.sections.map((data, key) => {
                           return(
 
-                              <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
-                                  <form key = {key}>
-                                    <CardContent>
-                                        
-                                        <Link to = {"/course/" + data}>
+                              <Card 
+                                key = {key} 
+                                value={data} 
+                                className ="flexRow" 
+                                style={{width:'250px',height:'250px',margin:'10px 10px'}}
+                              >
+                                <form key = {key}>
+                                  <CardContent>
+                                    <Link to = {"/course/" + data}>
+                                      <Typography variant ="headline">
+                                          {data}
+                                      </Typography >
+                                    </Link>
                                     <Typography variant ="headline">
-                                        {data}
+                                      <Button
+                                        onClick={(e)=>this.addCourseToUser(e)}
+                                        value={data}
+                                        type = "submit"
+                                        variant = "outlined"
+                                        style = {{marginTop:'15px'}}
+                                      >
+                                        Add Course
+                                      </Button>
                                     </Typography >
-                                </Link>
-                                          
-                                        
-                                        <Typography variant ="headline">
-
-                                          <Button
-                                            onClick={(e)=>this.addCourseToUser(e)}
-                                            value={data}
-                                            type = "submit"
-                                            variant = "outlined"
-                                            style = {{marginTop:'15px'}}
-                                          >
-                                            Add Course
-                                          </Button>
-
-                                        </Typography >
-                                    </CardContent>
-                                  </form>
+                                  </CardContent>
+                                </form>
                               </Card>
                             )
                           })}
@@ -261,9 +333,8 @@ class Browser extends Component {
                     </div>
 
                   }
-                  </div>
+                </div>
               </div>
-
             </div>
         )
     }

@@ -1,3 +1,6 @@
+const testFolder = './CUNY/';
+const fs = require('fs');
+
 module.exports = {
     getCourses: (req, res, next) => {
         var courses = [];
@@ -47,5 +50,36 @@ module.exports = {
             courses = ["Courses can not be found or will be added later."];
         }
         res.status(200).json({courseID : courses});
+    },
+    getSubjects: (req, res, next) => {
+      if(req.body.collegeName === undefined){
+         res.status(400).json({message : "Missing collegeName"});
+      }
+      else{
+         var college = req.body.collegeName;
+         var files = fs.readdirSync('./CUNY/' + college);
+         console.log(files);
+         res.status(200).json({subjects : files});
+      }
+    },
+
+    getSections: (req, res, next) => {
+      if(req.body.collegeName === undefined){
+         res.status(400).json({message : "Missing collegeName"});
+      }
+      else if(req.body.subjectName === undefined){
+         res.status(400).json({message : "Missing subjectName"});
+      }
+      else{
+         var college = req.body.collegeName;
+         var subject = req.body.subjectName;
+         var course = req.body.courseName;
+         var contents = fs.readFileSync('./CUNY/' + college + '/' + subject + '/courses.txt', 'utf8');
+         var results = contents.split("\n");
+         if(results[results.length - 1] == ""){
+            results.length = results.length - 1
+         }
+         res.status(200).json({subjects : results});
+      }
     }
 }
