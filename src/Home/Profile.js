@@ -1,5 +1,5 @@
 import './Profile.css';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
     TextField,
     Typography,
@@ -12,12 +12,14 @@ import axios from 'axios';
 import * as firebase from 'firebase';
 import "./Dashboard.css";
 
-class Profile extends Component{
+class Profile extends PureComponent{
     constructor(props) {
         super(props);
             this.state = {
                 userClass: "",
                 name: "",
+                password: "",
+                email: "",
                 facebook: "facebook-link",
                 linkedIn: "linkedIn-link",
                 instagram: "instagram-link",
@@ -26,11 +28,40 @@ class Profile extends Component{
                 dateAndTime: ["Dec 06, 2018 3:30PM", "Dec 06, 2018 4:30PM", "Dec 16 2018, 12:00PM"]
             }
         this.getUserName = this.getUserName.bind(this);
+        this.changeEmail = this.changeEmail.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.changePassword = this.changePassword.bind(this);
     }
 
     componentDidMount(){
         this.getUserName();
     }
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    changeEmail(e){
+      var user = firebase.auth().currentUser;
+      var email = this.state.email;
+      user.updateEmail(email).then(function() {
+         alert("Successful update");
+      }).catch(function(error) {
+         alert(error);
+      });
+   }
+
+   changePassword(e){
+      var user = firebase.auth().currentUser;
+      var password = this.state.pass
+      user.updatePassword(password).then(function() {
+         alert("Successful update");
+      }).catch(function(error) {
+         alert(error);
+      });
+   }
 
     getUserName(e){
       var page = this;
@@ -97,18 +128,19 @@ render(){
                         />
                         <TextField
                             className= ""
-                            type='password'
                             style = {{margin:'15px'}}
+                            onChange = {this.handleChange("pass")}
                             placeholder = "Change Password"
                         />
                         <TextField
                             className= ""
                             style = {{marginTop:'15px'}}
                             type='email'
+                            onChange = {this.handleChange("email")}
                             placeholder = "Change Email Address"
                         />
                     </form>
-                    <Button >Save changes</Button>
+                    <Button onClick = {this.changePassword}>Save changes</Button>
                 </Card>
 
                 <Card
