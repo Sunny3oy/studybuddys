@@ -20,10 +20,15 @@ jobs:
     script:
       - npm test
   - stage: deploy
-    name: Deploying to Firebase and GAE
+    name: Deploying to Firebase
     if: "(branch = master) AND (type NOT IN (pull_request))"
     script:
       - npm run build
       - firebase deploy --non-interactive --token $FIREBASE_TOKEN
-      - cd server
-      - gcloud app deploy
+  - stage: deployGAE
+    name: Deploying to GAE
+    if: "(branch = master) AND (type NOT IN (pull_request))"
+    deploy:
+      provider: gae
+      keyfile: "backend.json.enc"
+      project: "triple-bonito-221722"
