@@ -360,3 +360,21 @@ describe('getQuestion', function() {
         });
     });
 });
+
+describe('getUsersByCourseTaken', function() {
+    it('Should return a json.', function(done) {
+        chai.request(server)
+        .post('/api/getUsersByCourseTaken')
+        .send({
+            courseName : "CSC 10000-6XX"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('users');
+            res.body.questions.should.be.a('array');
+            console.log(res.body.users);
+            done();
+        });
+    });
+});
