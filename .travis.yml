@@ -28,6 +28,8 @@ jobs:
   - stage: deployGAE
     name: Deploying to GAE
     if: "(branch = master) AND (type NOT IN (pull_request))"
+    script: 
+      - cd server
     deploy:
       provider: gae
       keyfile: "backend.json.enc"
