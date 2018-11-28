@@ -3,8 +3,6 @@
 # dependencies
 /node_modules
 /server/node_modules
-/server/backend.json
-backend.json.enc
 
 # testing
 /coverage
@@ -19,6 +17,7 @@ backend.json.enc
 .env.development.local
 .env.test.local
 .env.production.local
+studybuddys-64d5bf7f48d8.json
 
 
 
