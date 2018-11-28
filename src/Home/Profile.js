@@ -39,22 +39,22 @@ class Profile extends Component{
             var info = {
                id: user.uid
             }
-            axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
+            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
             .then(response => {
                page.setState({name : response.data.name})
             })
          }
       });
    }
-    
+
 render(){
 
     return(
         <div>
 
             <Navbar/>
-            
-            <div 
+
+            <div
                 className = "flexCenter"
                 raised = {true}
                 data-aos="fade-in"
@@ -74,11 +74,11 @@ render(){
                     <Typography variant = "h4">Your Current Information:</Typography>
                     <br/>
                     <Typography variant = "h6">Name: {this.state.name}</Typography>
-                    <Typography variant = "h6">Facebook: {this.state.facebook}</Typography> 
-                    <Typography variant = "h6">LinkedIn: {this.state.linkedIn}</Typography>  
-                    <Typography variant = "h6">Instagram: {this.state.instagram}</Typography>   
+                    <Typography variant = "h6">Facebook: {this.state.facebook}</Typography>
+                    <Typography variant = "h6">LinkedIn: {this.state.linkedIn}</Typography>
+                    <Typography variant = "h6">Instagram: {this.state.instagram}</Typography>
                 </Card>
-                        
+
                 <Card
                     raised = {true}
                     className = "profile"
@@ -108,8 +108,8 @@ render(){
                             placeholder = "Change Email Address"
                         />
                     </form>
-                    <Button >Save changes</Button>  
-                </Card> 
+                    <Button >Save changes</Button>
+                </Card>
 
                 <Card
                     raised = {true}
@@ -144,13 +144,13 @@ render(){
                     data-aos="fade-in"
                     data-aos-easing="linear"
                     data-aos-duration="800"
-                > 
+                >
                     <Typography variant = "h4">Upcoming Events</Typography>
                     <br/>
                     {this.state.eventName.map((title, key) => {
                         return(
                             <Paper style = {{margin: "10px"}}>
-                                {title} 
+                                {title}
                                 <br/>
                                 {this.state.description[key]}
                                 <br/>
@@ -158,10 +158,10 @@ render(){
                             </Paper>
                         )
                     })}
-                </Card>    
+                </Card>
             </div>
         </div>
         )
-    }   
+    }
 }
 export default Profile;
