@@ -105,7 +105,7 @@ class Dashboard extends PureComponent {
         <h2><br/><br/><br/><br/>You Haven't Selected a Class Yet! <br/><br/> Select a Class by Clicking on the Left Tab </h2>);
     if(this.state.userClass !== ""){
         classes = (
-            <div className="flexRow">
+            <div className="flexCenter">
               <GridList style={{marginLeft:'50px'}} cols={4} padding={150} >
                {this.state.userClass.courseList.map((data,key) => {
                    return (
@@ -143,7 +143,7 @@ class Dashboard extends PureComponent {
             <Navbar/>
             
             <div className = "nav_b" >
-                <span>{this.state.name}</span>
+                <span><Link to = "/dashboard/profile">{this.state.name}</Link></span>
                 <Button onClick={this.logout} style={{color:'white'}}>Logout</Button>
             </div>
         </div>

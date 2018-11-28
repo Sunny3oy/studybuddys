@@ -228,10 +228,9 @@ class Browser extends Component {
                          {this.state.class.courseID.map((data, key) => {
                           return(
 
-                              <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
+                              <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px', margin:'10px 10px'}}>
                                   <form key = {key}>
                                     <CardContent>
-                                        
                                         <Link to = {"/course/" + data}>
                                     <Typography variant ="headline">
                                         {data}

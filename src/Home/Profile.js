@@ -1,17 +1,31 @@
 import './Profile.css';
 import React, { Component } from 'react';
-import { TextField } from '@material-ui/core';
+import {
+    TextField,
+    Typography,
+    Card,
+    Button,
+    Paper
+} from '@material-ui/core';
 import Navbar from "./Navbar";
-import Card from '@material-ui/core/Card';
 import axios from 'axios';
+import * as firebase from 'firebase';
+import "./Dashboard.css";
 
 class Profile extends Component{
     constructor(props) {
         super(props);
-         this.state = {
-                userClass: "", 
-         }
-         this.getUserName = this.getUserName.bind(this);
+            this.state = {
+                userClass: "",
+                name: "",
+                facebook: "facebook-link",
+                linkedIn: "linkedIn-link",
+                instagram: "instagram-link",
+                eventName: ["Study With Jenny", "Lunch At Cafe Amore", "Study for Paradigms Final"],
+                description: ["One on One Date", "Food is Important", "Kill me now"],
+                dateAndTime: ["Dec 06, 2018 3:30PM", "Dec 06, 2018 4:30PM", "Dec 16 2018, 12:00PM"]
+            }
+        this.getUserName = this.getUserName.bind(this);
     }
 
     componentDidMount(){
@@ -19,66 +33,134 @@ class Profile extends Component{
     }
 
     getUserName(e){
-        axios.get('http://localhost:3001/api/getUsername')
-        .then(response => {
-            this.setState({name : response.data.name})
-        })
-    }
+      var page = this;
+      firebase.auth().onAuthStateChanged(function(user) {
+         if (user) {
+            var info = {
+               id: user.uid
+            }
+            axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
+            .then(response => {
+               page.setState({name : response.data.name})
+            })
+         }
+      });
+   }
     
 render(){
 
     return(
-    <div className = "">
+        <div>
 
-        <Navbar/>
-        
-        <div className = "">
-            <h3>Profile settings</h3>
-            <p>Update your profile password and etc settings</p>
-            <Card
-                    raised = "true"
+            <Navbar/>
+            
+            <div 
+                className = "flexCenter"
+                raised = {true}
+                data-aos="fade-in"
+                data-aos-easing="linear"
+                data-aos-duration="800"
+            >
+                <Typography variant = "h3"><u>Profile</u></Typography>
+                <br/>
+                <Card
+                    raised = {true}
                     className = "profile"
-                    data-aos="fade-down"
+                    data-aos="fade-in"
                     data-aos-easing="linear"
-                    data-aos-duration="500">
+                    data-aos-duration="800"
+                >
 
-                <h4>Your Currrent Information:</h4>
-                
-
-                <span>Name:{this.state.name}</span>  
-            </Card>
-                    
-            <Card
-                    raised = "true"
-                    className = "profile1"
-                    data-aos="fade-down"
+                    <Typography variant = "h4">Your Current Information:</Typography>
+                    <br/>
+                    <Typography variant = "h6">Name: {this.state.name}</Typography>
+                    <Typography variant = "h6">Facebook: {this.state.facebook}</Typography> 
+                    <Typography variant = "h6">LinkedIn: {this.state.linkedIn}</Typography>  
+                    <Typography variant = "h6">Instagram: {this.state.instagram}</Typography>   
+                </Card>
+                        
+                <Card
+                    raised = {true}
+                    className = "profile"
+                    data-aos="fade-in"
                     data-aos-easing="linear"
-                    data-aos-duration="500">
-                    <h4>Change Information:</h4>
-            <form>
-                <TextField
-                    className = ""
-                    type='username'
-                    placeholder = "Change Username"
-                    style= {{margin:'15px'}}
-                />
-                <TextField
-                    className= ""
-                    type='password'
-                    style = {{margin:'15px'}}
-                    placeholder = "Change Password"
-                />
-                <TextField
-                    className= ""
-                    style = {{marginTop:'15px'}}
-                    type='email'
-                    placeholder = "Change Email Address"
-                />
-            </form>
-                <div class="btn btn-primary">Save changes</div>  
-            </Card>      
+                    data-aos-duration="800"
+                >
+                    <Typography variant = "h4">Update Information:</Typography>
+                    <br/>
+                    <form>
+                        <TextField
+                            className = ""
+                            type='username'
+                            placeholder = "Change Username"
+                            style= {{margin:'15px'}}
+                        />
+                        <TextField
+                            className= ""
+                            type='password'
+                            style = {{margin:'15px'}}
+                            placeholder = "Change Password"
+                        />
+                        <TextField
+                            className= ""
+                            style = {{marginTop:'15px'}}
+                            type='email'
+                            placeholder = "Change Email Address"
+                        />
+                    </form>
+                    <Button >Save changes</Button>  
+                </Card> 
+
+                <Card
+                    raised = {true}
+                    className = "profile"
+                    data-aos="fade-in"
+                    data-aos-easing="linear"
+                    data-aos-duration="800"
+                >
+                    <Typography variant = "h4">Social Media Accounts</Typography>
+                    <br/>
+                    <TextField
+                        type = "url"
+                        placeholder = "Facebook Link"
+                        style= {{margin:'15px'}}
+                    />
+                    <TextField
+                        type = "url"
+                        placeholder = "LinkedIn Link"
+                        style= {{margin:'15px'}}
+                    />
+                    <TextField
+                        type = "url"
+                        placeholder = "Instagram"
+                        style= {{margin:'15px'}}
+                    />
+                    <Button >Save changes</Button>
+                </Card>
+
+                <Card
+                    raised = {true}
+                    className = "profile"
+                    data-aos="fade-in"
+                    data-aos-easing="linear"
+                    data-aos-duration="800"
+                > 
+                    <Typography variant = "h4">Upcoming Events</Typography>
+                    <br/>
+                    {this.state.eventName.map((title, key) => {
+                        return(
+                            <Paper style = {{margin: "10px"}}>
+                                {title} 
+                                <br/>
+                                {this.state.description[key]}
+                                <br/>
+                                {this.state.dateAndTime[key]}
+                            </Paper>
+                        )
+                    })}
+                </Card>    
+            </div>
         </div>
-    </div>
         )
     }   
 }
