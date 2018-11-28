@@ -73,13 +73,12 @@ module.exports = {
       else{
          var college = req.body.collegeName;
          var subject = req.body.subjectName;
-         var course = req.body.courseName;
          var contents = fs.readFileSync('./CUNY/' + college + '/' + subject + '/courses.txt', 'utf8');
          var results = contents.split("\n");
          if(results[results.length - 1] == ""){
             results.length = results.length - 1
          }
-         res.status(200).json({subjects : results});
+         res.status(200).json({sections : results});
       }
     }
 }
