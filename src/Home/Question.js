@@ -80,7 +80,7 @@ class Question extends PureComponent {
             var info = {
                 id: user.uid
             }
-            axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
+            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
             .then(response => {
                 page.setState({name: response.data.name})
             })
@@ -98,7 +98,7 @@ class Question extends PureComponent {
                     replyText: reply,
                     questionID: questID,
                 }
-                axios.post('https://triple-bonito-221722.appspot.com/api/submitAnswer', info)
+                axios.post('https://studybuddys-223920.appspot.com/api/submitAnswer', info)
             }
         });
         this.getReplies(questID);
@@ -108,7 +108,7 @@ class Question extends PureComponent {
         var info = {
             questionID: ID,
         }
-        axios.post('https://triple-bonito-221722.appspot.com/api/getReplies', info)
+        axios.post('https://studybuddys-223920.appspot.com/api/getReplies', info)
         .then( response => {
             this.setState({
                 replies: response.data.replies,
@@ -121,7 +121,7 @@ class Question extends PureComponent {
             courseName: this.state.course,
             questionID: this.state.questID
         };
-        axios.post('https://triple-bonito-221722.appspot.com/api/getSingleQuestion', questID)
+        axios.post('https://studybuddys-223920.appspot.com/api/getSingleQuestion', questID)
             .then(response => {
                 console.log(response.data)
                 this.setState({

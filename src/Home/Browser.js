@@ -75,7 +75,7 @@ class Browser extends PureComponent {
               collegeName: this.state.school,
               subjectName: this.state.selectedSubject
           };
-          axios.post('https://triple-bonito-221722.appspot.com/api/getSections', info)
+          axios.post('https://studybuddys-223920.appspot.com/api/getSections', info)
           .then(response => {
               this.setState({ class: response.data });
               console.log(response)
@@ -93,7 +93,7 @@ class Browser extends PureComponent {
                   id: user.uid,
                   courseName: course
                };
-               axios.post('https://triple-bonito-221722.appspot.com/api/addCourses', info)
+               axios.post('https://studybuddys-223920.appspot.com/api/addCourses', info)
             }
          });
       }
@@ -105,7 +105,7 @@ class Browser extends PureComponent {
         var info ={
           collegeName: schoolValue,
         }
-        axios.post('https://triple-bonito-221722.appspot.com/api/getSubjects',info).then(response => {
+        axios.post('https://studybuddys-223920.appspot.com/api/getSubjects',info).then(response => {
           this.setState({
             allSubject:response.data.subjects,
           })
