@@ -73,7 +73,7 @@ class CoursePage extends PureComponent {
         var course = {
             courseName: courseNum
         };
-        axios.post('https://triple-bonito-221722.appspot.com/api/getQuestions', course)
+        axios.post('https://studybuddys-223920.appspot.com/api/getQuestions', course)
             .then(response => {
                 this.setState({
                     questID: response.data.ids,
@@ -92,7 +92,7 @@ class CoursePage extends PureComponent {
     //     }
     //     console.log("INFO IS")
     //     console.log(info)
-    //     axios.post('https://triple-bonito-221722.appspot.com/api/getReplies', info)
+    //     axios.post('https://studybuddys-223920.appspot.com/api/getReplies', info)
     //         .then(response => {
     //             console.log("yo")
     //             console.log(response.data.replies)
@@ -104,7 +104,7 @@ class CoursePage extends PureComponent {
         var info={
             questionID: ID,
         }
-        axios.post("https://triple-bonito-221722.appspot.com/api/getReplies",info)
+        axios.post("https://studybuddys-223920.appspot.com/api/getReplies",info)
         .then(response=>{
             console.log(ID);
             console.log(response.data.replies);
@@ -127,7 +127,7 @@ class CoursePage extends PureComponent {
                         replyText:replyT,
                         questionID : qID,
                     }
-                    axios.post('https://triple-bonito-221722.appspot.com/api/submitAnswer', info)
+                    axios.post('https://studybuddys-223920.appspot.com/api/submitAnswer', info)
                 }
                 });
                 console.log(this.state.replies);
@@ -145,7 +145,7 @@ class CoursePage extends PureComponent {
     //                 replyText: reply,
     //                 questionID: ,
     //             }
-    //             axios.post('https://triple-bonito-221722.appspot.com/api/submitAnswer', info)
+    //             axios.post('https://studybuddys-223920.appspot.com/api/submitAnswer', info)
     //         }
     //         });
     // }
@@ -154,7 +154,7 @@ class CoursePage extends PureComponent {
     //     var info = {
     //         questionID: ,
     //     }
-    //     axios.post('https://triple-bonito-221722.appspot.com/api/MsgetReplies', info)
+    //     axios.post('https://studybuddys-223920.appspot.com/api/MsgetReplies', info)
     //     .then( response => {
     //         this.setState({
     //             replies: response.data.replies
@@ -169,7 +169,7 @@ class CoursePage extends PureComponent {
             var info = {
                 id: user.uid
             }
-            axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
+            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
             .then(response => {
                 page.setState({name: response.data.name})
             })
@@ -187,7 +187,7 @@ class CoursePage extends PureComponent {
                     courseName: course,
                     userQuestion: newQuestion
                 };
-                axios.post('https://triple-bonito-221722.appspot.com/api/createQuestion', question)
+                axios.post('https://studybuddys-223920.appspot.com/api/createQuestion', question)
                 console.log("course is " + course)
                 console.log("question is: " + newQuestion)
                 console.log(question)

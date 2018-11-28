@@ -52,7 +52,7 @@ class Dashboard extends PureComponent {
             var info = {
                id: user.uid
             }
-            axios.post('https://triple-bonito-221722.appspot.com/api/getUsername', info)
+            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
             .then(response => {
                page.setState({name : response.data.name})
             })
@@ -67,7 +67,7 @@ class Dashboard extends PureComponent {
             var info = {
                id: user.uid
             }
-            axios.post('https://triple-bonito-221722.appspot.com/api/getUserCourses', info).then(response => {
+            axios.post('https://studybuddys-223920.appspot.com/api/getUserCourses', info).then(response => {
                console.log("res is: " + response.data.courseList[0]);
                if(response.data.courseList[0] === undefined) {
                   page.setState({userClass: ""})
@@ -91,7 +91,7 @@ class Dashboard extends PureComponent {
                id: user.uid,
                courseName: course
             };
-            axios.post('https://triple-bonito-221722.appspot.com/api/deleteUserCourses', info).then(
+            axios.post('https://studybuddys-223920.appspot.com/api/deleteUserCourses', info).then(
                page.getUserCourses
             )
          }
