@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import './Dashboard.css';
 import Button from '@material-ui/core/Button';
 import axios from 'axios'; // import axios library
-import Navbar from "./Navbar";
+// import Navbar from "./Navbar";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -17,21 +17,21 @@ class Dashboard extends PureComponent {
         name: "",
          userClass: "",
       }
-      this.logout = this.logout.bind(this);
-      this.getUserName = this.getUserName.bind(this);
+    //   this.logout = this.logout.bind(this);
+    //   this.getUserName = this.getUserName.bind(this);
       this.getUserCourses = this.getUserCourses.bind(this);
       this.deleteUserCourses = this.deleteUserCourses.bind(this);
       this.checkLoggedIn = this.checkLoggedIn.bind(this);
    }
 
-   logout(e){
-      e.preventDefault();
-      firebase.auth().signOut();
-      this.props.history.push('/');
-   }
+//    logout(e){
+//       e.preventDefault();
+//       firebase.auth().signOut();
+//       this.props.history.push('/');
+//    }
 
    componentDidMount() {
-      this.getUserName();
+    //   this.getUserName();
       this.getUserCourses();
       this.checkLoggedIn();
    }
@@ -45,20 +45,20 @@ class Dashboard extends PureComponent {
      });
   }
 
-   getUserName(e){
-      var page = this;
-      firebase.auth().onAuthStateChanged(function(user) {
-         if (user) {
-            var info = {
-               id: user.uid
-            }
-            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
-            .then(response => {
-               page.setState({name : response.data.name})
-            })
-         }
-      });
-   }
+//    getUserName(e){
+//       var page = this;
+//       firebase.auth().onAuthStateChanged(function(user) {
+//          if (user) {
+//             var info = {
+//                id: user.uid
+//             }
+//             axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+//             .then(response => {
+//                page.setState({name : response.data.name})
+//             })
+//          }
+//       });
+//    }
 
    getUserCourses(){
       var page = this;
@@ -137,14 +137,14 @@ class Dashboard extends PureComponent {
     return (
         
       <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500" className="browserTitle">
-        <div className = "nav">
+        {/* <div className = "nav">
             <Navbar/>
             
             <div className = "nav_b" >
                 <span>{this.state.name}</span>
                 <Button onClick={this.logout} style={{color:'white'}}>Logout</Button>
             </div>
-        </div>
+        </div> */}
        
         <h1 className = "dashSec"> My Courses </h1>
 

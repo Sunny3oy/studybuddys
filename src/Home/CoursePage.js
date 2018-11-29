@@ -8,7 +8,7 @@ import {
 import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
-import Navbar from "./Navbar";
+// import Navbar from "./Navbar";
 // import Calendar from "./Calendar2";
 import { Link } from 'react-router-dom';
 // import Calendar from 'rc-calendar';
@@ -33,8 +33,8 @@ class CoursePage extends PureComponent {
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createQuestion = this.createQuestion.bind(this);
-        this.logout = this.logout.bind(this);
-        this.getUserName = this.getUserName.bind(this);
+        // this.logout = this.logout.bind(this);
+        // this.getUserName = this.getUserName.bind(this);
         this.getQuestions = this.getQuestions.bind(this);
         this.openCalendar = this.openCalendar.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
@@ -44,7 +44,7 @@ class CoursePage extends PureComponent {
         const { courseName } = this.props.match.params
         fetch(`/courses/${courseName}`).then(this.setState({course : courseName}));
         this.getQuestions(courseName);
-        this.getUserName();
+        // this.getUserName();
 
     }
 
@@ -63,11 +63,11 @@ class CoursePage extends PureComponent {
         });
     };
 
-    logout(e){
-        e.preventDefault();
-        firebase.auth().signOut();
-        this.props.history.push('/');
-    }
+    // logout(e){
+    //     e.preventDefault();
+    //     firebase.auth().signOut();
+    //     this.props.history.push('/');
+    // }
 
     getQuestions(courseNum) {
         var course = {
@@ -162,20 +162,20 @@ class CoursePage extends PureComponent {
     //     })
     // }
 
-    getUserName(e){
-        var page = this;
-        firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            var info = {
-                id: user.uid
-            }
-            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
-            .then(response => {
-                page.setState({name: response.data.name})
-            })
-        }
-        });
-    }
+    // getUserName(e){
+    //     var page = this;
+    //     firebase.auth().onAuthStateChanged(function(user) {
+    //     if (user) {
+    //         var info = {
+    //             id: user.uid
+    //         }
+    //         axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+    //         .then(response => {
+    //             page.setState({name: response.data.name})
+    //         })
+    //     }
+    //     });
+    // }
 
     createQuestion() {
         var course = this.state.course;
@@ -207,13 +207,13 @@ class CoursePage extends PureComponent {
         return (
 
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
-                <div>
+                {/* <div>
                     <div style = {{float: "right", display: "inline-block"}}>
                         <span>{this.state.name}</span>
                         <Button onClick={this.logout}>Logout</Button>
                     </div>
                      <Navbar/>
-                </div>
+                </div> */}
                 {<Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>}
                     {/* <Button
                         className="Calendar"
