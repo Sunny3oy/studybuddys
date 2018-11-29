@@ -46,6 +46,13 @@ module.exports = {
          //ref is the path for uid
          var ref = firebase.database().ref("users/" + req.body.id + "/courseList");
          ref.push(course);
+
+         //makes a new ref to store users that will be taking this course
+         var newref = firebase.database().ref("CoursesTakenByUser/" + req.body.courseName);
+         //pushes the user's uid into here, this mean user has added this course into their course list
+         //making a new ref here makes it more easy to grab all the users that has this course in their courselist
+         newref.push(req.body.id);
+
          res.status(200).json({message: "course added"});
       }
     },
@@ -80,14 +87,41 @@ module.exports = {
       else{
          var course = req.body.courseName;
          var ref = firebase.database().ref("users/" + req.body.id + "/courseList");
+         var newref = firebase.database().ref("CoursesTakenByUser/" + req.body.courseName);
          ref.once("value", function(snapshot){
             snapshot.forEach(function (childsnap) {
                if (childsnap.val() === course){
                   ref.child(childsnap.key).remove();
                }
             });
+            newref.once("value", function(snapshot){
+            snapshot.forEach(function (childsnap) {
+                console.log(childsnap.val());
+               if (childsnap.val() === req.body.id){
+                  newref.child(childsnap.key).remove();
+               }
+            });
          });
+         });
+
          res.status(200).json({message: "course deleted"});
       }
-   }
+   },
+    getUsersByCourseTaken: (req, res, next) => {
+      if(req.body.courseName === undefined){
+         res.status(400).json({message: "Missing course name"});
+      }
+      else{
+          var users = []
+          var ref = firebase.database().ref("CoursesTakenByUser/" + req.body.courseName);
+          ref.once("value", function (snapshot){
+              console.log(snapshot.val())
+              snapshot.forEach(function (childsnap) {
+                  users.push(childsnap.val());
+              });
+             res.status(200).json({users: users});
+          });
+      }
+
+    }
 }
