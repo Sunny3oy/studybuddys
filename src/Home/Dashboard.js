@@ -68,7 +68,6 @@ class Dashboard extends PureComponent {
                id: user.uid
             }
             axios.post('https://studybuddys-223920.appspot.com/api/getUserCourses', info).then(response => {
-               console.log("res is: " + response.data.courseList[0]);
                if(response.data.courseList[0] === undefined) {
                   page.setState({userClass: ""})
                } else {
@@ -99,7 +98,6 @@ class Dashboard extends PureComponent {
    }
 
   render() {
-        console.log(this.state.userClass);
 
     let classes = (
         <h2><br/><br/><br/><br/>You Haven't Selected a Class Yet! <br/><br/> Select a Class by Clicking on the Left Tab </h2>);
