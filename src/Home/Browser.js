@@ -8,7 +8,7 @@ import {
   Card,
   CardContent,
 } from '@material-ui/core';
-import Navbar from "./Navbar";
+// import Navbar from "./Navbar";
 import axios from 'axios';
 import * as firebase from 'firebase';
 import './Dashboard.css';
@@ -154,9 +154,9 @@ class Browser extends PureComponent {
         return (
 
             <div className="browserTitle">
-              <div className="nav">
+              {/* <div className="nav">
                 <Navbar />
-              </div>
+              </div> */}
               <div className = "flexCenter">
                   <h1
                     style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}
