@@ -23,7 +23,7 @@ module.exports = {
          var name = "";
          var ref = firebase.database().ref("MCourseQuestions/" + courseName).push();
          var nameRef = firebase.database().ref("users/" + req.body.id + "/name");
-         nameRef.on("value", function(snapshot) {
+         nameRef.once("value", function(snapshot) {
             ref.set
             ({"question" : question,
             "userID": req.body.id,
@@ -101,7 +101,7 @@ module.exports = {
          var name = "";
          var ref = firebase.database().ref("MCourseReplies/" + req.body.questionID);
          var nameRef = firebase.database().ref("users/" + req.body.id + "/name");
-         nameRef.on("value", function(snapshot) {
+         nameRef.once("value", function(snapshot) {
             ref.push
             ({"reply" : reply,
             "userID": req.body.id,
