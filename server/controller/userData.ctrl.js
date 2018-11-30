@@ -10,7 +10,7 @@ module.exports = {
       else{
          //we want to get data in the table users based on the uid
          var ref = firebase.database().ref("users/" + req.body.id + "/name");
-         ref.on("value", function(snapshot) {
+         ref.once("value", function(snapshot) {
             res.status(200).json({name : snapshot.val()});
          }, function (errorObject) {
             res.status(400).json({message: errorObject});
@@ -25,7 +25,7 @@ module.exports = {
       else{
          //we want to get data in the table users based on the uid
          var ref = firebase.database().ref("users/" + req.body.id + "/email");
-         ref.on("value", function(snapshot) {
+         ref.once("value", function(snapshot) {
             res.status(200).json({email : snapshot.val()})
          }, function (errorObject) {
             res.status(400).json({message: errorObject});
@@ -45,7 +45,15 @@ module.exports = {
          var course = req.body.courseName;
          //ref is the path for uid
          var ref = firebase.database().ref("users/" + req.body.id + "/courseList");
-         ref.push(course);
+         ref.once("value", function(snapshot){
+             var found = false;
+             snapshot.forEach(function(data) {
+                 if(data.val() == course){
+                     found = true;
+                 }
+             });
+             if(!found) ref.push(course);
+         });
 
          //makes a new ref to store users that will be taking this course
          var newref = firebase.database().ref("CoursesTakenByUser/" + req.body.courseName);
