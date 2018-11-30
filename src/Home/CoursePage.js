@@ -10,9 +10,7 @@ import axios from 'axios';
 import * as firebase from 'firebase';
 // import Calendar from "./Calendar2";
 import { Link } from 'react-router-dom';
-// import Calendar from 'rc-calendar';
-// import LuxonUtils from '@date-io/luxon';
-// import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+import CalendarModal from './MeetUp/CalendarModal'
 
 class CoursePage extends PureComponent {
     constructor(props) {
@@ -134,21 +132,19 @@ class CoursePage extends PureComponent {
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
 
                 <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
-                    {/* <Button
+                    <Button
                         className="Calendar"
                         type="submit"
                         onClick={this.openCalendar}>
                         Meet Up
                     </Button>
-                {
-                    this.state.calendarIsOpen
-                    ?
-                    <MuiPickersUtilsProvider
-                        utils={LuxonUtils}>
-                        <Calendar />
-                    </MuiPickersUtilsProvider>
-                    : null
-                } */}
+                   <CalendarModal
+                    isOpen={this.state.calendarIsOpen}
+                    handleClose={this.openCalendar}
+                   >
+
+                   </CalendarModal>
+                
                 <div className = "flexCenter">
                     <Typography gutterBottom = {true} variant = "h3">
                         <u>Questions</u>:

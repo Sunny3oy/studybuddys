@@ -43,39 +43,39 @@ class Profile extends PureComponent{
     };
 
     changeEmail(e){
-      var user = firebase.auth().currentUser;
-      var email = this.state.email;
-      user.updateEmail(email).then(function() {
-         alert("Successful update");
-      }).catch(function(error) {
-         alert(error);
-      });
-   }
+        var user = firebase.auth().currentUser;
+        var email = this.state.email;
+        user.updateEmail(email).then(function() {
+            alert("Successful update");
+        }).catch(function(error) {
+            alert(error);
+        });
+    }
 
    changePassword(e){
-      var user = firebase.auth().currentUser;
-      var password = this.state.pass
-      user.updatePassword(password).then(function() {
-         alert("Successful update");
-      }).catch(function(error) {
-         alert(error);
-      });
-   }
+        var user = firebase.auth().currentUser;
+        var password = this.state.pass
+        user.updatePassword(password).then(function() {
+            alert("Successful update");
+        }).catch(function(error) {
+            alert(error);
+        });
+    }
 
     getUserName(e){
-      var page = this;
-      firebase.auth().onAuthStateChanged(function(user) {
-         if (user) {
-            var info = {
-               id: user.uid
+        var page = this;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var info = {
+                id: user.uid
+                }
+                axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+                .then(response => {
+                page.setState({name : response.data.name})
+                })
             }
-            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
-            .then(response => {
-               page.setState({name : response.data.name})
-            })
-         }
-      });
-   }
+        });
+    }
 
     render(){
 

@@ -133,7 +133,7 @@ class Question extends PureComponent {
                         )
                     })}
                     <TextField 
-                        variant = "filled" 
+                        variant = "outlined" 
                         multiline = {true} 
                         label = "Answer" 
                         style = {{marginTop: "20px", width: "80%"}}

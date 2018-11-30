@@ -12,6 +12,7 @@ import CoursePage from './Home/CoursePage';
 import Question from './Home/Question';
 import Navbar from './Home/Navbar';
 import axios from 'axios';
+import "./Home/Dashboard.css";
 
 
 class App extends Component {
@@ -22,7 +23,6 @@ class App extends Component {
       name: "",
     }
    this.authListener = this.authListener.bind(this);
-  //  this.checkLoggedIn = this.checkLoggedIn.bind(this);
    this.logout = this.logout.bind(this);
    this.getUserName = this.getUserName.bind(this);
  }
@@ -39,18 +39,6 @@ class App extends Component {
       }
     });
   }
-
-  // checkLoggedIn(){
-  //   var prop = this;
-  //   firebase.auth().onAuthStateChanged(function(user) {
-  //     if (!user) {
-  //       prop.setState({loggedIn: false});
-  //     }
-  //   });
-  //   if(this.state.loggedIn === true) {
-  //     this.getUserName();
-  //   }
-  // }
 
   getUserName(e){
       var page = this;
@@ -88,10 +76,23 @@ class App extends Component {
           <div className = "App">
             <div className = "nav">
               <Navbar/>
-              
-              <div className = "nav_b" >
-                  <span><Link to = "/dashboard/profile">{this.state.name}</Link></span>
-                  <Button onClick={this.logout} style={{color:'white'}}>Logout</Button>
+              <div className = "flexRow" style = {{marginLeft: "auto"}}>
+                <span 
+                  style = {{fontSize: "22px", marginRight: "10px"}}
+                >
+                  <Link 
+                    to = "/dashboard/profile" 
+                    style = {{color: "white"}}
+                  >
+                    {this.state.name}
+                  </Link>
+                </span>
+                <Button 
+                  onClick={this.logout} 
+                  style = {{color:'white', fontSize: "17px"}}
+                >
+                  Logout
+                </Button>
               </div>
             </div>
             <Route path= "/dashboard" exact component = { Dashboard } />

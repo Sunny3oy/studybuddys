@@ -4,9 +4,11 @@
 const userData = require('./userData')
 const courseData = require('./courseData')
 const QuestionAnswer = require('./QuestionAnswer')
+const meetUp = require('./meetUp')
 
 module.exports = (router) => {
     userData(router)
     courseData(router)
     QuestionAnswer(router)
+    meetUp(router)
 }
