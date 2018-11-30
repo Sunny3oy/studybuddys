@@ -65,6 +65,72 @@ module.exports = {
       }
     },
 
+    addSocialMedia: (req, res, next) => {
+      if(req.body.id === undefined){
+         res.status(400).json({message: "Missing user ID"});
+      }
+      else if(req.body.url === undefined){
+         res.status(400).json({message: "Missing url"});
+      }
+      else{
+         //Url is what is being passed in from the frontend
+         var url = req.body.url;
+         //ref is the path for uid
+         var ref = firebase.database().ref("users/" + req.body.id + "/socialMedia");
+         ref.once("value", function(snapshot){
+             var found = false;
+             snapshot.forEach(function(data) {
+                 if(data.val() == url){
+                     found = true;
+                 }
+             });
+             if(!found) ref.push(url);
+         });
+         res.status(200).json({message: "Social media link added"});
+      }
+    },
+
+    deleteSocialMedia: (req, res, next) => {
+      if(req.body.id === undefined){
+         res.status(400).json({message: "Missing user ID"});
+      }
+      else if(req.body.url === undefined){
+         res.status(400).json({message: "Missing url"});
+      }
+      else{
+         var url = req.body.url;
+         var ref = firebase.database().ref("users/" + req.body.id + "/socialMedia");
+         ref.once("value", function(snapshot){
+            snapshot.forEach(function (childsnap) {
+               if (childsnap.val() === url){
+                  ref.child(childsnap.key).remove();
+               }
+            });
+         });
+         res.status(200).json({message: "url deleted"});
+      }
+   },
+
+   getSocialMedia: (req, res, next) => {
+     if(req.body.id === undefined){
+        res.status(400).json({message: "Missing user ID"});
+     }
+     else{
+        //we want to get data in the table users based on the uid
+        var ref = firebase.database().ref("users/" + req.body.id + "/socialMedia");
+        var urls = [];
+        ref.once("value", function(snapshot) {
+           var list = snapshot.val();
+           for (var key in list) {
+              urls.push(list[key]);
+           }
+           res.status(200).json({"urlList": urls});
+        }, function (errorObject) {
+           res.status(400).json({message: errorObject.code});
+        });
+     }
+   },
+
     getUserCourses: (req, res, next) => {
       if(req.body.id === undefined){
          res.status(400).json({message: "Missing user ID"});

@@ -58,7 +58,6 @@ module.exports = {
       else{
          var college = req.body.collegeName;
          var files = fs.readdirSync('./CUNY/' + college);
-         console.log(files);
          res.status(200).json({subjects : files});
       }
     },

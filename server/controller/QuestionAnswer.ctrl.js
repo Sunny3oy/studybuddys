@@ -1,6 +1,30 @@
 const firebase = require('firebase');
 
+var crypto = require('crypto'),
+    algorithm = 'aes-256-ctr',
+    password = 'd6F3Efeq';
+
+function encrypt(text){
+  var cipher = crypto.createCipher(algorithm,password)
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
+
+function decrypt(text){
+  var decipher = crypto.createDecipher(algorithm,password)
+  var dec = decipher.update(text,'hex','utf8')
+  dec += decipher.final('utf8');
+  return dec;
+}
+
 module.exports = {
+
+    helloWorld: (req, res, next) =>{
+        var text = encrypt("Hello World");
+        console.log(text)
+        res.status(200).json({message: decrypt(text)});
+    },
    //Pre: user is logged in.
    // this will take in the current course and question
 
