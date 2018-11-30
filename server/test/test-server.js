@@ -51,7 +51,6 @@ describe('getUsername', function() {
          res.should.be.json;
          res.body.should.have.property('courseList');
          res.body.courseList.should.be.a('array');
-         console.log(res.body.courseList);
          done();
       });
    });
@@ -87,6 +86,53 @@ describe('getUsername', function() {
         done();
      });
   });
+
+  it('should return an array with the list of links for the users social media', function(done) {
+     chai.request(server)
+     .post('/api/getSocialMedia')
+     .send({
+        id : "yopRBY8GtqNRCTbQnvS3bQCMD413"
+     })
+     .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.have.property('urlList');
+        res.body.urlList.should.be.a('array');
+        done();
+     });
+  });
+
+  it('should add a url to the array and should return a success message', function(done) {
+     chai.request(server)
+     .post('/api/addSocialMedia')
+     .send({
+        id : "yopRBY8GtqNRCTbQnvS3bQCMD413",
+        url : "https://www.github.com"
+     })
+     .end(function(err, res){
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.have.property('message');
+        res.body.message.should.be.a('string');
+        done();
+     });
+ });
+
+ it('should delete an url and should return a success message', function(done) {
+    chai.request(server)
+    .post('/api/deleteSocialMedia')
+    .send({
+       id : "yopRBY8GtqNRCTbQnvS3bQCMD413",
+       url : "https://www.github.com"
+    })
+    .end(function(err, res){
+       res.should.have.status(200);
+       res.should.be.json;
+       res.body.should.have.property('message');
+       res.body.message.should.be.a('string');
+       done();
+    });
+ });
 
    it('should return a list of subjects available at CCNY', function(done) {
       chai.request(server)
