@@ -19,7 +19,6 @@ class SignUp extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.createUser = this.createUser.bind(this);
-        this.checkLoggedIn = this.checkLoggedIn.bind(this);
     }
 
     handleChange = name => event => {
