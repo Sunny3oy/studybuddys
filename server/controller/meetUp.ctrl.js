@@ -19,7 +19,7 @@ module.exports = {
         var courseName = req.body.courseName;
 
 
-        var ref = firebase.database().ref("meetUps/" + hookupsId);
+        var ref = firebase.database().ref("meetUps/" + hookupsId).push();
 
             ref.push({
                 "questionId": ref.key,
@@ -30,7 +30,6 @@ module.exports = {
                 "details":details
             });
             res.status(200).json({message: "meetup added"});
-
 
     },
     getMeetUp: (req, res, next) => {
@@ -46,12 +45,17 @@ module.exports = {
 
         ref.once("value", function(snapshot){
             snapshot.forEach(function (childsnap) {
-               questionId.push(childsnap.val().questionId);
-               courseName.push(childsnap.val().courseName);
-               id.push(childsnap.val().id);
-               date.push(childsnap.val().date);
-               time.push(childsnap.val().time);
-               details.push(childsnap.val().details);
+                var list = childsnap.val();
+               for (var key in list) {
+               console.log(list[key].courseName);
+               questionId.push(list[key].questionId);
+               courseName.push(list[key].courseName);
+               id.push(list[key].id);
+               date.push(list[key].date);
+               time.push(list[key].time);
+               details.push(list[key].details);
+            }
+
             });
             res.status(200).json({
                 "questionId":questionId,
@@ -62,6 +66,17 @@ module.exports = {
                 "details":details
             });
          });
+
+    },
+    deleteMeetup: (req, res, next) => {
+        var questionId = req.body.questionId;
+        var id = req.body.id;
+
+        var ref = firebase.database().ref("meetUps/" + req.body.id + "/" + questionId);
+        ref.remove()
+
+
+
 
     }
 }

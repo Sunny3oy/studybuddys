@@ -6,7 +6,11 @@ module.exports = (router) => {
     .post(userDataController.createMeetUp) // function type [GET PUSH DELETE] and reference
 
     router
-    .route('/getUseremail')
+    .route('/getMeetUp')
     .post(userDataController.getMeetUp)
+
+    router
+    .route('/deleteMeetup')
+    .post(userDataController.deleteMeetup)
 
 }
