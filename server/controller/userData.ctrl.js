@@ -45,7 +45,15 @@ module.exports = {
          var course = req.body.courseName;
          //ref is the path for uid
          var ref = firebase.database().ref("users/" + req.body.id + "/courseList");
-         ref.push(course);
+         ref.once("value", function(snapshot){
+             var found = false;
+             snapshot.forEach(function(data) {
+                 if(data.val() == course){
+                     found = true;
+                 }
+             });
+             if(!found) ref.push(course);
+         });
 
          //makes a new ref to store users that will be taking this course
          var newref = firebase.database().ref("CoursesTakenByUser/" + req.body.courseName);
