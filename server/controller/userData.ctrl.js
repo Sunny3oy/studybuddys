@@ -10,7 +10,7 @@ module.exports = {
       else{
          //we want to get data in the table users based on the uid
          var ref = firebase.database().ref("users/" + req.body.id + "/name");
-         ref.on("value", function(snapshot) {
+         ref.once("value", function(snapshot) {
             res.status(200).json({name : snapshot.val()});
          }, function (errorObject) {
             res.status(400).json({message: errorObject});
@@ -25,7 +25,7 @@ module.exports = {
       else{
          //we want to get data in the table users based on the uid
          var ref = firebase.database().ref("users/" + req.body.id + "/email");
-         ref.on("value", function(snapshot) {
+         ref.once("value", function(snapshot) {
             res.status(200).json({email : snapshot.val()})
          }, function (errorObject) {
             res.status(400).json({message: errorObject});
