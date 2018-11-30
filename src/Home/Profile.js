@@ -23,7 +23,7 @@ class Profile extends PureComponent{
                 linkedIn: "linkedIn-link",
                 instagram: "instagram-link",
                 eventName: ["Study With Jenny", "Lunch At Cafe Amore", "Study for Paradigms Final"],
-                description: ["One on One Date", "Food is Important", "Kill me now"],
+                description: ["One on One Date", "Food is Important", "Kill me now","Dec 16 2018, 12:00PM"],
                 dateAndTime: ["Dec 06, 2018 3:30PM", "Dec 06, 2018 4:30PM", "Dec 16 2018, 12:00PM"]
             }
         this.getUserName = this.getUserName.bind(this);

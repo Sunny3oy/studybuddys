@@ -16,12 +16,13 @@
 }
 
 .event {
-    position: relative;
-    overflow: scroll;
     margin: 10px;
-    font-size: 10px;
     text-align: left;
-    border-radius: 20px/50px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction:column;
 }
 
 .social_b{
@@ -31,3 +32,22 @@
     height: 110px;
     
 }
+
+.flexCenter{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction:column;
+  }
+  
+  .flexRow{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction:row; 
+    font-family: 'Inconsolata', monospace;
+    margin-left:7%;
+  }
+  
