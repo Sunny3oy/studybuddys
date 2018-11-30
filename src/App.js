@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter,Route,Redirect } from 'react-router-dom';
+import { BrowserRouter,Route,Redirect,Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Dashboard from './Home/Dashboard';
 import Home from './Home/Home';
@@ -90,7 +90,7 @@ class App extends Component {
               <Navbar/>
               
               <div className = "nav_b" >
-                  <span>{this.state.name}</span>
+                  <span><Link to = "/dashboard/profile">{this.state.name}</Link></span>
                   <Button onClick={this.logout} style={{color:'white'}}>Logout</Button>
               </div>
             </div>

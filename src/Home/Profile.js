@@ -7,7 +7,6 @@ import {
     Button,
     Paper
 } from '@material-ui/core';
-import Navbar from "./Navbar";
 import axios from 'axios';
 import * as firebase from 'firebase';
 import "./Dashboard.css";
@@ -78,121 +77,118 @@ class Profile extends PureComponent{
       });
    }
 
-render(){
+    render(){
 
-    return(
-        <div>
+        return(
+            <div>
 
-            <Navbar/>
-
-            <div
-                className = "flexCenter"
-                raised = {true}
-                data-aos="fade-in"
-                data-aos-easing="linear"
-                data-aos-duration="800"
-            >
-                <Typography variant = "h3"><u>Profile</u></Typography>
-                <br/>
-                <Card
+                <div
+                    className = "flexCenter"
                     raised = {true}
-                    className = "profile"
                     data-aos="fade-in"
                     data-aos-easing="linear"
                     data-aos-duration="800"
                 >
-
-                    <Typography variant = "h4">Your Current Information:</Typography>
+                    <Typography variant = "h3"><u>Profile</u></Typography>
                     <br/>
-                    <Typography variant = "h6">Name: {this.state.name}</Typography>
-                    <Typography variant = "h6">Facebook: {this.state.facebook}</Typography>
-                    <Typography variant = "h6">LinkedIn: {this.state.linkedIn}</Typography>
-                    <Typography variant = "h6">Instagram: {this.state.instagram}</Typography>
-                </Card>
+                    <Card
+                        raised = {true}
+                        className = "profile"
+                        data-aos="fade-in"
+                        data-aos-easing="linear"
+                        data-aos-duration="800"
+                    >
+                        <Typography variant = "h4">Your Current Information:</Typography>
+                        <br/>
+                        <Typography variant = "h6">Name: {this.state.name}</Typography>
+                        <Typography variant = "h6">Facebook: {this.state.facebook}</Typography>
+                        <Typography variant = "h6">LinkedIn: {this.state.linkedIn}</Typography>
+                        <Typography variant = "h6">Instagram: {this.state.instagram}</Typography>
+                    </Card>
 
-                <Card
-                    raised = {true}
-                    className = "profile"
-                    data-aos="fade-in"
-                    data-aos-easing="linear"
-                    data-aos-duration="800"
-                >
-                    <Typography variant = "h4">Update Information:</Typography>
-                    <br/>
-                    <form>
+                    <Card
+                        raised = {true}
+                        className = "profile"
+                        data-aos="fade-in"
+                        data-aos-easing="linear"
+                        data-aos-duration="800"
+                    >
+                        <Typography variant = "h4">Update Information:</Typography>
+                        <br/>
+                        <form>
+                            <TextField
+                                className = ""
+                                type='username'
+                                placeholder = "Change Username"
+                                style= {{margin:'15px'}}
+                            />
+                            <TextField
+                                className= ""
+                                style = {{margin:'15px'}}
+                                onChange = {this.handleChange("pass")}
+                                placeholder = "Change Password"
+                            />
+                            <TextField
+                                className= ""
+                                style = {{marginTop:'15px'}}
+                                type='email'
+                                onChange = {this.handleChange("email")}
+                                placeholder = "Change Email Address"
+                            />
+                        </form>
+                        <Button onClick = {this.changePassword}>Save changes</Button>
+                    </Card>
+
+                    <Card
+                        raised = {true}
+                        className = "profile"
+                        data-aos="fade-in"
+                        data-aos-easing="linear"
+                        data-aos-duration="800"
+                    >
+                        <Typography variant = "h4">Social Media Accounts</Typography>
+                        <br/>
                         <TextField
-                            className = ""
-                            type='username'
-                            placeholder = "Change Username"
+                            type = "url"
+                            placeholder = "Facebook Link"
                             style= {{margin:'15px'}}
                         />
                         <TextField
-                            className= ""
-                            style = {{margin:'15px'}}
-                            onChange = {this.handleChange("pass")}
-                            placeholder = "Change Password"
+                            type = "url"
+                            placeholder = "LinkedIn Link"
+                            style= {{margin:'15px'}}
                         />
                         <TextField
-                            className= ""
-                            style = {{marginTop:'15px'}}
-                            type='email'
-                            onChange = {this.handleChange("email")}
-                            placeholder = "Change Email Address"
+                            type = "url"
+                            placeholder = "Instagram"
+                            style= {{margin:'15px'}}
                         />
-                    </form>
-                    <Button onClick = {this.changePassword}>Save changes</Button>
-                </Card>
+                        <Button >Save changes</Button>
+                    </Card>
 
-                <Card
-                    raised = {true}
-                    className = "profile"
-                    data-aos="fade-in"
-                    data-aos-easing="linear"
-                    data-aos-duration="800"
-                >
-                    <Typography variant = "h4">Social Media Accounts</Typography>
-                    <br/>
-                    <TextField
-                        type = "url"
-                        placeholder = "Facebook Link"
-                        style= {{margin:'15px'}}
-                    />
-                    <TextField
-                        type = "url"
-                        placeholder = "LinkedIn Link"
-                        style= {{margin:'15px'}}
-                    />
-                    <TextField
-                        type = "url"
-                        placeholder = "Instagram"
-                        style= {{margin:'15px'}}
-                    />
-                    <Button >Save changes</Button>
-                </Card>
-
-                <Card
-                    raised = {true}
-                    className = "profile"
-                    data-aos="fade-in"
-                    data-aos-easing="linear"
-                    data-aos-duration="800"
-                >
-                    <Typography variant = "h4">Upcoming Events</Typography>
-                    <br/>
-                    {this.state.eventName.map((title, key) => {
-                        return(
-                            <Paper style = {{margin: "10px"}}>
-                                {title}
-                                <br/>
-                                {this.state.description[key]}
-                                <br/>
-                                {this.state.dateAndTime[key]}
-                            </Paper>
-                        )
-                    })}
-                </Card>
+                    <Card
+                        raised = {true}
+                        className = "profile"
+                        data-aos="fade-in"
+                        data-aos-easing="linear"
+                        data-aos-duration="800"
+                    >
+                        <Typography variant = "h4">Upcoming Events</Typography>
+                        <br/>
+                        {this.state.eventName.map((title, key) => {
+                            return(
+                                <Paper style = {{margin: "10px"}}>
+                                    {title}
+                                    <br/>
+                                    {this.state.description[key]}
+                                    <br/>
+                                    {this.state.dateAndTime[key]}
+                                </Paper>
+                            )
+                        })}
+                    </Card>
+                </div>
             </div>
-        </div>
         )
     }
 }

@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import * as firebase from 'firebase';
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +37,7 @@ class Home extends Component {
           prop.history.push('/dashboard');
        }
     });
- }
+  }
 
   login(e){
      e.preventDefault();

@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import './Home.css';
 import * as firebase from 'firebase';
+
 class SignUp extends Component {
     constructor(props) {
         super(props);
@@ -20,24 +21,12 @@ class SignUp extends Component {
         this.createUser = this.createUser.bind(this);
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
     }
+
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value
         });
     }
-
-    componentDidMount(){
-      this.checkLoggedIn();
-    }
-
-    checkLoggedIn(){
-      var prop = this.props;
-      firebase.auth().onAuthStateChanged(function(user) {
-         if (user) {
-            prop.history.push('/dashboard');
-         }
-      });
-   }
 
     createUser(e){
       e.preventDefault();
