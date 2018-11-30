@@ -1,7 +1,7 @@
 .profile {
     position: relative;
     padding: 60px 70px;
-    width: 60%;
+    width: 40%;
     display: grid;
     flex-direction: column;
     justify-content: center;
@@ -9,12 +9,25 @@
     margin:20px;
 }
 
-/* 
+.button_style{
+    margin:0 auto;
+    word-spacing: 30px;
+
+}
+
 .event {
     position: relative;
-    display: inline-block;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    overflow: scroll;
     margin: 10px;
-} */
+    font-size: 10px;
+    text-align: left;
+    border-radius: 20px/50px;
+}
+
+.social_b{
+    position: absolute;
+    right: 0;
+    width: 100px;
+    height: 110px;
+    
+}

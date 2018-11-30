@@ -89,7 +89,8 @@ class Profile extends PureComponent{
                     data-aos-easing="linear"
                     data-aos-duration="800"
                 >
-                    <Typography variant = "h3"><u>Profile</u></Typography>
+
+                    <Typography variant = "h3"><br></br><u>Profile</u></Typography>
                     <br/>
                     <Card
                         raised = {true}
@@ -116,12 +117,12 @@ class Profile extends PureComponent{
                         <Typography variant = "h4">Update Information:</Typography>
                         <br/>
                         <form>
-                            <TextField
+                            {/* <TextField
                                 className = ""
                                 type='username'
                                 placeholder = "Change Username"
                                 style= {{margin:'15px'}}
-                            />
+                            /> */}
                             <TextField
                                 className= ""
                                 style = {{margin:'15px'}}
@@ -136,7 +137,10 @@ class Profile extends PureComponent{
                                 placeholder = "Change Email Address"
                             />
                         </form>
+                        <div className="buttom_style">
                         <Button onClick = {this.changePassword}>Save changes</Button>
+                        <Button onClick = {this.changeEmail}>Save changes</Button>
+                        </div>
                     </Card>
 
                     <Card
@@ -151,19 +155,23 @@ class Profile extends PureComponent{
                         <TextField
                             type = "url"
                             placeholder = "Facebook Link"
-                            style= {{margin:'15px'}}
+                            style= {{padding:'15px'}}
                         />
                         <TextField
                             type = "url"
                             placeholder = "LinkedIn Link"
-                            style= {{margin:'15px'}}
+                            style= {{padding:'15px'}}
                         />
                         <TextField
                             type = "url"
                             placeholder = "Instagram"
-                            style= {{margin:'15px'}}
+                            style= {{padding:'15px'}}
                         />
-                        <Button >Save changes</Button>
+                        <div className="social_b">
+                        <Button>Save changes</Button>
+                        <Button>Save changes</Button>
+                        <Button>Save changes</Button>
+                        </div>
                     </Card>
 
                     <Card
@@ -177,7 +185,7 @@ class Profile extends PureComponent{
                         <br/>
                         {this.state.eventName.map((title, key) => {
                             return(
-                                <Paper style = {{margin: "10px"}}>
+                                <Paper className="event">
                                     {title}
                                     <br/>
                                     {this.state.description[key]}
