@@ -116,31 +116,19 @@ class Profile extends PureComponent{
                     >
                         <Typography variant = "h4">Update Information:</Typography>
                         <br/>
-                        <form>
-                            {/* <TextField
-                                className = ""
-                                type='username'
-                                placeholder = "Change Username"
-                                style= {{margin:'15px'}}
-                            /> */}
-                            <TextField
-                                className= ""
-                                style = {{margin:'15px'}}
-                                onChange = {this.handleChange("pass")}
-                                placeholder = "Change Password"
-                            />
-                            <TextField
-                                className= ""
-                                style = {{marginTop:'15px'}}
-                                type='email'
-                                onChange = {this.handleChange("email")}
-                                placeholder = "Change Email Address"
-                            />
-                        </form>
-                        <div className="buttom_style">
-                        <Button onClick = {this.changePassword}>Save changes</Button>
-                        <Button onClick = {this.changeEmail}>Save changes</Button>
-                        </div>
+                        <TextField
+                            style = {{marginTop:'18px'}}
+                            type='email'
+                            onChange = {this.handleChange("email")}
+                            placeholder = "Email Address"
+                        />
+                        <Button onClick = {this.changeEmail}>Save Change</Button>
+                        <TextField
+                            style = {{marginTop:'18px'}}
+                            onChange = {this.handleChange("pass")}
+                            placeholder = "Password"
+                        />
+                        <Button onClick = {this.changePassword}>Save Change</Button>
                     </Card>
 
                     <Card
@@ -154,24 +142,22 @@ class Profile extends PureComponent{
                         <br/>
                         <TextField
                             type = "url"
-                            placeholder = "Facebook Link"
-                            style= {{padding:'15px'}}
+                            placeholder = "Facebook"
+                            style = {{marginTop: "18px"}}
                         />
+                        <Button>Save Change</Button>
                         <TextField
                             type = "url"
-                            placeholder = "LinkedIn Link"
-                            style= {{padding:'15px'}}
+                            placeholder = "LinkedIn"
+                            style = {{marginTop: "18px"}}
                         />
+                        <Button>Save Change</Button>
                         <TextField
                             type = "url"
                             placeholder = "Instagram"
-                            style= {{padding:'15px'}}
+                            style = {{marginTop: "18px"}}
                         />
-                        <div className="social_b">
-                        <Button>Save changes</Button>
-                        <Button>Save changes</Button>
-                        <Button>Save changes</Button>
-                        </div>
+                        <Button>Save Change</Button>
                     </Card>
 
                     <Card
