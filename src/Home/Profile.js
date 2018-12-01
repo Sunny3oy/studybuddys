@@ -47,11 +47,19 @@ class Profile extends PureComponent{
 
     changeEmail(e){
         var user = firebase.auth().currentUser;
-        var email = this.state.email;
-        user.updateEmail(email).then(function() {
-            alert("Successful update");
-        }).catch(function(error) {
-            alert(error);
+        var userEmail = this.state.email;
+        user.updateEmail(userEmail)
+        .then(function() {
+           firebase.database().ref('users/' + user.uid ).update({ email: userEmail })
+           .then(function(){
+             alert("Successful update")
+           })
+           .catch(function (error) {
+             alert(error.message);
+           });
+        })
+        .catch(function(error) {
+            alert(error.message);
         });
         this.getUserEmail();
     }
@@ -95,9 +103,9 @@ class Profile extends PureComponent{
             }
         });
     }
-    
+
     addSocialMedia() {
-        
+
     }
 
     render(){
