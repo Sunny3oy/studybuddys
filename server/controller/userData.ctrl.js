@@ -181,6 +181,7 @@ module.exports = {
          res.status(200).json({message: "course deleted"});
       }
    },
+   
     getUsersByCourseTaken: (req, res, next) => {
       if(req.body.courseName === undefined){
          res.status(400).json({message: "Missing course name"});

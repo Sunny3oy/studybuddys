@@ -19,22 +19,11 @@ class Dashboard extends PureComponent {
       }
       this.getUserCourses = this.getUserCourses.bind(this);
       this.deleteUserCourses = this.deleteUserCourses.bind(this);
-      this.checkLoggedIn = this.checkLoggedIn.bind(this);
    }
 
    componentDidMount() {
       this.getUserCourses();
-      this.checkLoggedIn();
    }
-
-   checkLoggedIn(){
-     var prop = this.props;
-     firebase.auth().onAuthStateChanged(function(user) {
-        if (!user) {
-           prop.history.push('/');
-        }
-     });
-  }
 
    getUserCourses(){
       var page = this;

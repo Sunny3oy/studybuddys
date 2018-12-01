@@ -27,13 +27,16 @@ class Profile extends PureComponent{
                 dateAndTime: ["Dec 06, 2018 3:30PM", "Dec 06, 2018 4:30PM", "Dec 16 2018, 12:00PM"]
             }
         this.getUserName = this.getUserName.bind(this);
+        this.getUserEmail = this.getUserEmail.bind(this);
         this.changeEmail = this.changeEmail.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.changePassword = this.changePassword.bind(this);
+        this.addSocialMedia = this.addSocialMedia.bind(this);
     }
 
     componentDidMount(){
         this.getUserName();
+        this.getUserEmail();
     }
 
     handleChange = name => event => {
@@ -50,6 +53,7 @@ class Profile extends PureComponent{
         }).catch(function(error) {
             alert(error);
         });
+        this.getUserEmail();
     }
 
    changePassword(e){
@@ -77,6 +81,25 @@ class Profile extends PureComponent{
         });
     }
 
+    getUserEmail() {
+        var page = this;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var info = {
+                    id: user.uid
+                }
+                axios.post('https://studybuddys-223920.appspot.com/api/getUseremail', info)
+                .then(response => {
+                    page.setState({email: response.data.email})
+                })
+            }
+        });
+    }
+    
+    addSocialMedia() {
+        
+    }
+
     render(){
 
         return(
@@ -84,7 +107,6 @@ class Profile extends PureComponent{
 
                 <div
                     className = "flexCenter"
-                    raised = {true}
                     data-aos="fade-in"
                     data-aos-easing="linear"
                     data-aos-duration="800"
@@ -102,6 +124,7 @@ class Profile extends PureComponent{
                         <Typography variant = "h4">Your Current Information:</Typography>
                         <br/>
                         <Typography variant = "h6">Name: {this.state.name}</Typography>
+                        <Typography variant = "h6">Email: {this.state.email}</Typography>
                         <Typography variant = "h6">Facebook: {this.state.facebook}</Typography>
                         <Typography variant = "h6">LinkedIn: {this.state.linkedIn}</Typography>
                         <Typography variant = "h6">Instagram: {this.state.instagram}</Typography>
@@ -144,20 +167,23 @@ class Profile extends PureComponent{
                             type = "url"
                             placeholder = "Facebook"
                             style = {{marginTop: "18px"}}
+                            onChange = {this.handleChange("facebook")}
                         />
-                        <Button>Save Change</Button>
+                        <Button onClick = {this.addSocialMedia}>Save Change</Button>
                         <TextField
                             type = "url"
                             placeholder = "LinkedIn"
                             style = {{marginTop: "18px"}}
+                            onChange = {this.handleChange("linkedIn")}
                         />
-                        <Button>Save Change</Button>
+                        <Button onClick = {this.addSocialMedia}>Save Change</Button>
                         <TextField
                             type = "url"
                             placeholder = "Instagram"
                             style = {{marginTop: "18px"}}
+                            onChange = {this.handleChange("instagram")}
                         />
-                        <Button>Save Change</Button>
+                        <Button onClick = {this.addSocialMedia}>Save Change</Button>
                     </Card>
 
                     <Card
@@ -171,7 +197,7 @@ class Profile extends PureComponent{
                         <br/>
                         {this.state.eventName.map((title, key) => {
                             return(
-                                <Paper className="event">
+                                <Paper className="event" key = {key}>
                                     {title}
                                     <br/>
                                     {this.state.description[key]}

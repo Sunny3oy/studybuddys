@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter,Route,Redirect,Link } from 'react-router-dom';
+import { BrowserRouter,Route,Redirect,Link,Switch } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Dashboard from './Home/Dashboard';
 import Home from './Home/Home';
@@ -29,13 +29,13 @@ class App extends Component {
 
   componentDidMount(){
     this.authListener();
-    this.getUserName();
   }
 
   authListener() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ loggedIn:true });
+        this.getUserName();
       }
     });
   }
@@ -68,7 +68,17 @@ class App extends Component {
 
   render() {    
 
-    var routes; 
+    var routes = (
+      <BrowserRouter>
+        <div className = "App">
+          <Switch>
+            <Route path = "/login" exact component = { Home } />
+            <Route path = "/signup" exact component = { SignUp } />
+            <Redirect to = "/login"/>
+          </Switch>
+        </div>
+      </BrowserRouter>
+    ); 
 
     if(this.state.loggedIn) {
       routes = (
@@ -95,25 +105,17 @@ class App extends Component {
                 </Button>
               </div>
             </div>
-            <Route path= "/dashboard" exact component = { Dashboard } />
-            <Route path= "/dashboard/profile" exact component = { Profile } />
-            <Route path= "/dashboard/browse" exact component = { Browser } />
-            <Route path= "/courses/:courseName" exact component = { CoursePage } />
-            <Route path= "/course/:courseName?/:questionID?" exact component = { Question } />
+            <Switch>
+              <Route path= "/dashboard" exact component = { Dashboard } />
+              <Route path= "/dashboard/profile" exact component = { Profile } />
+              <Route path= "/dashboard/browse" exact component = { Browser } />
+              <Route path= "/courses/:courseName" exact component = { CoursePage } />
+              <Route path= "/course/:courseName?/:questionID?" exact component = { Question } />
+            </Switch>
           </div>
         </BrowserRouter>
-      )
-    } else {
-      routes = (
-        <BrowserRouter>
-            <div className = "App">
-              <Route path = "/" exact component = { Home } />
-              <Redirect to = "/"/>
-              <Route path = "/signup" exact component = { SignUp } />
-            </div>
-        </BrowserRouter>
-      )
-    }
+      ); 
+    } 
 
     return (
       <div >
