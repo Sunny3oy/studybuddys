@@ -117,9 +117,9 @@ module.exports = {
         var urls = [];
         ref.once("value", function(snapshot) {
            var list = snapshot.val();
-           for (var key in list) {
-              urls.push(list[key]);
-           }
+           (list["facebook"] == null) ? urls.push("") : urls.push(list["facebook"]);
+           (list["linkedin"] == null) ? urls.push("") : urls.push(list["linkedin"]);
+           (list["instagram"] == null) ? urls.push("") : urls.push(list["instagram"]);
            res.status(200).json({"urlList": urls});
         }, function (errorObject) {
            res.status(400).json({message: errorObject.code});
