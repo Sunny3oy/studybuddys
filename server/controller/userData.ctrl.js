@@ -65,28 +65,24 @@ module.exports = {
       }
     },
 
-    addSocialMedia: (req, res, next) => {
+    updateSocialMedia: (req, res, next) => {
       if(req.body.id === undefined){
          res.status(400).json({message: "Missing user ID"});
       }
-      else if(req.body.url === undefined){
+      else if(req.body.urlList === undefined){
          res.status(400).json({message: "Missing url"});
       }
       else{
          //Url is what is being passed in from the frontend
-         var url = req.body.url;
+         var urlList = req.body.urlList;
          //ref is the path for uid
-         var ref = firebase.database().ref("users/" + req.body.id + "/socialMedia");
-         ref.once("value", function(snapshot){
-             var found = false;
-             snapshot.forEach(function(data) {
-                 if(data.val() == url){
-                     found = true;
-                 }
-             });
-             if(!found) ref.push(url);
+         firebase.database().ref('users/' + req.body.id + '/socialMedia').update(urlList)
+         .then(function(){
+             res.status(200).json({message: "Social media link added"});
+         })
+         .catch(function(error){
+             res.status(400).json({message: error.message});
          });
-         res.status(200).json({message: "Social media link added"});
       }
     },
 
@@ -181,7 +177,6 @@ module.exports = {
          res.status(200).json({message: "course deleted"});
       }
    },
-   
     getUsersByCourseTaken: (req, res, next) => {
       if(req.body.courseName === undefined){
          res.status(400).json({message: "Missing course name"});

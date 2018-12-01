@@ -102,12 +102,16 @@ describe('getUsername', function() {
      });
   });
 
-  it('should add a url to the array and should return a success message', function(done) {
+  it('should update a users list of social media urls', function(done) {
      chai.request(server)
-     .post('/api/addSocialMedia')
+     .post('/api/updateSocialMedia')
      .send({
         id : "yopRBY8GtqNRCTbQnvS3bQCMD413",
-        url : "https://www.github.com"
+        urlList : {
+            "facebook" : "www.facebook.com",
+            "linkedin" : "www.linkedin.com",
+            "instagram" : "www.instagram.com"
+        }
      })
      .end(function(err, res){
         res.should.have.status(200);
