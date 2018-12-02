@@ -8,8 +8,11 @@ import {
 import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
+// import Calendar from "./Calendar2";
 import { Link } from 'react-router-dom';
 import CalendarModal from './MeetUp/CalendarModal'
+import Card from '@material-ui/core/Card';
+import Chip from '@material-ui/core/Chip';
 
 class CoursePage extends PureComponent {
     constructor(props) {
@@ -24,7 +27,8 @@ class CoursePage extends PureComponent {
             replies: [],
             calendarIsOpen: false,
             currentID:"",
-            replyText:""
+            replyText:"",
+            userList:[],
         }
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -32,12 +36,14 @@ class CoursePage extends PureComponent {
         this.getQuestions = this.getQuestions.bind(this);
         this.openCalendar = this.openCalendar.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
+        this.getUserList = this.getUserList.bind(this);
     }
 
     componentDidMount() {
-        const { courseName } = this.props.match.params
+        const { courseName } = this.props.match.params;
         fetch(`/courses/${courseName}`).then(this.setState({course : courseName}));
         this.getQuestions(courseName);
+        this.getUserList(courseName);
     }
 
     checkLoggedIn() {
@@ -125,16 +131,30 @@ class CoursePage extends PureComponent {
         })
     }
 
+    getUserList(name){
+        var page = this;
+        firebase.auth().onAuthStateChanged(function(user){
+            if(user){
+                var info ={
+                    courseName:name,
+                };
+                axios.post('https://studybuddys-223920.appspot.com/api/getUsersByCourseTaken',info)
+                .then(response=>{
+                    page.setState({
+                        userList:response.data.users,  
+                    })
+                })
+            }
+        })
+        console.log(this.state.userList)
+    }
+
     render() {
         return (
-            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "block", flexDirection: "column"}}>
-                <div>
-                    <div style = {{float: "right", display: "inline-block"}}>
-                        <span>{this.state.name}</span>
-                    </div>
-                </div>
-                <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
 
+            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
+
+                <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
                     <Button
                         className="Calendar"
                         type="submit"
@@ -149,16 +169,16 @@ class CoursePage extends PureComponent {
                    </CalendarModal>
                 
                 <div className = "flexCenter">
-                    <Typography gutterBottom = {true} variant = "h3">
+                    <Typography  variant = "h3">
                         <u>Questions</u>:
                     </Typography>
 
                     {this.state.questions.map((data, key) => {
                         return (
 
-                            <Paper className = "flexCenter" style = {{margin: "10px auto", width: "65%", height: "10%"}}>
+                            <Paper className = "flexCenter" style = {{margin: "10px auto", width: "65%", height: "10%"}} key={key}>
                                 <Link to = {"/course/" + this.state.course + "/" + this.state.questID[key]}>
-                                    <Typography style = {{marginTop: "15px"}} gutterBottom = {true} variant = "h5">
+                                    <Typography style = {{marginTop: "15px"}}  variant = "h5">
 
                                             {data}
 
@@ -172,20 +192,34 @@ class CoursePage extends PureComponent {
                             multiline = {true}
                             label = "Ask a Question"
                             onChange = {this.handleChange("newQuestion")}
-                            style = {{marginTop: "20px", width: "50%"}}
+                            style = {{marginTop: "20px", width: "80%"}}
                         >
                         </TextField>
                         <br/>
                         <Button
                             type = "submit"
-                            gutterBottom = {true}
                             variant = "contained"
                             onClick = {this.createQuestion}
-                            style = {{width: "50%"}}
+                            style = {{width: "80%"}}
                         >
                             Ask Away
                         </Button>
                 </div>
+               
+                <Card className = "flexRow" style = {{margin: "10px auto", width: "65%", height: "500px"}} >
+                    {console.log(this.state.userList)}
+                    {
+                         this.state.userList.map((data,key)=>{
+                        return (
+                           
+                                    <Chip key={key} label={data}>
+                                    
+                                    </Chip>
+                                )
+                            })}
+                            </Card>
+                      
+                  
             </div>
         )
     }

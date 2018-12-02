@@ -12,3 +12,18 @@
     width: 15%;
     
 }
+.flexCenter{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction:column;
+  }
+  
+  .flexRow{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction:row; 
+  }
