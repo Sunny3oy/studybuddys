@@ -75,6 +75,9 @@ module.exports = {
       else{
          //Url is what is being passed in from the frontend
          var urlList = req.body.urlList;
+         if(urlList.facebook == "") delete urlList.facebook;
+         if(urlList.linkedin == "") delete urlList.linkedin;
+         if(urlList.instagram == "") delete urlList.instagram;
          //ref is the path for uid
          firebase.database().ref('users/' + req.body.id + '/socialMedia').update(urlList)
          .then(function(){
