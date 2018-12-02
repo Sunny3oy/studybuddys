@@ -127,22 +127,14 @@ class CoursePage extends PureComponent {
 
     render() {
         return (
-
-            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
-
-
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "block", flexDirection: "column"}}>
                 <div>
                     <div style = {{float: "right", display: "inline-block"}}>
                         <span>{this.state.name}</span>
                     </div>
                 </div>
-<<<<<<< HEAD
-                {<Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>}
-=======
                 <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
 
->>>>>>> 0324a08fa54715a8b6a2e962fc7c6819b498ecb1
                     <Button
                         className="Calendar"
                         type="submit"
