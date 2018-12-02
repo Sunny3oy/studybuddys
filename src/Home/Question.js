@@ -136,14 +136,14 @@ class Question extends PureComponent {
                         variant = "outlined" 
                         multiline = {true} 
                         label = "Answer" 
-                        style = {{marginTop: "20px", width: "80%"}}
+                        style = {{marginTop: "20px", width: "50%"}}
                         onChange= {                                         
                             this.handleChange("replyText")         
                         }
                     >
                     {console.log(this.state.replyText) }
                     </TextField>
-                    <Button type = "submit" onClick = {this.submitAnswer} style = {{width: "80%"}}>Submit</Button>
+                    <Button type = "submit" onClick = {this.submitAnswer} style = {{width: "50%"}}>Submit</Button>
                 </div>
             </div>
         )   
