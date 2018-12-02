@@ -13,6 +13,11 @@ import { Link } from 'react-router-dom';
 import CalendarModal from './MeetUp/CalendarModal'
 import Card from '@material-ui/core/Card';
 import Chip from '@material-ui/core/Chip';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 class CoursePage extends PureComponent {
     constructor(props) {
@@ -29,6 +34,9 @@ class CoursePage extends PureComponent {
             currentID:"",
             replyText:"",
             userList:[],
+            open:false,
+            clickUser:"",
+            openKey:0
         }
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -37,6 +45,9 @@ class CoursePage extends PureComponent {
         this.openCalendar = this.openCalendar.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
         this.getUserList = this.getUserList.bind(this);
+        this.handleClickOpen =this.handleClickOpen.bind(this);
+        this.handleClose =this.handleClose.bind(this);
+        this.storeKey = this.storeKey.bind(this);
     }
 
     componentDidMount() {
@@ -143,12 +154,28 @@ class CoursePage extends PureComponent {
                     page.setState({
                         userList:response.data.users,  
                     })
+                    console.log(response)
                 })
+                
             }
         })
         console.log(this.state.userList)
     }
 
+    handleClickOpen = () => {
+        this.setState({ open: true});
+        console.log(this.state.open);
+    };
+    handleClose = () => {
+        this.setState({ open: false });
+      };
+
+    storeKey(key){
+        this.setState({
+            openKey:key,
+        })
+        this.handleClickOpen();
+    }
     render() {
         return (
 
@@ -211,12 +238,59 @@ class CoursePage extends PureComponent {
                     {
                          this.state.userList.map((data,key)=>{
                         return (
-                           
-                                    <Chip key={key} label={data}>
-                                    
-                                    </Chip>
+                                    <Button 
+                                        key={key}
+                                        onClick={this.handleClickOpen}
+                                        > 
+                                            {data}
+                                        </Button>
+                              
                                 )
+                                
                             })}
+                            
+                {console.log(this.state.openKey)}
+
+                    {
+                         this.state.userList.map((data,key)=>{
+                        return (
+                            <Dialog
+                            open={this.state.open}
+                            onClose={this.handleClose}
+                            key={key}
+                        >
+                         <DialogTitle  id="alert-dialog-title">{this.state.userList[key]}</DialogTitle>
+                             <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                  Let Google help apps determine location. This means sending anonymous location data to
+                                  Google, even when no apps are running.
+                                </DialogContentText>
+                             </DialogContent>
+                                
+                            <DialogActions>
+                                <Button onClick={this.handleClose} color="primary">Close</Button> 
+                            </DialogActions>
+                        </Dialog>
+                              
+                                )
+                                
+                            })}
+                                    {/* <Dialog
+                                        open={this.state.open}
+                                        onClose={this.handleClose}
+                                    >
+                                     <DialogTitle id="alert-dialog-title">{this.state.userList[this.state.openKey]}</DialogTitle>
+                                         <DialogContent>
+                                            <DialogContentText id="alert-dialog-description">
+                                              Let Google help apps determine location. This means sending anonymous location data to
+                                              Google, even when no apps are running.
+                                            </DialogContentText>
+                                         </DialogContent>
+                                            
+                                        <DialogActions>
+                                            <Button onClick={this.handleClose} color="primary">Close</Button> 
+                                        </DialogActions>
+                                    </Dialog> */}
                             </Card>
                       
                   
