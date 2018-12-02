@@ -21,12 +21,12 @@ class Profile extends PureComponent{
                 email: "",
                 newPassword: "",
                 newEmail: "",
-                facebook: "facebook-link",
-                linkedIn: "linkedIn-link",
-                instagram: "instagram-link",
-                newFacebook: "facebook-link",
-                newLinkedIn: "linkedIn-link",
-                newInstagram: "instagram-link",
+                facebook: "Facebook",
+                linkedIn: "LinkedIn",
+                instagram: "Instagram",
+                newFacebook: "",
+                newLinkedIn: "",
+                newInstagram: "",
                 eventName: ["Study With Jenny", "Lunch At Cafe Amore", "Study for Paradigms Final"],
                 description: ["One on One Date", "Food is Important", "Kill me now","Dec 16 2018, 12:00PM"],
                 dateAndTime: ["Dec 06, 2018 3:30PM", "Dec 06, 2018 4:30PM", "Dec 16 2018, 12:00PM"]
@@ -37,11 +37,13 @@ class Profile extends PureComponent{
         this.handleChange = this.handleChange.bind(this);
         this.changePassword = this.changePassword.bind(this);
         this.updateSocialMedia = this.updateSocialMedia.bind(this);
+        this.getSocialMedia = this.getSocialMedia.bind(this);
     }
 
     componentDidMount(){
         this.getUserName();
         this.getUserEmail();
+        this.getSocialMedia();
     }
 
     handleChange = name => event => {
@@ -80,7 +82,7 @@ class Profile extends PureComponent{
         });
     }
 
-    getUserName(e){
+    getUserName(){
         var page = this;
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
@@ -111,7 +113,44 @@ class Profile extends PureComponent{
     }
 
     updateSocialMedia() {
+        var fb = this.state.newFacebook;
+        var li = this.state.newLinkedIn;
+        var ig = this.state.newInstagram;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var info = {
+                    id: user.uid,
+                    urlList: {
+                        facebook: fb,
+                        linkedin: li,
+                        instagram: ig,
+                    }
+                }
+                axios.post('https://studybuddys-223920.appspot.com/api/updateSocialMedia', info)
+                .then(
+                    alert("Social Media Link Updated.")
+                )
+            }
+        })
+    }
 
+    getSocialMedia() {
+        var page = this;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var info = {
+                    id: user.uid,
+                }
+                axios.post('https://studybuddys-223920.appspot.com/api/getSocialMedia', info)
+                .then( response => {
+                    page.setState({
+                        facebook: response.data.urlList[0],
+                        linkedIn: response.data.urlList[1],
+                        instagram: response.data.urlList[2],
+                    })
+                })
+            }
+        })
     }
 
     render(){
@@ -177,6 +216,7 @@ class Profile extends PureComponent{
                         data-aos-duration="800"
                     >
                         <Typography variant = "h4">Social Media Accounts</Typography>
+                        <Typography variant = "subtitle1">(Leave Blank If You're Not Updating)</Typography>
                         <br/>
                         <TextField
                             type = "url"
@@ -184,21 +224,19 @@ class Profile extends PureComponent{
                             style = {{marginTop: "18px"}}
                             onChange = {this.handleChange("newFacebook")}
                         />
-                        <Button onClick = {this.addSocialMedia}>Save Change</Button>
                         <TextField
                             type = "url"
                             placeholder = "LinkedIn"
                             style = {{marginTop: "18px"}}
                             onChange = {this.handleChange("newLinkedIn")}
                         />
-                        <Button onClick = {this.addSocialMedia}>Save Change</Button>
                         <TextField
                             type = "url"
                             placeholder = "Instagram"
                             style = {{marginTop: "18px"}}
                             onChange = {this.handleChange("newInstagram")}
                         />
-                        <Button onClick = {this.addSocialMedia}>Save Change</Button>
+                        <Button onClick = {this.updateSocialMedia}>Save Change(s)</Button>
                     </Card>
 
                     <Card

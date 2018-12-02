@@ -15,7 +15,6 @@ class SignUp extends Component {
             email:'',
             password:'',
             checkPassword:''
-
         }
         this.handleChange = this.handleChange.bind(this);
         this.createUser = this.createUser.bind(this);
@@ -39,7 +38,12 @@ class SignUp extends Component {
             firebase.database().ref('users/' + user.uid).set({
                email: userEmail,
                name : userName,
-               courseList: ""
+               courseList: "",
+               socialMedia: {
+                    facebook: "",
+                    linkedin: "",
+                    instagram: ""
+               }
             })
             .then(function(){
                prop.history.push('/dashboard');
