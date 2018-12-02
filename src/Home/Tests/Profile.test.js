@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 Enzyme.configure({ adapter: new enzymeAdapterReact16() });
 const getDefaultProps = () => ({});
-describe('SignUp component', () => {
+describe('Profile component', () => {
   it('shallow renders without crashing', () => {
     const {} = getDefaultProps();
     shallow(
