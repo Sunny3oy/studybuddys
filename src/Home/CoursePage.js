@@ -8,8 +8,6 @@ import {
 import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
-import Navbar from "./Navbar";
-
 import { Link } from 'react-router-dom';
 import CalendarModal from './MeetUp/CalendarModal'
 
@@ -205,15 +203,13 @@ class CoursePage extends PureComponent {
         return (
 
 
-            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "block", flexDirection: "column"}}>
+            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800">
                 <div>
-                    <div style = {{float: "right", display: "inline-block"}}>
-                        <span>{this.state.name}</span>
-                        <Button onClick={this.logout}>Logout</Button>
+                    <div>
+                        <span>{this.state.name}</span>  
                     </div>
-                     <Navbar/>
                 </div>
-                {<Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>}
+                {<Typography variant = "h1" style = {{margin: "16px"}}>{this.state.course}</Typography>}
                     <Button
                         className="Calendar"
                         type="submit"
@@ -253,7 +249,7 @@ class CoursePage extends PureComponent {
                             multiline = {true}
                             label = "Ask a Question"
                             onChange = {this.handleChange("newQuestion")}
-                            style = {{marginTop: "20px", width: "80%"}}
+                            style = {{marginTop: "20px", width: "50%"}}
                         >
                         </TextField>
                         <br/>
@@ -262,7 +258,7 @@ class CoursePage extends PureComponent {
                             gutterBottom = {true}
                             variant = "contained"
                             onClick = {this.createQuestion}
-                            style = {{width: "80%"}}
+                            style = {{width: "50%"}}
                         >
                             Ask Away
                         </Button>
