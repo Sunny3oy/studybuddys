@@ -1,6 +1,7 @@
 .profile {
     position: relative;
     padding: 60px 70px;
+    width: 63%;
     display: grid;
     flex-direction: column;
     justify-content: center;
@@ -8,12 +9,45 @@
     margin:20px;
 }
 
-.profile1 {
-    position: relative;
-    padding: 60px 70px;
-    display: grid;
-    flex-direction: column;
+.button_style{
+    margin:0 auto;
+    word-spacing: 30px;
+
+}
+
+.event {
+    margin: 10px;
+    text-align: left;
+    display:flex;
     justify-content: center;
     align-items: center;
-    margin:20px;
+    text-align: center;
+    flex-direction:column;
 }
+
+.social_b{
+    position: absolute;
+    right: 0;
+    width: 100px;
+    height: 110px;
+    
+}
+
+.flexCenter{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction:column;
+  }
+  
+  .flexRow{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction:row; 
+    font-family: 'Inconsolata', monospace;
+    margin-left:7%;
+  }
+  

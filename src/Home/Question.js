@@ -8,7 +8,6 @@ import {
 import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
-// import Navbar from "./Navbar";
 // import Calendar from "./Calendar2";
 // import Calendar from 'rc-calendar';
 // import LuxonUtils from '@date-io/luxon';
@@ -27,15 +26,12 @@ class Question extends PureComponent {
             replies: [],
             replier: [],
         }
-        this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        // this.logout = this.logout.bind(this);
-        // this.getUserName = this.getUserName.bind(this);
         this.getQuestion = this.getQuestion.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
     }
+    
     componentDidMount() {
-        this.checkLoggedIn();
         const { courseName } = this.props.match.params;
         const { questionID } = this.props.match.params;
         fetch(`/course/${courseName}?/${questionID}?`)
@@ -48,45 +44,14 @@ class Question extends PureComponent {
             .then (
                 this.getQuestion,
                 this.getReplies(questionID)
-            )
-        // this.getUserName();
-        
+            )  
     }
-
-    checkLoggedIn(){
-        var prop = this.props;
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (!user) {
-            prop.history.push('/');
-            }
-        });
-  }
 
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
         });
     };
-    
-    // logout(e){
-    //     e.preventDefault();
-    //     firebase.auth().signOut();
-    //     this.props.history.push('/');
-    // }
-    // getUserName(e){
-    //     var page = this;
-    //     firebase.auth().onAuthStateChanged(function(user) {
-    //     if (user) {
-    //         var info = {
-    //             id: user.uid
-    //         }
-    //         axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
-    //         .then(response => {
-    //             page.setState({name: response.data.name})
-    //         })
-    //     }
-    //     });
-    // }
 
     submitAnswer() {
         var reply = this.state.replyText;
@@ -136,13 +101,6 @@ class Question extends PureComponent {
     render() {
         return (
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
-                {/* <div>
-                    <div style = {{float: "right", display: "inline-block"}}>
-                        <span>{this.state.name}</span>
-                        <Button onClick={this.logout}>Logout</Button>
-                    </div>
-                    <Navbar/>
-                </div> */}
                     {/* <Button 
                         className="Calendar"
                         type="submit"
@@ -175,7 +133,7 @@ class Question extends PureComponent {
                         )
                     })}
                     <TextField 
-                        variant = "filled" 
+                        variant = "outlined" 
                         multiline = {true} 
                         label = "Answer" 
                         style = {{marginTop: "20px", width: "50%"}}
@@ -188,9 +146,8 @@ class Question extends PureComponent {
                     <Button type = "submit" onClick = {this.submitAnswer} style = {{width: "50%"}}>Submit</Button>
                 </div>
             </div>
-         )   
-        }
-        
+        )   
     }
+}
 
 export default Question;

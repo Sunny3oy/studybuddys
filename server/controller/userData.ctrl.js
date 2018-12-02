@@ -65,28 +65,27 @@ module.exports = {
       }
     },
 
-    addSocialMedia: (req, res, next) => {
+    updateSocialMedia: (req, res, next) => {
       if(req.body.id === undefined){
          res.status(400).json({message: "Missing user ID"});
       }
-      else if(req.body.url === undefined){
+      else if(req.body.urlList === undefined){
          res.status(400).json({message: "Missing url"});
       }
       else{
          //Url is what is being passed in from the frontend
-         var url = req.body.url;
+         var urlList = req.body.urlList;
+         if(urlList.facebook == "") delete urlList.facebook;
+         if(urlList.linkedin == "") delete urlList.linkedin;
+         if(urlList.instagram == "") delete urlList.instagram;
          //ref is the path for uid
-         var ref = firebase.database().ref("users/" + req.body.id + "/socialMedia");
-         ref.once("value", function(snapshot){
-             var found = false;
-             snapshot.forEach(function(data) {
-                 if(data.val() == url){
-                     found = true;
-                 }
-             });
-             if(!found) ref.push(url);
+         firebase.database().ref('users/' + req.body.id + '/socialMedia').update(urlList)
+         .then(function(){
+             res.status(200).json({message: "Social media link added"});
+         })
+         .catch(function(error){
+             res.status(400).json({message: error.message});
          });
-         res.status(200).json({message: "Social media link added"});
       }
     },
 
@@ -99,15 +98,13 @@ module.exports = {
       }
       else{
          var url = req.body.url;
-         var ref = firebase.database().ref("users/" + req.body.id + "/socialMedia");
-         ref.once("value", function(snapshot){
-            snapshot.forEach(function (childsnap) {
-               if (childsnap.val() === url){
-                  ref.child(childsnap.key).remove();
-               }
-            });
+         firebase.database().ref('users/' + req.body.id + '/socialMedia').update({[url] : ""})
+         .then(function(){
+             res.status(200).json({message: "Social media link removed"});
+         })
+         .catch(function(error){
+             res.status(400).json({message: error.message});
          });
-         res.status(200).json({message: "url deleted"});
       }
    },
 
@@ -121,9 +118,9 @@ module.exports = {
         var urls = [];
         ref.once("value", function(snapshot) {
            var list = snapshot.val();
-           for (var key in list) {
-              urls.push(list[key]);
-           }
+           (list["facebook"] == null) ? urls.push("") : urls.push(list["facebook"]);
+           (list["linkedin"] == null) ? urls.push("") : urls.push(list["linkedin"]);
+           (list["instagram"] == null) ? urls.push("") : urls.push(list["instagram"]);
            res.status(200).json({"urlList": urls});
         }, function (errorObject) {
            res.status(400).json({message: errorObject.code});
