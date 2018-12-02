@@ -98,15 +98,13 @@ module.exports = {
       }
       else{
          var url = req.body.url;
-         var ref = firebase.database().ref("users/" + req.body.id + "/socialMedia");
-         ref.once("value", function(snapshot){
-            snapshot.forEach(function (childsnap) {
-               if (childsnap.val() === url){
-                  ref.child(childsnap.key).remove();
-               }
-            });
+         firebase.database().ref('users/' + req.body.id + '/socialMedia').update({[url] : ""})
+         .then(function(){
+             res.status(200).json({message: "Social media link removed"});
+         })
+         .catch(function(error){
+             res.status(400).json({message: error.message});
          });
-         res.status(200).json({message: "url deleted"});
       }
    },
 
