@@ -19,9 +19,14 @@ class Profile extends PureComponent{
                 name: "",
                 password: "",
                 email: "",
+                newPassword: "",
+                newEmail: "",
                 facebook: "facebook-link",
                 linkedIn: "linkedIn-link",
                 instagram: "instagram-link",
+                newFacebook: "facebook-link",
+                newLinkedIn: "linkedIn-link",
+                newInstagram: "instagram-link",
                 eventName: ["Study With Jenny", "Lunch At Cafe Amore", "Study for Paradigms Final"],
                 description: ["One on One Date", "Food is Important", "Kill me now","Dec 16 2018, 12:00PM"],
                 dateAndTime: ["Dec 06, 2018 3:30PM", "Dec 06, 2018 4:30PM", "Dec 16 2018, 12:00PM"]
@@ -31,7 +36,7 @@ class Profile extends PureComponent{
         this.changeEmail = this.changeEmail.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.changePassword = this.changePassword.bind(this);
-        this.addSocialMedia = this.addSocialMedia.bind(this);
+        this.updateSocialMedia = this.updateSocialMedia.bind(this);
     }
 
     componentDidMount(){
@@ -46,13 +51,15 @@ class Profile extends PureComponent{
     };
 
     changeEmail(e){
+        var page = this;
         var user = firebase.auth().currentUser;
-        var userEmail = this.state.email;
+        var userEmail = this.state.newEmail;
         user.updateEmail(userEmail)
         .then(function() {
            firebase.database().ref('users/' + user.uid ).update({ email: userEmail })
            .then(function(){
-             alert("Successful update")
+             alert("Successful update. Please log out for the change to take effect.")
+             page.setState({email: userEmail})
            })
            .catch(function (error) {
              alert(error.message);
@@ -60,15 +67,14 @@ class Profile extends PureComponent{
         })
         .catch(function(error) {
             alert(error.message);
-        });
-        this.getUserEmail();
+        })
     }
 
    changePassword(e){
         var user = firebase.auth().currentUser;
-        var password = this.state.pass
+        var password = this.state.newPassword
         user.updatePassword(password).then(function() {
-            alert("Successful update");
+            alert("Successful update. Please log out for the change to take effect.");
         }).catch(function(error) {
             alert(error);
         });
@@ -79,7 +85,7 @@ class Profile extends PureComponent{
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 var info = {
-                id: user.uid
+                    id: user.uid
                 }
                 axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
                 .then(response => {
@@ -104,7 +110,7 @@ class Profile extends PureComponent{
         });
     }
 
-    addSocialMedia() {
+    updateSocialMedia() {
 
     }
 
@@ -145,18 +151,19 @@ class Profile extends PureComponent{
                         data-aos-easing="linear"
                         data-aos-duration="800"
                     >
-                        <Typography variant = "h4">Update Information:</Typography>
+                        <Typography variant = "h4">Update Account Information:</Typography>
                         <br/>
                         <TextField
                             style = {{marginTop:'18px'}}
                             type='email'
-                            onChange = {this.handleChange("email")}
+                            onChange = {this.handleChange("newEmail")}
                             placeholder = "Email Address"
                         />
                         <Button onClick = {this.changeEmail}>Save Change</Button>
                         <TextField
+                            type = "password"
                             style = {{marginTop:'18px'}}
-                            onChange = {this.handleChange("pass")}
+                            onChange = {this.handleChange("newPassword")}
                             placeholder = "Password"
                         />
                         <Button onClick = {this.changePassword}>Save Change</Button>
@@ -175,21 +182,21 @@ class Profile extends PureComponent{
                             type = "url"
                             placeholder = "Facebook"
                             style = {{marginTop: "18px"}}
-                            onChange = {this.handleChange("facebook")}
+                            onChange = {this.handleChange("newFacebook")}
                         />
                         <Button onClick = {this.addSocialMedia}>Save Change</Button>
                         <TextField
                             type = "url"
                             placeholder = "LinkedIn"
                             style = {{marginTop: "18px"}}
-                            onChange = {this.handleChange("linkedIn")}
+                            onChange = {this.handleChange("newLinkedIn")}
                         />
                         <Button onClick = {this.addSocialMedia}>Save Change</Button>
                         <TextField
                             type = "url"
                             placeholder = "Instagram"
                             style = {{marginTop: "18px"}}
-                            onChange = {this.handleChange("instagram")}
+                            onChange = {this.handleChange("newInstagram")}
                         />
                         <Button onClick = {this.addSocialMedia}>Save Change</Button>
                     </Card>
