@@ -12,7 +12,6 @@ import * as firebase from 'firebase';
 import { Link } from 'react-router-dom';
 import CalendarModal from './MeetUp/CalendarModal'
 import Card from '@material-ui/core/Card';
-import Chip from '@material-ui/core/Chip';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -35,8 +34,7 @@ class CoursePage extends PureComponent {
             replyText:"",
             userList:[],
             open:false,
-            clickUser:"",
-            openKey:0
+            openkey: 0,
         }
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -47,7 +45,6 @@ class CoursePage extends PureComponent {
         this.getUserList = this.getUserList.bind(this);
         this.handleClickOpen =this.handleClickOpen.bind(this);
         this.handleClose =this.handleClose.bind(this);
-        this.storeKey = this.storeKey.bind(this);
     }
 
     componentDidMount() {
@@ -166,35 +163,30 @@ class CoursePage extends PureComponent {
         this.setState({ open: true});
         console.log(this.state.open);
     };
+
     handleClose = () => {
         this.setState({ open: false });
       };
 
-    storeKey(key){
-        this.setState({
-            openKey:key,
-        })
-        this.handleClickOpen();
-    }
     render() {
         return (
 
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
 
                 <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
-                    <Button
-                        className="Calendar"
-                        type="submit"
-                        onClick={this.openCalendar}>
-                        Meet Up
-                    </Button>
-                   <CalendarModal
+                <Button
+                    className="Calendar"
+                    type="submit"
+                    onClick={this.openCalendar}
+                >
+                    Meet Up
+                </Button>
+                <CalendarModal
                     isOpen={this.state.calendarIsOpen}
                     handleClose={this.openCalendar}
-                   >
+                >
+                </CalendarModal>
 
-                   </CalendarModal>
-                
                 <div className = "flexCenter">
                     <Typography  variant = "h3">
                         <u>Questions</u>:
@@ -202,96 +194,72 @@ class CoursePage extends PureComponent {
 
                     {this.state.questions.map((data, key) => {
                         return (
-
-                            <Paper className = "flexCenter" style = {{margin: "10px auto", width: "65%", height: "10%"}} key={key}>
+                            <Paper 
+                                className = "flexCenter" 
+                                style = {{margin: "10px auto", width: "65%", height: "10%"}} 
+                                key={key}
+                            >
                                 <Link to = {"/course/" + this.state.course + "/" + this.state.questID[key]}>
                                     <Typography style = {{marginTop: "15px"}}  variant = "h5">
-
-                                            {data}
-
+                                        {data}
                                     </Typography>
                                 </Link>
                             </Paper>
                         )
                     })}
-                        <TextField
-                            variant = "outlined"
-                            multiline = {true}
-                            label = "Ask a Question"
-                            onChange = {this.handleChange("newQuestion")}
-                            style = {{marginTop: "20px", width: "80%"}}
-                        >
-                        </TextField>
-                        <br/>
-                        <Button
-                            type = "submit"
-                            variant = "contained"
-                            onClick = {this.createQuestion}
-                            style = {{width: "80%"}}
-                        >
-                            Ask Away
-                        </Button>
+                    <TextField
+                        variant = "outlined"
+                        multiline = {true}
+                        label = "Ask a Question"
+                        onChange = {this.handleChange("newQuestion")}
+                        style = {{marginTop: "20px", width: "80%"}}
+                    >
+                    </TextField>
+                    <br/>
+                    <Button
+                        type = "submit"
+                        variant = "contained"
+                        onClick = {this.createQuestion}
+                        style = {{width: "80%"}}
+                    >
+                        Ask Away
+                    </Button>
                 </div>
                
                 <Card className = "flexRow" style = {{margin: "10px auto", width: "65%", height: "500px"}} >
                     {console.log(this.state.userList)}
                     {
-                         this.state.userList.map((data,key)=>{
-                        return (
+                        this.state.userList.map((data,key)=>{
+                            return (
+                                <div key = {key}>
                                     <Button 
-                                        key={key}
-                                        onClick={this.handleClickOpen}
-                                        > 
-                                            {data}
-                                        </Button>
-                              
-                                )
-                                
-                            })}
-                            
-                {console.log(this.state.openKey)}
-
-                    {
-                         this.state.userList.map((data,key)=>{
-                        return (
-                            <Dialog
-                            open={this.state.open}
-                            onClose={this.handleClose}
-                            key={key}
-                        >
-                         <DialogTitle  id="alert-dialog-title">{this.state.userList[key]}</DialogTitle>
-                             <DialogContent>
-                                <DialogContentText id="alert-dialog-description">
-                                  Let Google help apps determine location. This means sending anonymous location data to
-                                  Google, even when no apps are running.
-                                </DialogContentText>
-                             </DialogContent>
-                                
-                            <DialogActions>
-                                <Button onClick={this.handleClose} color="primary">Close</Button> 
-                            </DialogActions>
-                        </Dialog>
-                              
-                                )
-                                
-                            })}
-                                    {/* <Dialog
+                                        onClick={() => {
+                                            this.handleClickOpen();
+                                            this.setState({openKey: key})
+                                        }}
+                                    > 
+                                        {data}
+                                    </Button>
+                                    <Dialog
                                         open={this.state.open}
                                         onClose={this.handleClose}
                                     >
-                                     <DialogTitle id="alert-dialog-title">{this.state.userList[this.state.openKey]}</DialogTitle>
-                                         <DialogContent>
+                                    <DialogTitle  id="alert-dialog-title">{this.state.userList[this.state.openKey]}</DialogTitle>
+                                        <DialogContent>
                                             <DialogContentText id="alert-dialog-description">
-                                              Let Google help apps determine location. This means sending anonymous location data to
-                                              Google, even when no apps are running.
+                                            Let Google help apps determine location. This means sending anonymous location data to
+                                            Google, even when no apps are running.
                                             </DialogContentText>
-                                         </DialogContent>
-                                            
+                                        </DialogContent>
                                         <DialogActions>
                                             <Button onClick={this.handleClose} color="primary">Close</Button> 
                                         </DialogActions>
-                                    </Dialog> */}
-                            </Card>
+                                    </Dialog>
+                                </div>
+                            )    
+                        })
+                    }
+                </Card>
                       
                   
             </div>
