@@ -16,22 +16,39 @@ module.exports = {
         var time = req.body.time;
         var details = req.body.text;
         var hookupsId = req.body.meetupsId;
-        var courseName = req.body.courseName;
-
-
-        var ref = firebase.database().ref("meetUps/" + hookupsId).push();
-
-            ref.push({
-                "questionId": ref.key,
-                "courseName":courseName,
-                "id":id,
-                "date":date,
-                "time":time,
-                "details":details
+        var courseNameText = req.body.courseName;
+        var ref = firebase.database().ref("meetUps/").push();
+        var meetupID = ref.key;
+        var ownerNameText;
+        var otherNameText;
+        var nameref = firebase.database().ref("users/" + req.body.id);
+        nameref.once("value", function(snapshot){
+            ownerNameText = snapshot.val().name;
+        }).then(function() {
+            var othernameref = firebase.database().ref("users/" + req.body.meetupsId);
+            othernameref.once("value", function(snapshot){
+                otherNameText = snapshot.val().name;
+            }).then(function(){
+                ref.set({
+                    id : meetupID,
+                    courseName : courseNameText,
+                    ownerID : id,
+                    ownerName : ownerNameText,
+                    otherID : hookupsId,
+                    otherName : otherNameText,
+                    date : date,
+                    time : time,
+                    details : details
+                });
             });
-            res.status(200).json({message: "meetup added"});
-
+        });
+        var ownerRef = firebase.database().ref("users/" + req.body.id + "/PendingReply");
+        ownerRef.push(meetupID);
+        var otherRef = firebase.database().ref("users/" + req.body.meetupsId + "/PendingResponse");
+        otherRef.push(meetupID);
+        res.status(200).json({message: "meetup added"});
     },
+
     getMeetUp: (req, res, next) => {
         //var id = req.body.id;
         var questionId = []
