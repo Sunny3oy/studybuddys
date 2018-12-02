@@ -12,7 +12,7 @@ describe('getUsername', function() {
         chai.request(server)
         .post('/api/getUsername')
         .send({
-            id : "yopRBY8GtqNRCTbQnvS3bQCMD413"
+            id : "g27kanEfpmcVhk7VH2jGcmMLrG63"
         })
         .end(function(err, res){
             res.should.have.status(200);
@@ -30,7 +30,7 @@ describe('getUseremail', function() {
         chai.request(server)
         .post('/api/getUseremail')
         .send({
-            id : "yopRBY8GtqNRCTbQnvS3bQCMD413"
+            id : "g27kanEfpmcVhk7VH2jGcmMLrG63"
         })
         .end(function(err, res){
             res.should.have.status(200);
@@ -48,7 +48,7 @@ describe('getUserCourses', function() {
         chai.request(server)
         .post('/api/getUserCourses')
         .send({
-            id : "yopRBY8GtqNRCTbQnvS3bQCMD413"
+            id : "g27kanEfpmcVhk7VH2jGcmMLrG63"
         })
         .end(function(err, res){
             res.should.have.status(200);
@@ -65,7 +65,7 @@ describe('addCourses', function() {
         chai.request(server)
         .post('/api/addCourses')
         .send({
-            id : "yopRBY8GtqNRCTbQnvS3bQCMD413",
+            id : "g27kanEfpmcVhk7VH2jGcmMLrG63",
             courseName : "math"
         })
         .end(function(err, res){
@@ -83,7 +83,7 @@ describe('deleteUserCourses', function() {
         chai.request(server)
         .post('/api/deleteUserCourses')
         .send({
-            id : "yopRBY8GtqNRCTbQnvS3bQCMD413",
+            id : "g27kanEfpmcVhk7VH2jGcmMLrG63",
             courseName : "math"
         })
         .end(function(err, res){
@@ -101,7 +101,7 @@ describe('getSocialMedia', function() {
         chai.request(server)
         .post('/api/getSocialMedia')
         .send({
-            id : "yopRBY8GtqNRCTbQnvS3bQCMD413"
+            id : "g27kanEfpmcVhk7VH2jGcmMLrG63"
         })
         .end(function(err, res){
             res.should.have.status(200);
@@ -118,7 +118,7 @@ describe('updateSocialMedia', function() {
         chai.request(server)
         .post('/api/updateSocialMedia')
         .send({
-            id : "yopRBY8GtqNRCTbQnvS3bQCMD413",
+            id : "g27kanEfpmcVhk7VH2jGcmMLrG63",
             urlList : {
                 "facebook" : "www.facebook.com",
                 "linkedin" : "www.linkedin.com",
@@ -140,7 +140,7 @@ describe('deleteSocialMedia', function() {
         chai.request(server)
         .post('/api/deleteSocialMedia')
         .send({
-            id : "yopRBY8GtqNRCTbQnvS3bQCMD413",
+            id : "g27kanEfpmcVhk7VH2jGcmMLrG63",
             url : "instagram"
         })
         .end(function(err, res){
