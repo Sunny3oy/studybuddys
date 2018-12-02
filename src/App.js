@@ -35,12 +35,13 @@ class App extends Component {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ loggedIn:true });
-        this.getUserName();
+        this.getUserName()
       }
     });
   }
 
   getUserName(e){
+    console.log("bloop")
       var page = this;
       firebase.auth().onAuthStateChanged(function(user) {
          if (user) {
