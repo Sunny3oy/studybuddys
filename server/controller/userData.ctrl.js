@@ -58,7 +58,10 @@ module.exports = {
                     var newref = firebase.database().ref("CoursesTakenByUser/" + req.body.courseName);
                     //pushes the user's uid into here, this mean user has added this course into their course list
                     //making a new ref here makes it more easy to grab all the users that has this course in their courselist
-                    newref.push(req.body.id);
+                    var nameref = firebase.database().ref("users/" + req.body.id);
+                    nameref.once("value", function(snapshot){
+                       newref.push(snapshot.val().name);
+                    });
                 }
             });
             res.status(200).json({message: "course added"});
@@ -177,7 +180,7 @@ module.exports = {
             res.status(200).json({message: "course deleted"});
         }
     },
-    
+
     getUsersByCourseTaken: (req, res, next) => {
         if(req.body.courseName === undefined){
             res.status(400).json({message: "Missing course name"});
