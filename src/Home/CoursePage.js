@@ -8,8 +8,7 @@ import {
 import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
-import Navbar from "./Navbar";
-
+// import Calendar from "./Calendar2";
 import { Link } from 'react-router-dom';
 import CalendarModal from './MeetUp/CalendarModal'
 
@@ -31,8 +30,6 @@ class CoursePage extends PureComponent {
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createQuestion = this.createQuestion.bind(this);
-        // this.logout = this.logout.bind(this);
-        // this.getUserName = this.getUserName.bind(this);
         this.getQuestions = this.getQuestions.bind(this);
         this.openCalendar = this.openCalendar.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
@@ -42,8 +39,6 @@ class CoursePage extends PureComponent {
         const { courseName } = this.props.match.params
         fetch(`/courses/${courseName}`).then(this.setState({course : courseName}));
         this.getQuestions(courseName);
-        // this.getUserName();
-
     }
 
     checkLoggedIn() {
@@ -61,12 +56,6 @@ class CoursePage extends PureComponent {
         });
     };
 
-    // logout(e){
-    //     e.preventDefault();
-    //     firebase.auth().signOut();
-    //     this.props.history.push('/');
-    // }
-
     getQuestions(courseNum) {
         var course = {
             courseName: courseNum
@@ -78,26 +67,8 @@ class CoursePage extends PureComponent {
                     questions: response.data.questions,
                     createdBy: response.data.names})
             })
-
     }
 
-    // getReplies(course, question, creator) {
-    //     var info = {
-    //         id: "901232",
-    //         courseName: course,
-    //         questionText: question,
-    //         useridQuestion: creator
-    //     }
-    //     console.log("INFO IS")
-    //     console.log(info)
-    //     axios.post('https://studybuddys-223920.appspot.com/api/getReplies', info)
-    //         .then(response => {
-    //             console.log("yo")
-    //             console.log(response.data.replies)
-    //             this.setState({replies: response.data.replies})
-    //             console.log(this.state.replies)
-    //         })
-    // }
     getReplies(ID){
         var info={
             questionID: ID,
@@ -110,14 +81,12 @@ class CoursePage extends PureComponent {
                 replies:response.data.replies,
             })
         })
-
     }
 
     submitAnswer(){
         console.log(this.state.replyText);
         var replyT =this.state.replyText;
         var qID = this.state.currentID;
-        // var qID ="-LRrejiCSp3Z9vGvIzEK"
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     var info = {
@@ -131,49 +100,6 @@ class CoursePage extends PureComponent {
                 console.log(this.state.replies);
         this.getReplies(qID);
     }
-
-    // submitAnswer() {
-    //     console.log(this.state.replyText)
-    //     var reply = this.state.replyText;
-    //     var questID = ;
-    //     firebase.auth().onAuthStateChanged(function(user) {
-    //         if (user) {
-    //             var info = {
-    //                 id: user.uid,
-    //                 replyText: reply,
-    //                 questionID: ,
-    //             }
-    //             axios.post('https://studybuddys-223920.appspot.com/api/submitAnswer', info)
-    //         }
-    //         });
-    // }
-
-    // getReplies() {
-    //     var info = {
-    //         questionID: ,
-    //     }
-    //     axios.post('https://studybuddys-223920.appspot.com/api/MsgetReplies', info)
-    //     .then( response => {
-    //         this.setState({
-    //             replies: response.data.replies
-    //         })
-    //     })
-    // }
-
-    // getUserName(e){
-    //     var page = this;
-    //     firebase.auth().onAuthStateChanged(function(user) {
-    //     if (user) {
-    //         var info = {
-    //             id: user.uid
-    //         }
-    //         axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
-    //         .then(response => {
-    //             page.setState({name: response.data.name})
-    //         })
-    //     }
-    //     });
-    // }
 
     createQuestion() {
         var course = this.state.course;
@@ -194,7 +120,6 @@ class CoursePage extends PureComponent {
         this.getQuestions(this.state.course);
     }
 
-
     openCalendar() {
         this.setState({
             calendarIsOpen: !this.state.calendarIsOpen
@@ -204,16 +129,9 @@ class CoursePage extends PureComponent {
     render() {
         return (
 
+            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
 
-            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "block", flexDirection: "column"}}>
-                <div>
-                    <div style = {{float: "right", display: "inline-block"}}>
-                        <span>{this.state.name}</span>
-                        <Button onClick={this.logout}>Logout</Button>
-                    </div>
-                     <Navbar/>
-                </div>
-                {<Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>}
+                <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
                     <Button
                         className="Calendar"
                         type="submit"
@@ -246,8 +164,6 @@ class CoursePage extends PureComponent {
                             </Paper>
                         )
                     })}
-
-
                         <TextField
                             variant = "outlined"
                             multiline = {true}
@@ -266,12 +182,10 @@ class CoursePage extends PureComponent {
                         >
                             Ask Away
                         </Button>
-
                 </div>
             </div>
-
-
         )
     }
 }
+
 export default CoursePage;

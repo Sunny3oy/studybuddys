@@ -8,7 +8,6 @@ import {
   Card,
   CardContent,
 } from '@material-ui/core';
-// import Navbar from "./Navbar";
 import axios from 'axios';
 import * as firebase from 'firebase';
 import './Dashboard.css';
@@ -154,16 +153,14 @@ class Browser extends PureComponent {
         return (
 
             <div className="browserTitle">
-              {/* <div className="nav">
-                <Navbar />
-              </div> */}
+
               <div className = "flexCenter">
                   <h1
                     style = {{color: "black", marginTop: "100px",fontSize:'60px',height:'15vh'}}
                     data-aos="fade-down"
                     data-aos-easing="linear"
                     data-aos-duration="400"
-                  > 
+                  >
                     Select a Class
                   </h1>
 
@@ -196,9 +193,9 @@ class Browser extends PureComponent {
                       >
                         {this.state.allSubject.map((option,key) => {
                           return (
-                            <MenuItem 
-                              key={key} 
-                              value={option} 
+                            <MenuItem
+                              key={key}
+                              value={option}
                             >
                                 {option}
                             </MenuItem>
@@ -210,7 +207,7 @@ class Browser extends PureComponent {
                   }
                 </div>
                   {this.state.selectedSubject !==''?
-                    <Button 
+                    <Button
                       data-aos="fade-down"
                       data-aos-easing="linear"
                       data-aos-duration="400"

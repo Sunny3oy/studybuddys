@@ -14,8 +14,8 @@ module.exports = (router) => {
     .post(userDataController.addCourses)
 
     router
-    .route('/addSocialMedia')
-    .post(userDataController.addSocialMedia)
+    .route('/updateSocialMedia')
+    .post(userDataController.updateSocialMedia)
 
     router
     .route('/deleteSocialMedia')

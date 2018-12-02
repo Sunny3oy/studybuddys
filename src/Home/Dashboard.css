@@ -109,8 +109,7 @@ html, body {
 } */
 
 .nav_b {
-  margin-left: 74%;
+  display: inline-block;
   font-size: 23px;
-  padding-top: 7px;
-  
+  width: 100%;
 }

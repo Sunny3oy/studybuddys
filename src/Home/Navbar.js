@@ -33,13 +33,21 @@ class Navbar extends React.Component {
         <List  style={{width:'1000px'}}>
             <ListItem button >
               <Link 
+                to = "/dashboard/profile" 
+                style = {{textDecoration: "none", color: "black", width: "100%",height:'50px'}}
+              >
+                My Profile
+              </Link>
+            </ListItem >
+            <ListItem button >
+              <Link 
                 to = "/dashboard" 
                 style = {{textDecoration: "none", color: "black", width: "100%",height:'50px'}}
               >
                 My Courses
               </Link>
             </ListItem >
-            <ListItem button > 
+            <ListItem button> 
               <Link 
                 to = "/dashboard/browse" 
                 style = {{textDecoration: "none", color: "black", width: '100%',height:'50px'}}
