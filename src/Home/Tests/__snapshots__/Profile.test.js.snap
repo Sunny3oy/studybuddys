@@ -1247,7 +1247,7 @@ initialize {
                       },
                       "children": Array [
                         Object {
-                          "data": "Update Information:",
+                          "data": "Update Account Information:",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -1366,9 +1366,9 @@ initialize {
                                     Object {
                                       "attribs": Object {
                                         "aria-invalid": "false",
-                                        "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                        "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                         "placeholder": "Password",
-                                        "type": "text",
+                                        "type": "password",
                                       },
                                       "children": Array [],
                                       "name": "input",
@@ -1622,9 +1622,9 @@ initialize {
                                   Object {
                                     "attribs": Object {
                                       "aria-invalid": "false",
-                                      "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                      "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                       "placeholder": "Password",
-                                      "type": "text",
+                                      "type": "password",
                                     },
                                     "children": Array [],
                                     "name": "input",
@@ -1759,7 +1759,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Update Information:",
+                            "data": "Update Account Information:",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -1888,9 +1888,9 @@ initialize {
                                 Object {
                                   "attribs": Object {
                                     "aria-invalid": "false",
-                                    "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                    "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                     "placeholder": "Password",
-                                    "type": "text",
+                                    "type": "password",
                                   },
                                   "children": Array [],
                                   "name": "input",
@@ -2020,7 +2020,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Update Information:",
+                              "data": "Update Account Information:",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -2104,9 +2104,9 @@ initialize {
                               Object {
                                 "attribs": Object {
                                   "aria-invalid": "false",
-                                  "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                  "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                   "placeholder": "Password",
-                                  "type": "text",
+                                  "type": "password",
                                 },
                                 "children": Array [],
                                 "name": "input",
@@ -2279,7 +2279,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Update Information:",
+                                "data": "Update Account Information:",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -2339,9 +2339,9 @@ initialize {
                             Object {
                               "attribs": Object {
                                 "aria-invalid": "false",
-                                "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                 "placeholder": "Password",
-                                "type": "text",
+                                "type": "password",
                               },
                               "children": Array [],
                               "name": "input",
@@ -2540,7 +2540,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Update Information:",
+                                  "data": "Update Account Information:",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -2648,9 +2648,9 @@ initialize {
                               Object {
                                 "attribs": Object {
                                   "aria-invalid": "false",
-                                  "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                  "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                   "placeholder": "Password",
-                                  "type": "text",
+                                  "type": "password",
                                 },
                                 "children": Array [],
                                 "name": "input",
@@ -2799,7 +2799,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Update Information:",
+                                    "data": "Update Account Information:",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -10771,7 +10771,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "Update Information:",
+                        "data": "Update Account Information:",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -10890,9 +10890,9 @@ initialize {
                                   Object {
                                     "attribs": Object {
                                       "aria-invalid": "false",
-                                      "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                      "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                       "placeholder": "Password",
-                                      "type": "text",
+                                      "type": "password",
                                     },
                                     "children": Array [],
                                     "name": "input",
@@ -11146,9 +11146,9 @@ initialize {
                                 Object {
                                   "attribs": Object {
                                     "aria-invalid": "false",
-                                    "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                    "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                     "placeholder": "Password",
-                                    "type": "text",
+                                    "type": "password",
                                   },
                                   "children": Array [],
                                   "name": "input",
@@ -11283,7 +11283,7 @@ initialize {
                       },
                       "children": Array [
                         Object {
-                          "data": "Update Information:",
+                          "data": "Update Account Information:",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -11412,9 +11412,9 @@ initialize {
                               Object {
                                 "attribs": Object {
                                   "aria-invalid": "false",
-                                  "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                  "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                   "placeholder": "Password",
-                                  "type": "text",
+                                  "type": "password",
                                 },
                                 "children": Array [],
                                 "name": "input",
@@ -11544,7 +11544,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Update Information:",
+                            "data": "Update Account Information:",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -11628,9 +11628,9 @@ initialize {
                             Object {
                               "attribs": Object {
                                 "aria-invalid": "false",
-                                "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                 "placeholder": "Password",
-                                "type": "text",
+                                "type": "password",
                               },
                               "children": Array [],
                               "name": "input",
@@ -11803,7 +11803,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Update Information:",
+                              "data": "Update Account Information:",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -11863,9 +11863,9 @@ initialize {
                           Object {
                             "attribs": Object {
                               "aria-invalid": "false",
-                              "class": "MuiInputBase-input-91 MuiInput-input-76",
+                              "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                               "placeholder": "Password",
-                              "type": "text",
+                              "type": "password",
                             },
                             "children": Array [],
                             "name": "input",
@@ -12064,7 +12064,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Update Information:",
+                                "data": "Update Account Information:",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -12172,9 +12172,9 @@ initialize {
                             Object {
                               "attribs": Object {
                                 "aria-invalid": "false",
-                                "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                 "placeholder": "Password",
-                                "type": "text",
+                                "type": "password",
                               },
                               "children": Array [],
                               "name": "input",
@@ -12323,7 +12323,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Update Information:",
+                                  "data": "Update Account Information:",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -20360,7 +20360,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "Update Information:",
+                      "data": "Update Account Information:",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -20479,9 +20479,9 @@ initialize {
                                 Object {
                                   "attribs": Object {
                                     "aria-invalid": "false",
-                                    "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                    "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                     "placeholder": "Password",
-                                    "type": "text",
+                                    "type": "password",
                                   },
                                   "children": Array [],
                                   "name": "input",
@@ -20735,9 +20735,9 @@ initialize {
                               Object {
                                 "attribs": Object {
                                   "aria-invalid": "false",
-                                  "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                  "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                   "placeholder": "Password",
-                                  "type": "text",
+                                  "type": "password",
                                 },
                                 "children": Array [],
                                 "name": "input",
@@ -20872,7 +20872,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "Update Information:",
+                        "data": "Update Account Information:",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -21001,9 +21001,9 @@ initialize {
                             Object {
                               "attribs": Object {
                                 "aria-invalid": "false",
-                                "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                 "placeholder": "Password",
-                                "type": "text",
+                                "type": "password",
                               },
                               "children": Array [],
                               "name": "input",
@@ -21133,7 +21133,7 @@ initialize {
                       },
                       "children": Array [
                         Object {
-                          "data": "Update Information:",
+                          "data": "Update Account Information:",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -21217,9 +21217,9 @@ initialize {
                           Object {
                             "attribs": Object {
                               "aria-invalid": "false",
-                              "class": "MuiInputBase-input-91 MuiInput-input-76",
+                              "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                               "placeholder": "Password",
-                              "type": "text",
+                              "type": "password",
                             },
                             "children": Array [],
                             "name": "input",
@@ -21392,7 +21392,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Update Information:",
+                            "data": "Update Account Information:",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -21452,9 +21452,9 @@ initialize {
                         Object {
                           "attribs": Object {
                             "aria-invalid": "false",
-                            "class": "MuiInputBase-input-91 MuiInput-input-76",
+                            "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                             "placeholder": "Password",
-                            "type": "text",
+                            "type": "password",
                           },
                           "children": Array [],
                           "name": "input",
@@ -21653,7 +21653,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Update Information:",
+                              "data": "Update Account Information:",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -21761,9 +21761,9 @@ initialize {
                           Object {
                             "attribs": Object {
                               "aria-invalid": "false",
-                              "class": "MuiInputBase-input-91 MuiInput-input-76",
+                              "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                               "placeholder": "Password",
-                              "type": "text",
+                              "type": "password",
                             },
                             "children": Array [],
                             "name": "input",
@@ -21912,7 +21912,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Update Information:",
+                                "data": "Update Account Information:",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -28809,7 +28809,7 @@ initialize {
                 },
                 "children": Array [
                   Object {
-                    "data": "Update Information:",
+                    "data": "Update Account Information:",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -28928,9 +28928,9 @@ initialize {
                               Object {
                                 "attribs": Object {
                                   "aria-invalid": "false",
-                                  "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                  "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                   "placeholder": "Password",
-                                  "type": "text",
+                                  "type": "password",
                                 },
                                 "children": Array [],
                                 "name": "input",
@@ -29184,9 +29184,9 @@ initialize {
                             Object {
                               "attribs": Object {
                                 "aria-invalid": "false",
-                                "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                 "placeholder": "Password",
-                                "type": "text",
+                                "type": "password",
                               },
                               "children": Array [],
                               "name": "input",
@@ -29321,7 +29321,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "Update Information:",
+                      "data": "Update Account Information:",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -29450,9 +29450,9 @@ initialize {
                           Object {
                             "attribs": Object {
                               "aria-invalid": "false",
-                              "class": "MuiInputBase-input-91 MuiInput-input-76",
+                              "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                               "placeholder": "Password",
-                              "type": "text",
+                              "type": "password",
                             },
                             "children": Array [],
                             "name": "input",
@@ -29582,7 +29582,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "Update Information:",
+                        "data": "Update Account Information:",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -29666,9 +29666,9 @@ initialize {
                         Object {
                           "attribs": Object {
                             "aria-invalid": "false",
-                            "class": "MuiInputBase-input-91 MuiInput-input-76",
+                            "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                             "placeholder": "Password",
-                            "type": "text",
+                            "type": "password",
                           },
                           "children": Array [],
                           "name": "input",
@@ -29841,7 +29841,7 @@ initialize {
                       },
                       "children": Array [
                         Object {
-                          "data": "Update Information:",
+                          "data": "Update Account Information:",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -29901,9 +29901,9 @@ initialize {
                       Object {
                         "attribs": Object {
                           "aria-invalid": "false",
-                          "class": "MuiInputBase-input-91 MuiInput-input-76",
+                          "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                           "placeholder": "Password",
-                          "type": "text",
+                          "type": "password",
                         },
                         "children": Array [],
                         "name": "input",
@@ -30102,7 +30102,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Update Information:",
+                            "data": "Update Account Information:",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -30210,9 +30210,9 @@ initialize {
                         Object {
                           "attribs": Object {
                             "aria-invalid": "false",
-                            "class": "MuiInputBase-input-91 MuiInput-input-76",
+                            "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                             "placeholder": "Password",
-                            "type": "text",
+                            "type": "password",
                           },
                           "children": Array [],
                           "name": "input",
@@ -30361,7 +30361,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Update Information:",
+                              "data": "Update Account Information:",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -45077,7 +45077,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "Update Information:",
+                      "data": "Update Account Information:",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -45196,9 +45196,9 @@ initialize {
                                 Object {
                                   "attribs": Object {
                                     "aria-invalid": "false",
-                                    "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                    "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                     "placeholder": "Password",
-                                    "type": "text",
+                                    "type": "password",
                                   },
                                   "children": Array [],
                                   "name": "input",
@@ -45452,9 +45452,9 @@ initialize {
                               Object {
                                 "attribs": Object {
                                   "aria-invalid": "false",
-                                  "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                  "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                   "placeholder": "Password",
-                                  "type": "text",
+                                  "type": "password",
                                 },
                                 "children": Array [],
                                 "name": "input",
@@ -45589,7 +45589,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "Update Information:",
+                        "data": "Update Account Information:",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -45718,9 +45718,9 @@ initialize {
                             Object {
                               "attribs": Object {
                                 "aria-invalid": "false",
-                                "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                 "placeholder": "Password",
-                                "type": "text",
+                                "type": "password",
                               },
                               "children": Array [],
                               "name": "input",
@@ -45850,7 +45850,7 @@ initialize {
                       },
                       "children": Array [
                         Object {
-                          "data": "Update Information:",
+                          "data": "Update Account Information:",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -45934,9 +45934,9 @@ initialize {
                           Object {
                             "attribs": Object {
                               "aria-invalid": "false",
-                              "class": "MuiInputBase-input-91 MuiInput-input-76",
+                              "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                               "placeholder": "Password",
-                              "type": "text",
+                              "type": "password",
                             },
                             "children": Array [],
                             "name": "input",
@@ -46109,7 +46109,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Update Information:",
+                            "data": "Update Account Information:",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -46169,9 +46169,9 @@ initialize {
                         Object {
                           "attribs": Object {
                             "aria-invalid": "false",
-                            "class": "MuiInputBase-input-91 MuiInput-input-76",
+                            "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                             "placeholder": "Password",
-                            "type": "text",
+                            "type": "password",
                           },
                           "children": Array [],
                           "name": "input",
@@ -46370,7 +46370,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Update Information:",
+                              "data": "Update Account Information:",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -46478,9 +46478,9 @@ initialize {
                           Object {
                             "attribs": Object {
                               "aria-invalid": "false",
-                              "class": "MuiInputBase-input-91 MuiInput-input-76",
+                              "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                               "placeholder": "Password",
-                              "type": "text",
+                              "type": "password",
                             },
                             "children": Array [],
                             "name": "input",
@@ -46629,7 +46629,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Update Information:",
+                                "data": "Update Account Information:",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -54657,7 +54657,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "Update Information:",
+                        "data": "Update Account Information:",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -54776,9 +54776,9 @@ initialize {
                                   Object {
                                     "attribs": Object {
                                       "aria-invalid": "false",
-                                      "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                      "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                       "placeholder": "Password",
-                                      "type": "text",
+                                      "type": "password",
                                     },
                                     "children": Array [],
                                     "name": "input",
@@ -55032,9 +55032,9 @@ initialize {
                                 Object {
                                   "attribs": Object {
                                     "aria-invalid": "false",
-                                    "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                    "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                     "placeholder": "Password",
-                                    "type": "text",
+                                    "type": "password",
                                   },
                                   "children": Array [],
                                   "name": "input",
@@ -55169,7 +55169,7 @@ initialize {
                       },
                       "children": Array [
                         Object {
-                          "data": "Update Information:",
+                          "data": "Update Account Information:",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -55298,9 +55298,9 @@ initialize {
                               Object {
                                 "attribs": Object {
                                   "aria-invalid": "false",
-                                  "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                  "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                   "placeholder": "Password",
-                                  "type": "text",
+                                  "type": "password",
                                 },
                                 "children": Array [],
                                 "name": "input",
@@ -55430,7 +55430,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Update Information:",
+                            "data": "Update Account Information:",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -55514,9 +55514,9 @@ initialize {
                             Object {
                               "attribs": Object {
                                 "aria-invalid": "false",
-                                "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                 "placeholder": "Password",
-                                "type": "text",
+                                "type": "password",
                               },
                               "children": Array [],
                               "name": "input",
@@ -55689,7 +55689,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Update Information:",
+                              "data": "Update Account Information:",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -55749,9 +55749,9 @@ initialize {
                           Object {
                             "attribs": Object {
                               "aria-invalid": "false",
-                              "class": "MuiInputBase-input-91 MuiInput-input-76",
+                              "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                               "placeholder": "Password",
-                              "type": "text",
+                              "type": "password",
                             },
                             "children": Array [],
                             "name": "input",
@@ -55950,7 +55950,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Update Information:",
+                                "data": "Update Account Information:",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -56058,9 +56058,9 @@ initialize {
                             Object {
                               "attribs": Object {
                                 "aria-invalid": "false",
-                                "class": "MuiInputBase-input-91 MuiInput-input-76",
+                                "class": "MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79",
                                 "placeholder": "Password",
-                                "type": "text",
+                                "type": "password",
                               },
                               "children": Array [],
                               "name": "input",
@@ -56209,7 +56209,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Update Information:",
+                                  "data": "Update Account Information:",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
