@@ -7,10 +7,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import * as firebase from 'firebase';
-// import Calendar from "./Calendar2";
-// import Calendar from 'rc-calendar';
-// import LuxonUtils from '@date-io/luxon';
-// import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+
 
 class Question extends PureComponent {
     constructor(props) {

@@ -5,11 +5,10 @@ import {
     Button,
     Paper
 } from '@material-ui/core';
-// import './CoursePage.css';
+import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
 import { Link } from 'react-router-dom';
-import CalendarModal from './MeetUp/CalendarModal'
 import Card from '@material-ui/core/Card';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
