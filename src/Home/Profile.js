@@ -29,7 +29,13 @@ class Profile extends PureComponent{
                 newInstagram: "",
                 eventName: ["Study With Jenny", "Lunch At Cafe Amore", "Study for Paradigms Final"],
                 description: ["One on One Date", "Food is Important", "Kill me now","Dec 16 2018, 12:00PM"],
-                dateAndTime: ["Dec 06, 2018 3:30PM", "Dec 06, 2018 4:30PM", "Dec 16 2018, 12:00PM"]
+                dateAndTime: ["Dec 06, 2018 3:30PM", "Dec 06, 2018 4:30PM", "Dec 16 2018, 12:00PM"],
+                decision:false,
+                meetUps:[],
+                selectedMeetUp:"",
+                awaitingMeetUp:[],
+                approvedMeetUp:[],
+                deniedMeetup:[],
             }
         this.getUserName = this.getUserName.bind(this);
         this.getUserEmail = this.getUserEmail.bind(this);
@@ -38,12 +44,22 @@ class Profile extends PureComponent{
         this.changePassword = this.changePassword.bind(this);
         this.updateSocialMedia = this.updateSocialMedia.bind(this);
         this.getSocialMedia = this.getSocialMedia.bind(this);
+        this.getMeetUps = this.getMeetUps.bind(this);
+        this.approveMeetUps = this.approveMeetUps.bind(this);
+        this.denyMeetUps = this.denyMeetUps.bind(this);
+        this.getPendingReplyMeetUps = this.getPendingReplyMeetUps.bind(this);
+        this.getApprovedMeetUps = this.getApprovedMeetUps.bind(this);
+        this.getDeniedMeetUps = this.getDeniedMeetUps.bind(this);
     }
 
     componentDidMount(){
         this.getUserName();
         this.getUserEmail();
         this.getSocialMedia();
+        this.getMeetUps();
+        this.getPendingReplyMeetUps();
+        this.getApprovedMeetUps();
+        this.getDeniedMeetUps();
     }
 
     handleChange = name => event => {
@@ -153,8 +169,134 @@ class Profile extends PureComponent{
         })
     }
 
-    render(){
+    getMeetUps(){
+        var page = this;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var info = {
+                    id: user.uid,
+                }
+                axios.post('https://studybuddys-223920.appspot.com/api/getPendingResponseMeetUps', info)
+                .then( response => {
+                    page.setState({    
+                        meetUps:response.data.info,                       
+                    })
+                    // console.log(response)
+                    // console.log(response.data.info[0].name)
+                    
+                })
+                
+            }
+        })
+    }
+    approveMeetUps(){
+        var page = this;
+        var key = this.state.selectedMeetUp;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var info = {
+                    id: user.uid,
+                    meetupId:key
+                }
+                axios.post('https://studybuddys-223920.appspot.com/api/approveMeetup', info)
+                .then( page.getMeetUps()
+                    
+                ).then(page.getApprovedMeetUps())
+                console.log(info.meetupId)
+            }
+        })
+        
+        
+    }
 
+    denyMeetUps(){
+        var page = this;
+        var key = this.state.selectedMeetUp;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var info = {
+                    id: user.uid,
+                    meetupId:key
+                }
+                axios.post('https://studybuddys-223920.appspot.com/api/denyMeetup', info)
+                .then( page.getMeetUps()
+                    
+                ).then(page.getDeniedMeetUps())
+                console.log(info.meetupId)
+            }
+        })
+        
+    }
+
+    getPendingReplyMeetUps(){
+        var page = this;
+        var key = this.state.selectedMeetUp;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var info = {
+                    id: user.uid,
+                    meetupId:key
+                }
+                axios.post('https://studybuddys-223920.appspot.com/api/getPendingReplyMeetUps', info)
+                .then(response=>{
+                    page.setState({
+                        awaitingMeetUp:response.data.info
+                    })
+                }
+                    
+                )
+                console.log(info.meetupId)
+            }
+        })
+        
+    }
+
+    getApprovedMeetUps(){
+        var page = this;
+        var key = this.state.selectedMeetUp;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var info = {
+                    id: user.uid,
+                    meetupId:key
+                }
+                axios.post('https://studybuddys-223920.appspot.com/api/getApprovedMeetUps', info)
+                .then(response=>{
+                    page.setState({
+                        approvedMeetUp:response.data.info
+                    })
+                }
+                    
+                )
+                console.log(info.meetupId)
+            }
+        })
+        
+    }
+
+    getDeniedMeetUps(){
+        var page = this;
+        var key = this.state.selectedMeetUp;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var info = {
+                    id: user.uid,
+                    meetupId:key
+                }
+                axios.post('https://studybuddys-223920.appspot.com/api/getDeniedMeetUps', info)
+                .then(response=>{
+                    page.setState({
+                        deniedMeetup:response.data.info
+                    })
+                }
+                    
+                )
+                console.log(info.meetupId)
+            }
+        })
+    }
+
+    render(){
         return(
             <div>
 
@@ -246,16 +388,128 @@ class Profile extends PureComponent{
                         data-aos-easing="linear"
                         data-aos-duration="800"
                     >
-                        <Typography variant = "h4">Upcoming Events</Typography>
+                        <Typography variant = "h4">Please Respond Events</Typography>
                         <br/>
-                        {this.state.eventName.map((title, key) => {
+                        {console.log(this.state.meetUps)}
+                        {
+                            this.state.meetUps.map((title, key) => {
                             return(
                                 <Paper className="event" key = {key}>
-                                    {title}
+                                    {this.state.meetUps[key].name}
                                     <br/>
-                                    {this.state.description[key]}
+                                    {this.state.meetUps[key].courseName}
                                     <br/>
-                                    {this.state.dateAndTime[key]}
+                                    {this.state.meetUps[key].description}
+                                    <br/>
+                                    {this.state.meetUps[key].date}
+                                    <br/>
+                                    {this.state.meetUps[key].time}
+                                    <br/>
+
+                                    {
+                                    this.state.decision !== true?
+                                        <div className="flexRow">
+                                            <Button onClick={()=>{this.setState({selectedMeetUp:this.state.meetUps[key].meetupId},this.approveMeetUps)}}>YES</Button>
+                                            <Button onClick={()=>{this.setState({selectedMeetUp:this.state.meetUps[key].meetupId},this.denyMeetUps)}}>NO</Button>
+                                        </div>
+                                    :
+                                    <div><p><b>You're Meeting Up!</b></p></div>
+                                    }
+                                   
+                                </Paper>
+                            )
+                        })}
+                    </Card>
+
+                    <Card
+                        raised = {true}
+                        className = "profile"
+                        data-aos="fade-in"
+                        data-aos-easing="linear"
+                        data-aos-duration="800"
+                    >
+                        <Typography variant = "h4"> Awaiting Response Events</Typography>
+                        <br/>
+                        {console.log(this.state.meetUps)}
+                        {
+                            this.state.awaitingMeetUp.map((title, key) => {
+                            return(
+                                <Paper className="event" key = {key}>
+                                    {this.state.awaitingMeetUp[key].name}
+                                    <br/>
+                                    {this.state.awaitingMeetUp[key].courseName}
+                                    <br/>
+                                    {this.state.awaitingMeetUp[key].description}
+                                    <br/>
+                                    {this.state.awaitingMeetUp[key].date}
+                                    <br/>
+                                    {this.state.awaitingMeetUp[key].time}
+                                    <br/>
+
+                                    
+                                   
+                                </Paper>
+                            )
+                        })}
+                    </Card>
+
+                    <Card
+                        raised = {true}
+                        className = "profile"
+                        data-aos="fade-in"
+                        data-aos-easing="linear"
+                        data-aos-duration="800"
+                    >
+                        <Typography variant = "h4"> Approved Events</Typography>
+                        <br/>
+                        {console.log(this.state.meetUps)}
+                        {
+                            this.state.approvedMeetUp.map((title, key) => {
+                            return(
+                                <Paper className="event" key = {key}>
+                                    {this.state.approvedMeetUp[key].name}
+                                    <br/>
+                                    {this.state.approvedMeetUp[key].courseName}
+                                    <br/>
+                                    {this.state.approvedMeetUp[key].description}
+                                    <br/>
+                                    {this.state.approvedMeetUp[key].date}
+                                    <br/>
+                                    {this.state.approvedMeetUp[key].time}
+                                    <br/>
+
+                                    
+                                   
+                                </Paper>
+                            )
+                        })}
+                    </Card>
+
+                    <Card
+                        raised = {true}
+                        className = "profile"
+                        data-aos="fade-in"
+                        data-aos-easing="linear"
+                        data-aos-duration="800"
+                    >
+                        <Typography variant = "h4"> Denied Events</Typography>
+                        <br/>
+                        {console.log(this.state.meetUps)}
+                        {
+                            this.state.deniedMeetup.map((title, key) => {
+                            return(
+                                <Paper className="event" key = {key}>
+                                    {this.state.deniedMeetup[key].name}
+                                    <br/>
+                                    {this.state.deniedMeetup[key].courseName}
+                                    <br/>
+                                    {this.state.deniedMeetup[key].description}
+                                    <br/>
+                                    {this.state.deniedMeetup[key].date}
+                                    <br/>
+                                    {this.state.deniedMeetup[key].time}
+                                    <br/>
+
                                 </Paper>
                             )
                         })}
