@@ -58,7 +58,13 @@ module.exports = {
                     var newref = firebase.database().ref("CoursesTakenByUser/" + req.body.courseName);
                     //pushes the user's uid into here, this mean user has added this course into their course list
                     //making a new ref here makes it more easy to grab all the users that has this course in their courselist
-                    newref.push(req.body.id);
+                    var nameref = firebase.database().ref("users/" + req.body.id);
+                    nameref.once("value", function(snapshot){
+                       newref.push({
+                          name : snapshot.val().name,
+                          id : req.body.id
+                       });
+                    });
                 }
             });
             res.status(200).json({message: "course added"});
@@ -177,20 +183,25 @@ module.exports = {
             res.status(200).json({message: "course deleted"});
         }
     },
-    
+
     getUsersByCourseTaken: (req, res, next) => {
         if(req.body.courseName === undefined){
             res.status(400).json({message: "Missing course name"});
         }
         else{
-            var users = []
+            var userNames = [];
+            var userIds = [];
             var ref = firebase.database().ref("CoursesTakenByUser/" + req.body.courseName);
             ref.once("value", function (snapshot){
                 console.log(snapshot.val())
                 snapshot.forEach(function (childsnap) {
-                    users.push(childsnap.val());
+                    userNames.push(childsnap.val().name);
+                    userIds.push(childsnap.val().id);
                 });
-                res.status(200).json({users: users});
+                res.status(200).json({
+                   ids : userIds,
+                   names : userNames
+                });
             });
         }
     }
