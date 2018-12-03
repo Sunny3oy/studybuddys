@@ -171,11 +171,11 @@ module.exports = {
         firebase.database().ref("users/" + req.body.id + "/PendingReply/" + req.body.meetupId).once('value').then(function(snapshot) {
             var obj = snapshot.val();
             if(obj == null){
-                firebase.database().ref("users/" + req.body.id + "/ApprovedMeetUps/" + req.body.meetupId).once('value').then(function(snapshot) {
-                    var obj2 = snapshot.val();
+                firebase.database().ref("users/" + req.body.id + "/ApprovedMeetUps/" + req.body.meetupId).once('value').then(function(snapshot2) {
+                    var obj2 = snapshot2.val();
                     if(obj2 == null){
-                        firebase.database().ref("users/" + req.body.id + "/DeniedMeetUps/" + req.body.meetupId).once('value').then(function(snapshot) {
-                            var obj3 = snapshot.val();
+                        firebase.database().ref("users/" + req.body.id + "/DeniedMeetUps/" + req.body.meetupId).once('value').then(function(snapshot3) {
+                            var obj3 = snapshot3.val();
                             firebase.database().ref("users/" + obj3.ownerID + "/DeniedMeetUps/" + req.body.meetupId).remove();
                             firebase.database().ref("users/" + obj3.otherID + "/DeniedMeetUps/" + req.body.meetupId).remove();
                         });
