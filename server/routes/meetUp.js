@@ -13,4 +13,8 @@ module.exports = (router) => {
     .route('/deleteMeetup')
     .post(userDataController.deleteMeetup)
 
+    router
+    .route('/getPendingResponseMeetUps')
+    .post(userDataController.getPendingResponseMeetUps)
+
 }

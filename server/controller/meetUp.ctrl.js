@@ -22,31 +22,56 @@ module.exports = {
         var ownerNameText;
         var otherNameText;
         var nameref = firebase.database().ref("users/" + req.body.id);
-        nameref.once("value", function(snapshot){
-            ownerNameText = snapshot.val().name;
-        }).then(function() {
-            var othernameref = firebase.database().ref("users/" + req.body.meetupsId);
-            othernameref.once("value", function(snapshot){
-                otherNameText = snapshot.val().name;
-            }).then(function(){
-                ref.set({
-                    id : meetupID,
-                    courseName : courseNameText,
-                    ownerID : id,
-                    ownerName : ownerNameText,
-                    otherID : hookupsId,
-                    otherName : otherNameText,
-                    date : date,
-                    time : time,
-                    details : details
+        if(req.body.id != req.body.meetupsId){
+            nameref.once("value", function(snapshot){
+                ownerNameText = snapshot.val().name;
+            }).then(function() {
+                var othernameref = firebase.database().ref("users/" + req.body.meetupsId);
+                othernameref.once("value", function(snapshot){
+                    otherNameText = snapshot.val().name;
+                }).then(function(){
+                    var info = {
+                        id : meetupID,
+                        courseName : courseNameText,
+                        ownerID : id,
+                        ownerName : ownerNameText,
+                        otherID : hookupsId,
+                        otherName : otherNameText,
+                        date : date,
+                        time : time,
+                        details : details
+                    };
+                    //ref.set(info);
+                    firebase.database().ref("users/" + req.body.id + "/PendingReply/" + meetupID).set(info);
+                    firebase.database().ref("users/" + req.body.meetupsId + "/PendingResponse/" + meetupID).set(info);
                 });
             });
+            //var ownerRef = firebase.database().ref("users/" + req.body.id + "/PendingReply");
+            //ownerRef.push(meetupID);
+            //var otherRef = firebase.database().ref("users/" + req.body.meetupsId + "/PendingResponse");
+            //.push(meetupID);
+            res.status(200).json({message: "meetup added"});
+        }
+    },
+
+    getPendingResponseMeetUps: (req, res, next) => {
+        var id = req.body.id;
+        var infoList = [];
+        var ref = firebase.database().ref("users/" + req.body.id + "/PendingResponse");
+        ref.once("value", function(snapshot){
+            snapshot.forEach(function (childsnap){
+                var obj = {
+                    name : childsnap.val().ownerName,
+                    courseName : childsnap.val().courseName,
+                    description : childsnap.val().details,
+                    date : childsnap.val().date,
+                    time : childsnap.val().time
+                }
+                infoList.push(obj);
+            });
+        }).then(function() {
+            res.status(200).json({info : infoList});
         });
-        var ownerRef = firebase.database().ref("users/" + req.body.id + "/PendingReply");
-        ownerRef.push(meetupID);
-        var otherRef = firebase.database().ref("users/" + req.body.meetupsId + "/PendingResponse");
-        otherRef.push(meetupID);
-        res.status(200).json({message: "meetup added"});
     },
 
     getMeetUp: (req, res, next) => {
