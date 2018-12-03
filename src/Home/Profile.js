@@ -15,7 +15,6 @@ class Profile extends PureComponent{
     constructor(props) {
         super(props);
             this.state = {
-                userClass: "",
                 name: "",
                 password: "",
                 email: "",
@@ -27,9 +26,6 @@ class Profile extends PureComponent{
                 newFacebook: "",
                 newLinkedIn: "",
                 newInstagram: "",
-                eventName: ["Study With Jenny", "Lunch At Cafe Amore", "Study for Paradigms Final"],
-                description: ["One on One Date", "Food is Important", "Kill me now","Dec 16 2018, 12:00PM"],
-                dateAndTime: ["Dec 06, 2018 3:30PM", "Dec 06, 2018 4:30PM", "Dec 16 2018, 12:00PM"],
                 decision:false,
                 meetUps:[],
                 selectedMeetUp:"",
@@ -50,6 +46,7 @@ class Profile extends PureComponent{
         this.getPendingReplyMeetUps = this.getPendingReplyMeetUps.bind(this);
         this.getApprovedMeetUps = this.getApprovedMeetUps.bind(this);
         this.getDeniedMeetUps = this.getDeniedMeetUps.bind(this);
+        this.deleteMeetUps = this.deleteMeetUps.bind(this);
     }
 
     componentDidMount(){
@@ -202,7 +199,7 @@ class Profile extends PureComponent{
                 .then( page.getMeetUps()
                     
                 ).then(page.getApprovedMeetUps())
-                console.log(info.meetupId)
+               
             }
         })
         
@@ -222,7 +219,7 @@ class Profile extends PureComponent{
                 .then( page.getMeetUps()
                     
                 ).then(page.getDeniedMeetUps())
-                console.log(info.meetupId)
+              
             }
         })
         
@@ -245,7 +242,7 @@ class Profile extends PureComponent{
                 }
                     
                 )
-                console.log(info.meetupId)
+                
             }
         })
         
@@ -268,7 +265,7 @@ class Profile extends PureComponent{
                 }
                     
                 )
-                console.log(info.meetupId)
+                
             }
         })
         
@@ -291,9 +288,31 @@ class Profile extends PureComponent{
                 }
                     
                 )
-                console.log(info.meetupId)
+                
             }
         })
+    }
+
+    deleteMeetUps(){
+        var page = this;
+        var key = this.state.selectedMeetUp;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                var info = {
+                    id: user.uid,
+                    meetupId:key
+                }
+                console.log(info) 
+                axios.post('https://studybuddys-223920.appspot.com/api/deleteMeetup', info)
+                .then(alert("You Deleted An Event.")
+                    
+                )
+                
+                console.log(info)    
+            }
+            
+        })
+
     }
 
     render(){
@@ -477,9 +496,8 @@ class Profile extends PureComponent{
                                     <br/>
                                     {this.state.approvedMeetUp[key].time}
                                     <br/>
-
                                     
-                                   
+                                   {/* <Button onClick={()=>{this.setState({selectedMeetUp:this.state.meetUps[key].meetupId},this.deleteMeetUps)}} color="secondary">Delete</Button> */}
                                 </Paper>
                             )
                         })}
@@ -509,7 +527,7 @@ class Profile extends PureComponent{
                                     <br/>
                                     {this.state.deniedMeetup[key].time}
                                     <br/>
-
+                                    {/* <Button onClick={()=>{this.setState({selectedMeetUp:this.state.meetUps[key].meetupId},this.deleteMeetUps)}} color="secondary">Delete</Button> */}
                                 </Paper>
                             )
                         })}
