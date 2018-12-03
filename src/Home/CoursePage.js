@@ -5,7 +5,7 @@ import {
     Button,
     Paper
 } from '@material-ui/core';
-import './CoursePage.css';
+// import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
 import { Link } from 'react-router-dom';
@@ -179,24 +179,14 @@ class CoursePage extends PureComponent {
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
 
                 <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
-                <Button
-                    className="Calendar"
-                    type="submit"
-                    onClick={this.openCalendar}
-                >
-                    Meet Up
-                </Button>
-                <CalendarModal
-                    isOpen={this.state.calendarIsOpen}
-                    handleClose={this.openCalendar}
-                >
-                </CalendarModal>
-
-                <div className = "flexCenter">
-                    <Typography  variant = "h3">
+               
+                
+                <div className="flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", opacity:"0.8",padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
+                    <Typography 
+                        gutterBottom = {true} 
+                        variant = "h4">
                         <u>Questions</u>:
                     </Typography>
-
                     {this.state.questions.map((data, key) => {
                         return (
                             <Paper 
@@ -217,7 +207,7 @@ class CoursePage extends PureComponent {
                         multiline = {true}
                         label = "Ask a Question"
                         onChange = {this.handleChange("newQuestion")}
-                        style = {{marginTop: "20px", width: "80%"}}
+                        style = {{marginTop: "20px", width: "50%"}}
                     >
                     </TextField>
                     <br/>
@@ -225,7 +215,7 @@ class CoursePage extends PureComponent {
                         type = "submit"
                         variant = "contained"
                         onClick = {this.createQuestion}
-                        style = {{width: "80%"}}
+                        style = {{width: "50%"}}
                     >
                         Ask Away
                     </Button>
