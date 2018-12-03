@@ -306,7 +306,7 @@ class Profile extends PureComponent{
                 axios.post('https://studybuddys-223920.appspot.com/api/deleteMeetup', info)
                 .then(alert("You Deleted An Event.")
                     
-                )
+                ).then(page.getMeetUps(),page.getApprovedMeetUps(),page.getDeniedMeetUps())
                 
                 console.log(info)    
             }
@@ -497,7 +497,7 @@ class Profile extends PureComponent{
                                     {this.state.approvedMeetUp[key].time}
                                     <br/>
                                     
-                                   {/* <Button onClick={()=>{this.setState({selectedMeetUp:this.state.meetUps[key].meetupId},this.deleteMeetUps)}} color="secondary">Delete</Button> */}
+                                   <Button onClick={()=>{this.setState({selectedMeetUp:this.state.approvedMeetUp[key].meetupId},this.deleteMeetUps)}} color="secondary">Delete</Button>
                                 </Paper>
                             )
                         })}
@@ -527,7 +527,7 @@ class Profile extends PureComponent{
                                     <br/>
                                     {this.state.deniedMeetup[key].time}
                                     <br/>
-                                    {/* <Button onClick={()=>{this.setState({selectedMeetUp:this.state.meetUps[key].meetupId},this.deleteMeetUps)}} color="secondary">Delete</Button> */}
+                                    <Button onClick={()=>{this.setState({selectedMeetUp:this.state.deniedMeetup[key].meetupId},this.deleteMeetUps)}} color="secondary">Delete</Button>
                                 </Paper>
                             )
                         })}
