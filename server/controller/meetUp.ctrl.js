@@ -41,15 +41,10 @@ module.exports = {
                         time : time,
                         details : details
                     };
-                    //ref.set(info);
                     firebase.database().ref("users/" + req.body.id + "/PendingReply/" + meetupID).set(info);
                     firebase.database().ref("users/" + req.body.meetupsId + "/PendingResponse/" + meetupID).set(info);
                 });
             });
-            //var ownerRef = firebase.database().ref("users/" + req.body.id + "/PendingReply");
-            //ownerRef.push(meetupID);
-            //var otherRef = firebase.database().ref("users/" + req.body.meetupsId + "/PendingResponse");
-            //.push(meetupID);
             res.status(200).json({message: "meetup added"});
         }
     },
@@ -61,6 +56,7 @@ module.exports = {
         ref.once("value", function(snapshot){
             snapshot.forEach(function (childsnap){
                 var obj = {
+                    meetupId : childsnap.val().id,
                     name : childsnap.val().ownerName,
                     courseName : childsnap.val().courseName,
                     description : childsnap.val().details,
@@ -74,51 +70,125 @@ module.exports = {
         });
     },
 
-    getMeetUp: (req, res, next) => {
-        //var id = req.body.id;
-        var questionId = []
-        var courseName = []
-        var id = []
-        var date = []
-        var time = []
-        var details = []
-
-        var ref = firebase.database().ref("meetUps/" + req.body.id);
-
-        ref.once("value", function(snapshot){
-            snapshot.forEach(function (childsnap) {
-                var list = childsnap.val();
-               for (var key in list) {
-               console.log(list[key].courseName);
-               questionId.push(list[key].questionId);
-               courseName.push(list[key].courseName);
-               id.push(list[key].id);
-               date.push(list[key].date);
-               time.push(list[key].time);
-               details.push(list[key].details);
-            }
-
-            });
-            res.status(200).json({
-                "questionId":questionId,
-                "courseName":courseName,
-                "id":id,
-                "date":date,
-                "time":time,
-                "details":details
-            });
-         });
-
-    },
-    deleteMeetup: (req, res, next) => {
-        var questionId = req.body.questionId;
+    getPendingReplyMeetUps: (req, res, next) => {
         var id = req.body.id;
+        var infoList = [];
+        var ref = firebase.database().ref("users/" + req.body.id + "/PendingReply");
+        ref.once("value", function(snapshot){
+            snapshot.forEach(function (childsnap){
+                var obj = {
+                    meetupId : childsnap.val().id,
+                    name : childsnap.val().ownerName,
+                    courseName : childsnap.val().courseName,
+                    description : childsnap.val().details,
+                    date : childsnap.val().date,
+                    time : childsnap.val().time
+                }
+                infoList.push(obj);
+            });
+        }).then(function() {
+            res.status(200).json({info : infoList});
+        });
+    },
 
-        var ref = firebase.database().ref("meetUps/" + req.body.id + "/" + questionId);
-        ref.remove()
+    getApprovedMeetUps: (req, res, next) => {
+        var id = req.body.id;
+        var infoList = [];
+        var ref = firebase.database().ref("users/" + req.body.id + "/ApprovedMeetUps");
+        ref.once("value", function(snapshot){
+            snapshot.forEach(function (childsnap){
+                var obj = {
+                    meetupId : childsnap.val().id,
+                    name : childsnap.val().ownerName,
+                    courseName : childsnap.val().courseName,
+                    description : childsnap.val().details,
+                    date : childsnap.val().date,
+                    time : childsnap.val().time
+                }
+                infoList.push(obj);
+            });
+        }).then(function() {
+            res.status(200).json({info : infoList});
+        });
+    },
 
+    getDeniedMeetUps: (req, res, next) => {
+        var id = req.body.id;
+        var infoList = [];
+        var ref = firebase.database().ref("users/" + req.body.id + "/DeniedMeetUps");
+        ref.once("value", function(snapshot){
+            snapshot.forEach(function (childsnap){
+                var obj = {
+                    meetupId : childsnap.val().id,
+                    name : childsnap.val().ownerName,
+                    courseName : childsnap.val().courseName,
+                    description : childsnap.val().details,
+                    date : childsnap.val().date,
+                    time : childsnap.val().time
+                }
+                infoList.push(obj);
+            });
+        }).then(function() {
+            res.status(200).json({info : infoList});
+        });
+    },
 
+    approveMeetup: (req, res, next) => {
+        var meetupId = req.body.meetupId;
+        var id = req.body.id;
+        firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).once('value').then(function(snapshot) {
+            var obj = snapshot.val();
+            firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).remove();
+            firebase.database().ref("users/" + req.body.id + "/ApprovedMeetUps/" + req.body.meetupId).set(obj);
 
+            firebase.database().ref("users/" + obj.ownerID + "/PendingReply/" + req.body.meetupId).remove();
+            firebase.database().ref("users/" + obj.ownerID + "/ApprovedMeetUps/" + req.body.meetupId).set(obj);
 
+            res.status(200).json({message: "meetup approved"});
+        });
+    },
+
+    denyMeetup: (req, res, next) => {
+        var meetupId = req.body.meetupId;
+        var id = req.body.id;
+        firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).once('value').then(function(snapshot) {
+            var obj = snapshot.val();
+            firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).remove();
+            firebase.database().ref("users/" + req.body.id + "/DeniedMeetUps/" + req.body.meetupId).set(obj);
+
+            firebase.database().ref("users/" + obj.ownerID + "/PendingReply/" + req.body.meetupId).remove();
+            firebase.database().ref("users/" + obj.ownerID + "/DeniedMeetUps/" + req.body.meetupId).set(obj);
+
+            res.status(200).json({message: "Meetup denied"});
+        });
+    },
+
+    deleteMeetup: (req, res, next) => {
+        var meetupId = req.body.meetupId;
+        var id = req.body.id;
+        firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).once('value').then(function(snapshot) {
+            var obj = snapshot.val();
+            if(obj == null){
+                firebase.database().ref("users/" + req.body.id + "/ApprovedMeetUps/" + req.body.meetupId).once('value').then(function(snapshot) {
+                    var obj2 = snapshot.val();
+                    if(obj2 == null){
+                        firebase.database().ref("users/" + req.body.id + "/DeniedMeetUps/" + req.body.meetupId).once('value').then(function(snapshot) {
+                            var obj3 = snapshot.val();
+                            firebase.database().ref("users/" + obj3.ownerID + "/DeniedMeetUps/" + req.body.meetupId).remove();
+                            firebase.database().ref("users/" + obj3.otherID + "/DeniedMeetUps/" + req.body.meetupId).remove();
+                        });
+                    }
+                    else{
+                        firebase.database().ref("users/" + obj2.ownerID + "/ApprovedMeetUps/" + req.body.meetupId).remove();
+                        firebase.database().ref("users/" + obj2.otherID + "/ApprovedMeetUps/" + req.body.meetupId).remove();
+                    }
+                });
+            }
+            else{
+                firebase.database().ref("users/" + obj.ownerID + "/PendingReply/" + req.body.meetupId).remove();
+                firebase.database().ref("users/" + obj.otherID + "/PendingResponse/" + req.body.meetupId).remove();
+            }
+        });
+        res.status(200).json({message: "Meetup deleted"});
     }
 }
