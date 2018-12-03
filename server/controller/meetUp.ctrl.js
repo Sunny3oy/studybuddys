@@ -168,7 +168,7 @@ module.exports = {
     deleteMeetup: (req, res, next) => {
         var meetupId = req.body.meetupId;
         var id = req.body.id;
-        firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).once('value').then(function(snapshot) {
+        firebase.database().ref("users/" + req.body.id + "/PendingReply/" + req.body.meetupId).once('value').then(function(snapshot) {
             var obj = snapshot.val();
             if(obj == null){
                 firebase.database().ref("users/" + req.body.id + "/ApprovedMeetUps/" + req.body.meetupId).once('value').then(function(snapshot) {
