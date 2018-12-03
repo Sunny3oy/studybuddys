@@ -7,10 +7,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import * as firebase from 'firebase';
-// import Calendar from "./Calendar2";
-// import Calendar from 'rc-calendar';
-// import LuxonUtils from '@date-io/luxon';
-// import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+
 
 class Question extends PureComponent {
     constructor(props) {
@@ -135,17 +132,18 @@ class Question extends PureComponent {
                         variant = "outlined" 
                         multiline = {true} 
                         label = "Answer" 
-                        style = {{marginTop: "20px", width: "50%"}}
+                        style = {{ width: "50%",marginTop:'15px'}}
                         onChange= {                                         
                             this.handleChange("replyText")         
                         }
                     >
                     {console.log(this.state.replyText) }
                     </TextField>
-                    <Button type = "submit" 
-                        onClick = {this.submitAnswer} 
-                        variant = "contained"
-                        style = {{width: "50%"}}>Submit</Button>
+                    <Button 
+                    type = "submit" 
+                    variant = "contained"
+                    onClick = {this.submitAnswer} 
+                    style = {{width: "50%",marginTop:'15px'}}>Submit</Button>
                 </div>
             </div>
         )   

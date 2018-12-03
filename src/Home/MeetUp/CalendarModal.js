@@ -55,7 +55,7 @@ class SimpleModal extends React.Component {
             <TextFieldMeetup/>
             <Button>
                 Submit
-                </Button>
+            </Button>
             <SimpleModalWrapped />
           </div>
         </Modal>
