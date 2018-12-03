@@ -124,6 +124,7 @@ module.exports = {
                 var obj = {
                     meetupId : childsnap.val().id,
                     name : childsnap.val().ownerName,
+                    partner : childsnap.val().otherName,
                     courseName : childsnap.val().courseName,
                     description : childsnap.val().details,
                     date : childsnap.val().date,
