@@ -138,12 +138,13 @@ module.exports = {
         var id = req.body.id;
         firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).once('value').then(function(snapshot) {
             var obj = snapshot.val();
-            firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).remove();
-            firebase.database().ref("users/" + req.body.id + "/ApprovedMeetUps/" + req.body.meetupId).set(obj);
+            if(obj != null){
+                firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).remove();
+                firebase.database().ref("users/" + req.body.id + "/ApprovedMeetUps/" + req.body.meetupId).set(obj);
 
-            firebase.database().ref("users/" + obj.ownerID + "/PendingReply/" + req.body.meetupId).remove();
-            firebase.database().ref("users/" + obj.ownerID + "/ApprovedMeetUps/" + req.body.meetupId).set(obj);
-
+                firebase.database().ref("users/" + obj.ownerID + "/PendingReply/" + req.body.meetupId).remove();
+                firebase.database().ref("users/" + obj.ownerID + "/ApprovedMeetUps/" + req.body.meetupId).set(obj);
+            }
             res.status(200).json({message: "meetup approved"});
         });
     },
@@ -153,12 +154,13 @@ module.exports = {
         var id = req.body.id;
         firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).once('value').then(function(snapshot) {
             var obj = snapshot.val();
-            firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).remove();
-            firebase.database().ref("users/" + req.body.id + "/DeniedMeetUps/" + req.body.meetupId).set(obj);
+            if(obj != null){
+                firebase.database().ref("users/" + req.body.id + "/PendingResponse/" + req.body.meetupId).remove();
+                firebase.database().ref("users/" + req.body.id + "/DeniedMeetUps/" + req.body.meetupId).set(obj);
 
-            firebase.database().ref("users/" + obj.ownerID + "/PendingReply/" + req.body.meetupId).remove();
-            firebase.database().ref("users/" + obj.ownerID + "/DeniedMeetUps/" + req.body.meetupId).set(obj);
-
+                firebase.database().ref("users/" + obj.ownerID + "/PendingReply/" + req.body.meetupId).remove();
+                firebase.database().ref("users/" + obj.ownerID + "/DeniedMeetUps/" + req.body.meetupId).set(obj);
+            }
             res.status(200).json({message: "Meetup denied"});
         });
     },
