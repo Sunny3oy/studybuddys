@@ -36,16 +36,19 @@ class CoursePage extends PureComponent {
             open:false,
             openkey: 0,
             today: "",
+            facebook: "",
+            linkedIn: "",
+            instagram: "",
         }
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createQuestion = this.createQuestion.bind(this);
         this.getQuestions = this.getQuestions.bind(this);
-        this.openCalendar = this.openCalendar.bind(this);
         this.getUserList = this.getUserList.bind(this);
         this.handleClickOpen =this.handleClickOpen.bind(this);
         this.handleClose =this.handleClose.bind(this);
         this.getToday = this.getToday.bind(this);
+        this.getSocialMedia = this.getSocialMedia.bind(this);
     }
 
     componentDidMount() {
@@ -70,6 +73,23 @@ class CoursePage extends PureComponent {
             [name]: event.target.value,
         });
     };
+
+    getSocialMedia(key) {
+        var partner = this.state.userListId[key];
+        var page = this;
+        var info = {
+            id: partner,
+        }
+        console.log(partner)
+        axios.post('https://studybuddys-223920.appspot.com/api/getSocialMedia', info)
+        .then( response => {
+            page.setState({
+                facebook: response.data.urlList[0],
+                linkedIn: response.data.urlList[1],
+                instagram: response.data.urlList[2],
+            })
+        })
+    }
 
     getQuestions(courseNum) {
         var course = {
@@ -99,6 +119,7 @@ class CoursePage extends PureComponent {
     }
 
     createQuestion() {
+        var page = this;
         var course = this.state.course;
         var newQuestion = this.state.newQuestion;
         firebase.auth().onAuthStateChanged(function(user){
@@ -109,17 +130,8 @@ class CoursePage extends PureComponent {
                     userQuestion: newQuestion
                 };
                 axios.post('https://studybuddys-223920.appspot.com/api/createQuestion', question)
-                console.log("course is " + course)
-                console.log("question is: " + newQuestion)
-                console.log(question)
+                .then(page.getQuestions(page.state.course))
             }
-        })
-        this.getQuestions(this.state.course);
-    }
-
-    openCalendar() {
-        this.setState({
-            calendarIsOpen: !this.state.calendarIsOpen
         })
     }
 
@@ -229,7 +241,7 @@ class CoursePage extends PureComponent {
                                     <Button 
                                         onClick={() => {
                                             this.handleClickOpen();
-                                            this.setState({openKey: key})
+                                            this.setState({openKey: key}, this.getSocialMedia(key))
                                         }}
                                     > 
                                         {data}
@@ -239,10 +251,14 @@ class CoursePage extends PureComponent {
                                         onClose={this.handleClose}
                                     >
                                     <DialogTitle  id="alert-dialog-title">{this.state.userList[this.state.openKey]}</DialogTitle>
-                                        <DialogContent>
+                                        <DialogContent style = {{width : "575px"}}>
                                             <DialogContentText id="alert-dialog-description">
-                                            Let Google help apps determine location. This means sending anonymous location data to
-                                            Google, even when no apps are running.
+                                                Facebook: {this.state.facebook}
+                                                <br/>
+                                                LinkedIn: {this.state.linkedIn}
+                                                <br/>
+                                                Instagram: {this.state.instagram}
+                                                <br/>
                                             </DialogContentText>
                                             <MeetUp 
                                                 courseName = {this.state.course} 

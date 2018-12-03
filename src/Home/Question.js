@@ -35,12 +35,9 @@ class Question extends PureComponent {
                 this.setState({
                     course : courseName, 
                     questID: questionID
-                })
+                }, this.getQuestion, this.getReplies(questionID))
             )
-            .then (
-                this.getQuestion,
-                this.getReplies(questionID)
-            )  
+
     }
 
     handleChange = name => event => {
@@ -50,6 +47,7 @@ class Question extends PureComponent {
     };
 
     submitAnswer() {
+        var page = this;
         var reply = this.state.replyText;
         var questID = this.state.questID;
         firebase.auth().onAuthStateChanged(function(user) {
@@ -60,9 +58,9 @@ class Question extends PureComponent {
                     questionID: questID,
                 }
                 axios.post('https://studybuddys-223920.appspot.com/api/submitAnswer', info)
+                .then(page.getReplies(questID))
             }
         });
-        this.getReplies(questID);
     }
     
     getReplies(ID) {
@@ -70,13 +68,14 @@ class Question extends PureComponent {
             questionID: ID,
         }
         axios.post('https://studybuddys-223920.appspot.com/api/getReplies', info)
-        .then( response => {
+        .then(response => {
             this.setState({
                 replies: response.data.replies,
                 replier: response.data.names
             })
         })
     }
+
     getQuestion() {
         var questID = {
             courseName: this.state.course,

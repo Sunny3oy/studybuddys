@@ -126,25 +126,37 @@ class Profile extends PureComponent{
     }
 
     updateSocialMedia() {
+        var page = this;
         var fb = this.state.newFacebook;
         var li = this.state.newLinkedIn;
         var ig = this.state.newInstagram;
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                var info = {
-                    id: user.uid,
-                    urlList: {
-                        facebook: fb,
-                        linkedin: li,
-                        instagram: ig,
+        if ((!fb.includes('facebook.com'))  && (fb !== "")) {
+            alert("The link you've entered is not a Facebook link!")
+        } else if ((!li.includes('linkedin.com')) && (li !== "")) {
+            alert("The link you've entered is not a LinkedIn link!")
+        } else if ((!ig.includes('instagram.com')) && (ig !== "")) {
+            alert("The link you've entered is not a Instagram link!")
+        } else {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    var info = {
+                        id: user.uid,
+                        urlList: {
+                            facebook: fb,
+                            linkedin: li,
+                            instagram: ig,
+                        }
                     }
+                    axios.post('https://studybuddys-223920.appspot.com/api/updateSocialMedia', info)
+                    .then(
+                        alert("Social Media Link Updated.")
+                    )
+                    .then(
+                        page.getSocialMedia()
+                    )
                 }
-                axios.post('https://studybuddys-223920.appspot.com/api/updateSocialMedia', info)
-                .then(
-                    alert("Social Media Link Updated.")
-                )
-            }
-        })
+            })
+        }
     }
 
     getSocialMedia() {
@@ -377,23 +389,23 @@ class Profile extends PureComponent{
                         data-aos-duration="800"
                     >
                         <Typography variant = "h4">Social Media Accounts</Typography>
-                        <Typography variant = "subtitle1">(Leave Blank If You're Not Updating)</Typography>
+                        <Typography variant = "subtitle1">(Leave As Is If You're Not Updating)</Typography>
                         <br/>
                         <TextField
                             type = "url"
-                            placeholder = "Facebook"
+                            defaultValue = "facebook.com"
                             style = {{marginTop: "18px"}}
                             onChange = {this.handleChange("newFacebook")}
                         />
                         <TextField
                             type = "url"
-                            placeholder = "LinkedIn"
+                            defaultValue = "linkedin.com"
                             style = {{marginTop: "18px"}}
                             onChange = {this.handleChange("newLinkedIn")}
                         />
                         <TextField
                             type = "url"
-                            placeholder = "Instagram"
+                            defaultValue = "instagram.com"
                             style = {{marginTop: "18px"}}
                             onChange = {this.handleChange("newInstagram")}
                         />
@@ -463,10 +475,7 @@ class Profile extends PureComponent{
                                     {this.state.awaitingMeetUp[key].date}
                                     <br/>
                                     {this.state.awaitingMeetUp[key].time}
-                                    <br/>
-
-                                    
-                                   
+                                    <br/> 
                                 </Paper>
                             )
                         })}
