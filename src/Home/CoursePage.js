@@ -8,7 +8,6 @@ import {
 import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
-// import Calendar from "./Calendar2";
 import { Link } from 'react-router-dom';
 import CalendarModal from './MeetUp/CalendarModal'
 import Card from '@material-ui/core/Card';
@@ -17,6 +16,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import MeetUp from "./MeetUp";
 
 class CoursePage extends PureComponent {
     constructor(props) {
@@ -33,18 +33,20 @@ class CoursePage extends PureComponent {
             currentID:"",
             replyText:"",
             userList:[],
+            userListId: [],
             open:false,
             openkey: 0,
+            today: "",
         }
         this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createQuestion = this.createQuestion.bind(this);
         this.getQuestions = this.getQuestions.bind(this);
         this.openCalendar = this.openCalendar.bind(this);
-        this.submitAnswer = this.submitAnswer.bind(this);
         this.getUserList = this.getUserList.bind(this);
         this.handleClickOpen =this.handleClickOpen.bind(this);
         this.handleClose =this.handleClose.bind(this);
+        this.getToday = this.getToday.bind(this);
     }
 
     componentDidMount() {
@@ -52,6 +54,7 @@ class CoursePage extends PureComponent {
         fetch(`/courses/${courseName}`).then(this.setState({course : courseName}));
         this.getQuestions(courseName);
         this.getUserList(courseName);
+        this.getToday();
     }
 
     checkLoggedIn() {
@@ -96,24 +99,6 @@ class CoursePage extends PureComponent {
         })
     }
 
-    submitAnswer(){
-        console.log(this.state.replyText);
-        var replyT =this.state.replyText;
-        var qID = this.state.currentID;
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    var info = {
-                        id: user.uid,
-                        replyText:replyT,
-                        questionID : qID,
-                    }
-                    axios.post('https://studybuddys-223920.appspot.com/api/submitAnswer', info)
-                }
-                });
-                console.log(this.state.replies);
-        this.getReplies(qID);
-    }
-
     createQuestion() {
         var course = this.state.course;
         var newQuestion = this.state.newQuestion;
@@ -149,19 +134,39 @@ class CoursePage extends PureComponent {
                 axios.post('https://studybuddys-223920.appspot.com/api/getUsersByCourseTaken',info)
                 .then(response=>{
                     page.setState({
-                        userList:response.data.users,  
+                        userList:response.data.names,
+                        userListId: response.data.ids
                     })
-                    console.log(response)
                 })
-                
             }
         })
-        console.log(this.state.userList)
+    }
+
+    getToday() {
+        var date = new Date();
+        var month = date.getMonth() + 1; //months from 1-12
+        var day = date.getDate();
+        var year = date.getFullYear();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        if (hour < 10) {
+            hour = "0" + hour;
+        }
+        if (min < 10) {
+            min = "0" + min;
+        }
+        if (day < 10) {
+            day = "0" + day;
+        }
+        var timeNow = hour + ":" + min
+        var today = year + "-" + month + "-" + day + "T" + timeNow;
+        this.setState({
+            today: today
+        })
     }
 
     handleClickOpen = () => {
         this.setState({ open: true});
-        console.log(this.state.open);
     };
 
     handleClose = () => {
@@ -250,6 +255,11 @@ class CoursePage extends PureComponent {
                                             Let Google help apps determine location. This means sending anonymous location data to
                                             Google, even when no apps are running.
                                             </DialogContentText>
+                                            <MeetUp 
+                                                courseName = {this.state.course} 
+                                                partner = {this.state.userListId[this.state.openKey]} 
+                                                today = {this.state.today}
+                                            />
                                         </DialogContent>
                                         <DialogActions>
                                             <Button onClick={this.handleClose} color="primary">Close</Button> 
@@ -260,8 +270,6 @@ class CoursePage extends PureComponent {
                         })
                     }
                 </Card>
-                      
-                  
             </div>
         )
     }
