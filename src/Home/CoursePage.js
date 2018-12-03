@@ -5,7 +5,7 @@ import {
     Button,
     Paper
 } from '@material-ui/core';
-import './CoursePage.css';
+// import './CoursePage.css';
 import axios from 'axios';
 import * as firebase from 'firebase';
 import { Link } from 'react-router-dom';
@@ -127,18 +127,20 @@ class CoursePage extends PureComponent {
 
     render() {
         return (
-            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "block", flexDirection: "column"}}>
+            <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800">
                 <div>
                     <div style = {{float: "right", display: "inline-block"}}>
                         <span>{this.state.name}</span>
                     </div>
                 </div>
-                <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
+                <br></br>
+                <Typography variant = "h2">{this.state.course}</Typography>
 
                     <Button
                         className="Calendar"
                         type="submit"
-                        onClick={this.openCalendar}>
+                        onClick={this.openCalendar}
+                        >
                         Meet Up
                     </Button>
                    <CalendarModal
@@ -148,15 +150,16 @@ class CoursePage extends PureComponent {
 
                    </CalendarModal>
                 
-                <div className = "flexCenter">
-                    <Typography gutterBottom = {true} variant = "h3">
+                <div className="flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", opacity:"0.8",padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
+                    <Typography 
+                        gutterBottom = {true} 
+                        variant = "h4">
                         <u>Questions</u>:
                     </Typography>
-
                     {this.state.questions.map((data, key) => {
                         return (
 
-                            <Paper className = "flexCenter" style = {{margin: "10px auto", width: "65%", height: "10%"}}>
+                            <Paper style = {{margin: "10px", width: "65%", height: "10%"}}>
                                 <Link to = {"/course/" + this.state.course + "/" + this.state.questID[key]}>
                                     <Typography style = {{marginTop: "15px"}} gutterBottom = {true} variant = "h5">
 
@@ -175,7 +178,6 @@ class CoursePage extends PureComponent {
                             style = {{marginTop: "20px", width: "50%"}}
                         >
                         </TextField>
-                        <br/>
                         <Button
                             type = "submit"
                             gutterBottom = {true}
