@@ -18,7 +18,7 @@
     align-items: center;
     text-align: center;
     flex-direction:column;
-  }
+}
   
   .flexRow{
     display:flex;

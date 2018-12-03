@@ -190,14 +190,11 @@ class Profile extends PureComponent{
                     page.setState({    
                         meetUps:response.data.info,                       
                     })
-                    // console.log(response)
-                    // console.log(response.data.info[0].name)
-                    
                 })
-                
             }
         })
     }
+
     approveMeetUps(){
         var page = this;
         var key = this.state.selectedMeetUp;
@@ -208,14 +205,10 @@ class Profile extends PureComponent{
                     meetupId:key
                 }
                 axios.post('https://studybuddys-223920.appspot.com/api/approveMeetup', info)
-                .then( page.getMeetUps()
-                    
-                ).then(page.getApprovedMeetUps())
-               
+                .then(page.getMeetUps())
+                .then(page.getApprovedMeetUps())
             }
         })
-        
-        
     }
 
     denyMeetUps(){
@@ -231,10 +224,8 @@ class Profile extends PureComponent{
                 .then( page.getMeetUps()
                     
                 ).then(page.getDeniedMeetUps())
-              
             }
-        })
-        
+        })    
     }
 
     getPendingReplyMeetUps(){
@@ -251,13 +242,9 @@ class Profile extends PureComponent{
                     page.setState({
                         awaitingMeetUp:response.data.info
                     })
-                }
-                    
-                )
-                
+                })
             }
-        })
-        
+        }) 
     }
 
     getApprovedMeetUps(){
@@ -274,13 +261,9 @@ class Profile extends PureComponent{
                     page.setState({
                         approvedMeetUp:response.data.info
                     })
-                }
-                    
-                )
-                
+                })  
             }
-        })
-        
+        })  
     }
 
     getDeniedMeetUps(){
@@ -297,10 +280,9 @@ class Profile extends PureComponent{
                     page.setState({
                         deniedMeetup:response.data.info
                     })
-                }
-                    
-                )
-                
+                    console.log("bloop")
+                    console.log(response)
+                })
             }
         })
     }
@@ -314,17 +296,13 @@ class Profile extends PureComponent{
                     id: user.uid,
                     meetupId:key
                 }
-                console.log(info) 
                 axios.post('https://studybuddys-223920.appspot.com/api/deleteMeetup', info)
-                .then(alert("You Deleted An Event.")
-                    
-                ).then(page.getMeetUps(),page.getApprovedMeetUps(),page.getDeniedMeetUps())
-                
-                console.log(info)    
-            }
-            
+                .then(
+                    alert("You Deleted An Event.")
+                )
+                .then(page.getMeetUps(),page.getApprovedMeetUps(),page.getDeniedMeetUps())  
+            }  
         })
-
     }
 
     render(){
@@ -349,11 +327,11 @@ class Profile extends PureComponent{
                     >
                         <Typography variant = "h4">Your Current Information:</Typography>
                         <br/>
-                        <Typography variant = "h6">Name: {this.state.name}</Typography>
-                        <Typography variant = "h6">Email: {this.state.email}</Typography>
-                        <Typography variant = "h6">Facebook: {this.state.facebook}</Typography>
-                        <Typography variant = "h6">LinkedIn: {this.state.linkedIn}</Typography>
-                        <Typography variant = "h6">Instagram: {this.state.instagram}</Typography>
+                        <Typography variant = "h6"><strong>Name:</strong> {this.state.name}</Typography>
+                        <Typography variant = "h6"><strong>Email:</strong> {this.state.email}</Typography>
+                        <Typography variant = "h6"><strong>Facebook:</strong> {this.state.facebook}</Typography>
+                        <Typography variant = "h6"><strong>LinkedIn:</strong> {this.state.linkedIn}</Typography>
+                        <Typography variant = "h6"><strong>Instagram:</strong> {this.state.instagram}</Typography>
                     </Card>
 
                     <Card
@@ -421,22 +399,34 @@ class Profile extends PureComponent{
                     >
                         <Typography variant = "h4">Please Respond Events</Typography>
                         <br/>
-                        {console.log(this.state.meetUps)}
                         {
                             this.state.meetUps.map((title, key) => {
                             return(
-                                <Paper className="event" key = {key}>
-                                    {this.state.meetUps[key].name}
-                                    <br/>
-                                    {this.state.meetUps[key].courseName}
-                                    <br/>
-                                    {this.state.meetUps[key].description}
-                                    <br/>
-                                    {this.state.meetUps[key].date}
-                                    <br/>
-                                    {this.state.meetUps[key].time}
-                                    <br/>
-
+                                <Paper className="event" key = {key} style = {{width: "350px"}}>
+                                    <Typography variant = "title">
+                                        {this.state.meetUps[key].courseName}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        Host Buddy: {this.state.meetUps[key].name}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        Study Buddy: {this.state.meetUps[key].partner}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        "{this.state.meetUps[key].description}"
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        {this.state.meetUps[key].date}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        {this.state.meetUps[key].time}
+                                    </Typography>
+                                    
                                     {
                                     this.state.decision !== true?
                                         <div className="flexRow">
@@ -459,23 +449,36 @@ class Profile extends PureComponent{
                         data-aos-easing="linear"
                         data-aos-duration="800"
                     >
-                        <Typography variant = "h4"> Awaiting Response Events</Typography>
+                        <Typography variant = "h4">Awaiting Response Events</Typography>
                         <br/>
-                        {console.log(this.state.meetUps)}
                         {
                             this.state.awaitingMeetUp.map((title, key) => {
                             return(
-                                <Paper className="event" key = {key}>
-                                    {this.state.awaitingMeetUp[key].name}
-                                    <br/>
-                                    {this.state.awaitingMeetUp[key].courseName}
-                                    <br/>
-                                    {this.state.awaitingMeetUp[key].description}
-                                    <br/>
-                                    {this.state.awaitingMeetUp[key].date}
-                                    <br/>
-                                    {this.state.awaitingMeetUp[key].time}
-                                    <br/> 
+                                <Paper className="event" key = {key} style = {{width: "350px"}}>
+                                    <Typography variant = "title">
+                                        {this.state.awaitingMeetUp[key].courseName}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        Host Buddy: {this.state.awaitingMeetUp[key].name}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        Study Buddy: {this.state.awaitingMeetUp[key].partner}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        "{this.state.awaitingMeetUp[key].description}"
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        {this.state.awaitingMeetUp[key].date}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        {this.state.awaitingMeetUp[key].time}
+                                    </Typography>
+                                     
                                 </Paper>
                             )
                         })}
@@ -488,23 +491,36 @@ class Profile extends PureComponent{
                         data-aos-easing="linear"
                         data-aos-duration="800"
                     >
-                        <Typography variant = "h4"> Approved Events</Typography>
+                        <Typography variant = "h4">Approved Events</Typography>
                         <br/>
-                        {console.log(this.state.meetUps)}
                         {
                             this.state.approvedMeetUp.map((title, key) => {
                             return(
-                                <Paper className="event" key = {key}>
-                                    {this.state.approvedMeetUp[key].name}
-                                    <br/>
-                                    {this.state.approvedMeetUp[key].courseName}
-                                    <br/>
-                                    {this.state.approvedMeetUp[key].description}
-                                    <br/>
-                                    {this.state.approvedMeetUp[key].date}
-                                    <br/>
-                                    {this.state.approvedMeetUp[key].time}
-                                    <br/>
+                                <Paper className="event" key = {key} style = {{width: "350px"}}>
+                                    <Typography variant = "title">
+                                        {this.state.approvedMeetUp[key].courseName}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        Host Buddy: {this.state.approvedMeetUp[key].name}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        Study Buddy: {this.state.approvedMeetUp[key].partner}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        "{this.state.approvedMeetUp[key].description}"
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        {this.state.approvedMeetUp[key].date}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        {this.state.approvedMeetUp[key].time}
+                                    </Typography>
+                                    
                                     
                                    <Button onClick={()=>{this.setState({selectedMeetUp:this.state.approvedMeetUp[key].meetupId},this.deleteMeetUps)}} color="secondary">Delete</Button>
                                 </Paper>
@@ -519,23 +535,37 @@ class Profile extends PureComponent{
                         data-aos-easing="linear"
                         data-aos-duration="800"
                     >
-                        <Typography variant = "h4"> Denied Events</Typography>
+                        <Typography variant = "h4">Denied Events</Typography>
                         <br/>
-                        {console.log(this.state.meetUps)}
+
                         {
                             this.state.deniedMeetup.map((title, key) => {
                             return(
-                                <Paper className="event" key = {key}>
-                                    {this.state.deniedMeetup[key].name}
-                                    <br/>
-                                    {this.state.deniedMeetup[key].courseName}
-                                    <br/>
-                                    {this.state.deniedMeetup[key].description}
-                                    <br/>
-                                    {this.state.deniedMeetup[key].date}
-                                    <br/>
-                                    {this.state.deniedMeetup[key].time}
-                                    <br/>
+                                <Paper className="event" key = {key} style = {{width: "350px"}}>
+                                    <Typography variant = "title">
+                                        {this.state.deniedMeetup[key].courseName}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        Host Buddy: {this.state.deniedMeetup[key].name}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        Study Buddy: {this.state.deniedMeetup[key].partner}
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        "{this.state.deniedMeetup[key].description}"
+                                    </Typography>
+                                    
+                                    <Typography variant = "subtitle1">
+                                        {this.state.deniedMeetup[key].date}
+                                    </Typography> 
+                                    
+                                    <Typography variant = "subtitle1">
+                                        {this.state.deniedMeetup[key].time}
+                                    </Typography>
+                                    
                                     <Button onClick={()=>{this.setState({selectedMeetUp:this.state.deniedMeetup[key].meetupId},this.deleteMeetUps)}} color="secondary">Delete</Button>
                                 </Paper>
                             )

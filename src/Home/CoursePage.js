@@ -130,7 +130,7 @@ class CoursePage extends PureComponent {
                     userQuestion: newQuestion
                 };
                 axios.post('https://studybuddys-223920.appspot.com/api/createQuestion', question)
-                .then(page.getQuestions(page.state.course))
+                .then(page.getQuestions(course))
             }
         })
     }
@@ -192,7 +192,7 @@ class CoursePage extends PureComponent {
                 <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
                
                 
-                <div className="flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", opacity:"0.8",padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
+                <div className="flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
                     <Typography 
                         gutterBottom = {true} 
                         variant = "h4">
@@ -202,7 +202,7 @@ class CoursePage extends PureComponent {
                         return (
                             <Paper 
                                 className = "flexCenter" 
-                                style = {{margin: "10px auto", width: "65%", height: "10%"}} 
+                                style = {{margin: "10px auto", height: "10%", width: "65%"}} 
                                 key={key}
                             >
                                 <Link to = {"/course/" + this.state.course + "/" + this.state.questID[key]}>
@@ -225,7 +225,7 @@ class CoursePage extends PureComponent {
                     <Button
                         type = "submit"
                         variant = "contained"
-                        onClick = {this.createQuestion}
+                        onClick = {() => {this.createQuestion(); this.getQuestions(this.state.course)}}
                         style = {{width: "50%"}}
                     >
                         Ask Away
@@ -253,11 +253,15 @@ class CoursePage extends PureComponent {
                                     <DialogTitle  id="alert-dialog-title">{this.state.userList[this.state.openKey]}</DialogTitle>
                                         <DialogContent style = {{width : "575px"}}>
                                             <DialogContentText id="alert-dialog-description">
-                                                Facebook: {this.state.facebook}
-                                                <br/>
-                                                LinkedIn: {this.state.linkedIn}
-                                                <br/>
-                                                Instagram: {this.state.instagram}
+                                                <Typography variant = "subtitle1">
+                                                    Facebook: {this.state.facebook}
+                                                </Typography>
+                                                <Typography variant = "subtitle1">
+                                                    LinkedIn: {this.state.linkedIn}
+                                                </Typography>
+                                                <Typography variant = "subtitle1">
+                                                    Instagram: {this.state.instagram}
+                                                </Typography>
                                                 <br/>
                                             </DialogContentText>
                                             <MeetUp 

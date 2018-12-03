@@ -61,6 +61,7 @@ class Question extends PureComponent {
                 .then(page.getReplies(questID))
             }
         });
+        this.getReplies(questID);
     }
     
     getReplies(ID) {
@@ -88,33 +89,17 @@ class Question extends PureComponent {
                     question: response.data.question,
                     createdBy: response.data.name
                 })
-            })
-            
+            })  
     }
     
 
     render() {
         return (
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800">
-                    {/* <Button 
-                        className="Calendar"
-                        type="submit"
-                        onClick={this.openCalendar}>
-                        Meet Up
-                    </Button>
-                {
-                    this.state.calendarIsOpen
-                    ?
-                    <MuiPickersUtilsProvider 
-                        utils={LuxonUtils}>
-                        <Calendar />
-                    </MuiPickersUtilsProvider>
-                    : null
-                } */}
                 <br></br> 
                 <Typography variant = "h2" style = {{margin: "16px auto"}}><strong>{this.state.question}</strong></Typography>
                 <Typography variant = "h6" style = {{margin: "0px auto"}}><em>Created By: {this.state.createdBy}</em></Typography>
-                <div className = "flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", opacity:"0.8",padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
+                <div className = "flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
                     {this.state.replies.map((data, key) => {
                         return (
                             <Paper className = "flexCenter" style = {{margin: "10px auto", width: "65%", height: "10%"}}>
