@@ -84,7 +84,6 @@ class Question extends PureComponent {
         };
         axios.post('https://studybuddys-223920.appspot.com/api/getSingleQuestion', questID)
             .then(response => {
-                console.log(response.data)
                 this.setState({
                     question: response.data.question,
                     createdBy: response.data.name
@@ -121,7 +120,6 @@ class Question extends PureComponent {
                             this.handleChange("replyText")         
                         }
                     >
-                    {console.log(this.state.replyText) }
                     </TextField>
                     <Button 
                     type = "submit" 

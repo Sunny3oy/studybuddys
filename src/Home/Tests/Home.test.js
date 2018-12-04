@@ -3,6 +3,7 @@ import enzymeAdapterReact16 from 'enzyme-adapter-react-16';
 import React from 'react';
 import Home from './../Home';
 import { BrowserRouter as Router } from 'react-router-dom';
+import toJson from 'enzyme-to-json';
 
 Enzyme.configure({ adapter: new enzymeAdapterReact16() });
 const getDefaultProps = () => ({});
@@ -20,6 +21,6 @@ describe('Home component', () => {
         <Router>
             <Home />
         </Router>);
-    expect(wrapper).toMatchSnapshot();
+    expect(toJson(wrapper)).toMatchSnapshot();
   });
 });

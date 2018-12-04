@@ -34,7 +34,6 @@ class Profile extends PureComponent{
                 deniedMeetup:[],
             }
         this.getUserName = this.getUserName.bind(this);
-        this.getUserEmail = this.getUserEmail.bind(this);
         this.changeEmail = this.changeEmail.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.changePassword = this.changePassword.bind(this);
@@ -51,7 +50,6 @@ class Profile extends PureComponent{
 
     componentDidMount(){
         this.getUserName();
-        this.getUserEmail();
         this.getSocialMedia();
         this.getMeetUps();
         this.getPendingReplyMeetUps();
@@ -104,19 +102,8 @@ class Profile extends PureComponent{
                 }
                 axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
                 .then(response => {
-                page.setState({name : response.data.name})
+                    page.setState({name : response.data.name})
                 })
-            }
-        });
-    }
-
-    getUserEmail() {
-        var page = this;
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                var info = {
-                    id: user.uid
-                }
                 axios.post('https://studybuddys-223920.appspot.com/api/getUseremail', info)
                 .then(response => {
                     page.setState({email: response.data.email})
@@ -280,8 +267,6 @@ class Profile extends PureComponent{
                     page.setState({
                         deniedMeetup:response.data.info
                     })
-                    console.log("bloop")
-                    console.log(response)
                 })
             }
         })

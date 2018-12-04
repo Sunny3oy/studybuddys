@@ -80,7 +80,6 @@ class CoursePage extends PureComponent {
         var info = {
             id: partner,
         }
-        console.log(partner)
         axios.post('https://studybuddys-223920.appspot.com/api/getSocialMedia', info)
         .then( response => {
             page.setState({
@@ -110,8 +109,6 @@ class CoursePage extends PureComponent {
         }
         axios.post("https://studybuddys-223920.appspot.com/api/getReplies",info)
         .then(response=>{
-            console.log(ID);
-            console.log(response.data.replies);
             this.setState({
                 replies:response.data.replies,
             })
@@ -233,7 +230,6 @@ class CoursePage extends PureComponent {
                 </div>
                
                 <Card className = "flexRow" style = {{margin: "10px auto", width: "65%", height: "500px"}} >
-                    {console.log(this.state.userList)}
                     {
                         this.state.userList.map((data,key)=>{
                             return (

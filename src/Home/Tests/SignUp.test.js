@@ -3,6 +3,7 @@ import enzymeAdapterReact16 from 'enzyme-adapter-react-16';
 import React from 'react';
 import SignUp from './../SignUp';
 import { BrowserRouter as Router } from 'react-router-dom';
+import toJson from 'enzyme-to-json';
 
 Enzyme.configure({ adapter: new enzymeAdapterReact16() });
 const getDefaultProps = () => ({});
@@ -20,6 +21,6 @@ describe('SignUp component', () => {
         <Router>
             <SignUp />
         </Router>);
-    expect(wrapper).toMatchSnapshot();
+    expect(toJson(wrapper)).toMatchSnapshot();
   });
 });
