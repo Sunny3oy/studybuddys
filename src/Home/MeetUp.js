@@ -69,6 +69,7 @@ class MeetUp extends PureComponent {
     render() {
         return (
             <Card>
+                <br></br>
                 <Typography className = "flexCenter" variant = "title">Let's Meet Up!</Typography>
                 <div className = "flexCenter" style = {{marginTop: "16px"}}>
                     <DateTimePicker

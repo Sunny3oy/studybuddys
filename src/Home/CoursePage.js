@@ -190,7 +190,7 @@ class CoursePage extends PureComponent {
                         return (
                             <Paper 
                                 className = "flexCenter" 
-                                style = {{margin: "10px auto", width: "65%", height: "10%"}} 
+                                style = {{margin: "10px auto", width: "50%", height: "10%"}} 
                                 key={key}
                             >
                                 <Link to = {"/course/" + this.state.course + "/" + this.state.questID[key]}>
@@ -220,7 +220,7 @@ class CoursePage extends PureComponent {
                     </Button>
                 </div>
                
-                <Card className = "flexRow" style = {{margin: "10px auto", width: "65%", height: "500px"}} >
+                <Card className = "flexRow" style = {{margin: "10px auto", width: "50%", height: "50px"}} >
                     {console.log(this.state.userList)}
                     {
                         this.state.userList.map((data,key)=>{
@@ -240,10 +240,13 @@ class CoursePage extends PureComponent {
                                     >
                                     <DialogTitle  id="alert-dialog-title">{this.state.userList[this.state.openKey]}</DialogTitle>
                                         <DialogContent>
+                                            
                                             <DialogContentText id="alert-dialog-description">
+                            
                                             Let Google help apps determine location. This means sending anonymous location data to
                                             Google, even when no apps are running.
                                             </DialogContentText>
+                                            <br></br>
                                             <MeetUp 
                                                 courseName = {this.state.course} 
                                                 partner = {this.state.userListId[this.state.openKey]} 
