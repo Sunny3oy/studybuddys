@@ -58,6 +58,7 @@ class Dashboard extends PureComponent {
             axios.post('https://studybuddys-223920.appspot.com/api/deleteUserCourses', info).then(
                page.getUserCourses
             )
+            alert("Class Deleted!");
          }
       });
    }
