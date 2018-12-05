@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Question component render snapshot 1`] = `
+<div
+  data-aos="fade-in"
+  data-aos-duration="800"
+  data-aos-easing="linear"
+>
+  <br />
+  <h2
+    class="MuiTypography-root-1 MuiTypography-h2-14"
+    style="margin:16px auto"
+  >
+    <strong />
+  </h2>
+  <h6
+    class="MuiTypography-root-1 MuiTypography-h6-18"
+    style="margin:0px auto"
+  >
+    <em>
+      Created By: 
+    </em>
+  </h6>
+  <div
+    class="flexCenter"
+    style="margin:30px;background-color:#ffffff;border:1px solid black;padding:20px;border-radius:10px;box-shadow:5px 5px 5px 5px #777777;-moz-box-shadow:0 0 10px #777777;-webkit-box-shadow:0 0 10px #777777"
+  >
+    <div
+      class="MuiFormControl-root-36"
+      style="width:50%;margin-top:15px"
+    >
+      <label
+        class="MuiFormLabel-root-51 MuiInputLabel-root-40 MuiInputLabel-formControl-45 MuiInputLabel-animated-48 MuiInputLabel-outlined-50"
+        data-shrink="false"
+      >
+        Answer
+      </label>
+      <div
+        class="MuiInputBase-root-71 MuiOutlinedInput-root-58 MuiInputBase-formControl-72 MuiInputBase-multiline-79 MuiOutlinedInput-multiline-64"
+      >
+        <fieldset
+          aria-hidden="true"
+          class="MuiPrivateNotchedOutline-root-88 MuiOutlinedInput-notchedOutline-65"
+          style="padding-left:8px"
+        >
+          <legend
+            class="MuiPrivateNotchedOutline-legend-89"
+            style="width:0.01px"
+          >
+            <span>
+              ​
+            </span>
+          </legend>
+        </fieldset>
+        <div
+          class="MuiPrivateTextarea-root-90"
+        >
+          <textarea
+            aria-hidden="true"
+            class="MuiPrivateTextarea-textarea-91 MuiPrivateTextarea-shadow-92"
+            readonly=""
+            rows="1"
+            tabindex="-1"
+          />
+          <textarea
+            aria-hidden="true"
+            class="MuiPrivateTextarea-textarea-91 MuiPrivateTextarea-shadow-92"
+            readonly=""
+            rows="1"
+            tabindex="-1"
+          />
+          <textarea
+            aria-invalid="false"
+            class="MuiPrivateTextarea-textarea-91 MuiInputBase-input-81 MuiOutlinedInput-input-66 MuiInputBase-inputMultiline-83 MuiOutlinedInput-inputMultiline-68"
+            rows="1"
+            style="height:19px"
+          />
+        </div>
+      </div>
+    </div>
+    <button
+      class="MuiButtonBase-root-119 MuiButton-root-93 MuiButton-contained-104 MuiButton-raised-107"
+      style="width:50%;margin-top:15px"
+      tabindex="0"
+      type="submit"
+    >
+      <span
+        class="MuiButton-label-94"
+      >
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;

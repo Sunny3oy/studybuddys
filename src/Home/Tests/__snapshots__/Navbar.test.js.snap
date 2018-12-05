@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar component render snapshot 1`] = `
+<div
+  class="Home"
+  data-aos=""
+>
+  <h1
+    class="MuiTypography-root-1 MuiTypography-display4-2"
+    data-aos="fade-down"
+    data-aos-duration="500"
+    data-aos-easing="linear"
+    style="color:white;text-shadow:0 0 10px black;margin-bottom:20px"
+  >
+    Study Buddy's
+  </h1>
+  <div
+    class="MuiPaper-root-37 MuiPaper-elevation8-47 MuiPaper-rounded-38 MuiCard-root-36 signIn"
+    data-aos="fade-down"
+    data-aos-duration="500"
+    data-aos-easing="linear"
+  >
+    <form>
+      <h2
+        class="MuiTypography-root-1 MuiTypography-display2-4 MuiTypography-gutterBottom-28"
+        style="color:black"
+      >
+        Sign In
+      </h2>
+      <div
+        class="MuiFormControl-root-64"
+      >
+        <div
+          class="MuiInputBase-root-81 MuiInput-root-68 MuiInput-underline-72 MuiInputBase-formControl-82 MuiInput-formControl-69"
+        >
+          <input
+            aria-invalid="false"
+            class="MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79"
+            placeholder="Enter Your Email"
+            type="email"
+          />
+        </div>
+      </div>
+      <br />
+      <div
+        class="MuiFormControl-root-64"
+        style="margin-top:15px"
+      >
+        <div
+          class="MuiInputBase-root-81 MuiInput-root-68 MuiInput-underline-72 MuiInputBase-formControl-82 MuiInput-formControl-69"
+        >
+          <input
+            aria-invalid="false"
+            class="MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79"
+            placeholder="Enter Your Password"
+            type="password"
+          />
+        </div>
+      </div>
+      <br />
+      <button
+        class="MuiButtonBase-root-124 MuiButton-root-98 MuiButton-outlined-106"
+        style="margin-top:15px"
+        tabindex="0"
+        type="submit"
+      >
+        <span
+          class="MuiButton-label-99"
+        >
+          Sign In
+        </span>
+      </button>
+    </form>
+    <a
+      href="/signup"
+      style="margin-top:14px"
+      variant="outlined"
+    >
+      Don't have an account? Sign Up Here
+    </a>
+  </div>
+</div>
+`;

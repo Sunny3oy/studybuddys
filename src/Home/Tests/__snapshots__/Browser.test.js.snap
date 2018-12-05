@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Browser component render snapshot 1`] = `
+<div
+  class="browserTitle"
+>
+  <div
+    class="flexCenter"
+  >
+    <h1
+      data-aos="fade-down"
+      data-aos-duration="400"
+      data-aos-easing="linear"
+      style="color:black;margin-top:100px;font-size:60px;height:15vh"
+    >
+      Select a Class
+    </h1>
+    <div
+      style="height:65vh"
+    >
+      <label
+        class="MuiFormLabel-root-12 MuiInputLabel-root-1 MuiInputLabel-animated-9"
+      >
+        Select School
+        <div
+          class="MuiInputBase-root-39 MuiInput-root-26 MuiInput-underline-30"
+          style="width:300px"
+        >
+          <div
+            class="MuiSelect-root-19"
+          >
+            <div
+              aria-haspopup="true"
+              aria-pressed="false"
+              class="MuiSelect-select-20 MuiSelect-selectMenu-23 MuiInputBase-input-49 MuiInput-input-34"
+              role="button"
+              tabindex="0"
+            >
+              <span>
+                ​
+              </span>
+            </div>
+            <input
+              id="SelectSchool"
+              name="school"
+              type="hidden"
+              value=""
+            />
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root-56 MuiSelect-icon-25"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M7 10l5 5 5-5z"
+              />
+            </svg>
+          </div>
+        </div>
+      </label>
+      <br />
+      <div
+        class="flexCenter"
+      />
+      <br />
+    </div>
+  </div>
+</div>
+`;
