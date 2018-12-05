@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Question component render snapshot 1`] = `
+<div
+  data-aos="fade-in"
+  data-aos-duration="800"
+  data-aos-easing="linear"
+>
+  <div
+    class="nav"
+  >
+    <div>
+      <button
+        class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-text-4 MuiButton-flat-7"
+        style="float:left"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-3"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root-31 MuiSvgIcon-fontSizeLarge-39"
+            focusable="false"
+            role="presentation"
+            style="color:white"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M0 0h24v24H0z"
+              fill="none"
+            />
+            <path
+              d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="flexRow"
+      style="margin-left:auto"
+    >
+      <span
+        style="font-size:22px;margin-right:10px"
+      >
+        <a
+          href="/dashboard/profile"
+          style="color:white"
+        />
+      </span>
+      <button
+        class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-text-4 MuiButton-flat-7"
+        style="color:white;font-size:17px"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-3"
+        >
+          Logout
+        </span>
+      </button>
+    </div>
+  </div>
+  <br />
+  <h2
+    class="MuiTypography-root-54 MuiTypography-h2-67"
+    style="margin:16px auto"
+  >
+    <strong />
+  </h2>
+  <h6
+    class="MuiTypography-root-54 MuiTypography-h6-71"
+    style="margin:0px auto"
+  >
+    <em>
+      Created By: 
+    </em>
+  </h6>
+  <div
+    class="flexCenter"
+    style="margin:30px;background-color:#ffffff;border:1px solid black;padding:20px;border-radius:10px;box-shadow:5px 5px 5px 5px #777777;-moz-box-shadow:0 0 10px #777777;-webkit-box-shadow:0 0 10px #777777"
+  >
+    <div
+      class="MuiFormControl-root-89"
+      style="width:50%;margin-top:15px"
+    >
+      <label
+        class="MuiFormLabel-root-104 MuiInputLabel-root-93 MuiInputLabel-formControl-98 MuiInputLabel-animated-101 MuiInputLabel-outlined-103"
+        data-shrink="false"
+      >
+        Answer
+      </label>
+      <div
+        class="MuiInputBase-root-124 MuiOutlinedInput-root-111 MuiInputBase-formControl-125 MuiInputBase-multiline-132 MuiOutlinedInput-multiline-117"
+      >
+        <fieldset
+          aria-hidden="true"
+          class="MuiPrivateNotchedOutline-root-141 MuiOutlinedInput-notchedOutline-118"
+          style="padding-left:8px"
+        >
+          <legend
+            class="MuiPrivateNotchedOutline-legend-142"
+            style="width:0.01px"
+          >
+            <span>
+              ​
+            </span>
+          </legend>
+        </fieldset>
+        <div
+          class="MuiPrivateTextarea-root-143"
+        >
+          <textarea
+            aria-hidden="true"
+            class="MuiPrivateTextarea-textarea-144 MuiPrivateTextarea-shadow-145"
+            readonly=""
+            rows="1"
+            tabindex="-1"
+          />
+          <textarea
+            aria-hidden="true"
+            class="MuiPrivateTextarea-textarea-144 MuiPrivateTextarea-shadow-145"
+            readonly=""
+            rows="1"
+            tabindex="-1"
+          />
+          <textarea
+            aria-invalid="false"
+            class="MuiPrivateTextarea-textarea-144 MuiInputBase-input-134 MuiOutlinedInput-input-119 MuiInputBase-inputMultiline-136 MuiOutlinedInput-inputMultiline-121"
+            rows="1"
+            style="height:19px"
+          />
+        </div>
+      </div>
+    </div>
+    <button
+      class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-contained-13 MuiButton-raised-16"
+      style="width:50%;margin-top:15px"
+      tabindex="0"
+      type="submit"
+    >
+      <span
+        class="MuiButton-label-3"
+      >
+        Submit
+      </span>
+    </button>
+  </div>
+</div>
+`;
