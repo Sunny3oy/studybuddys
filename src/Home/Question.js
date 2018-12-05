@@ -7,6 +7,8 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import * as firebase from 'firebase';
+import Navbar from "./Navbar";
+import { Link } from 'react-router-dom';
 
 
 class Question extends PureComponent {
@@ -27,9 +29,12 @@ class Question extends PureComponent {
         this.submitAnswer = this.submitAnswer.bind(this);
         this.getReplies = this.getReplies.bind(this);
         this.authen = this.authen.bind(this);
+        this.getUserName = this.getUserName.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount() {
+      this.getUserName();  
       this.authen();
         const { courseName } = this.props.match.params;
         const { questionID } = this.props.match.params;
@@ -66,10 +71,31 @@ class Question extends PureComponent {
     }
 
     authen() {
-      var thisPage = this.props;
+        var thisPage = this.props;
+        firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+           thisPage.history.push("/");
+        }
+        });
+      }
+
+    logout(e) {
+        e.preventDefault();
+        firebase.auth().signOut();
+        this.props.history.push("/");
+    }
+
+     getUserName(e){
+      var page = this;
       firebase.auth().onAuthStateChanged(function(user) {
-         if (!user) {
-            thisPage.history.push("/login");
+         if (user) {
+            var info = {
+               id: user.uid
+            }
+            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+            .then(response => {
+               page.setState({name : response.data.name})
+            })
          }
       });
    }
@@ -104,8 +130,29 @@ class Question extends PureComponent {
 
 
     render() {
-        return (
+        return (           
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800">
+            <div className = "nav">
+              <Navbar/>
+              <div className = "flexRow" style = {{marginLeft: "auto"}}>
+                <span
+                  style = {{fontSize: "22px", marginRight: "10px"}}
+                >
+                  <Link
+                    to = "/dashboard/profile"
+                    style = {{color: "white"}}
+                  >
+                    {this.state.name}
+                  </Link>
+                </span>
+                <Button
+                  onClick={this.logout}
+                  style = {{color:'white', fontSize: "17px"}}
+                >
+                  Logout
+                </Button>
+              </div>
+            </div>
                 <br></br>
                 <Typography variant = "h2" style = {{margin: "16px auto"}}><strong>{this.state.question}</strong></Typography>
                 <Typography variant = "h6" style = {{margin: "0px auto"}}><em>Created By: {this.state.createdBy}</em></Typography>

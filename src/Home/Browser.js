@@ -15,7 +15,7 @@ import './Browser.css';
 import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-
+import Navbar from "./Navbar";
 
 class Browser extends PureComponent {
     constructor(props) {
@@ -24,6 +24,7 @@ class Browser extends PureComponent {
           selectedSchool:'',
           selectedSubject:'',
           class:[],
+          name:"",
           userClasses: [],
           loading: true,
           allSubject:[],
@@ -87,6 +88,8 @@ class Browser extends PureComponent {
         this.getCourseName = this.getCourseName.bind(this);
         this.authen = this.authen.bind(this);
         this.getSubjects = this.getSubjects.bind(this);
+        this.getUserName = this.getUserName.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
       handleChange = name => event => {
@@ -97,17 +100,38 @@ class Browser extends PureComponent {
 
       componentDidMount(){
         this.authen();
+        this.getUserName();
       }
 
       authen() {
         var thisPage = this.props;
         firebase.auth().onAuthStateChanged(function(user) {
-           if (!user) {
-              thisPage.history.push("/login");
-           }
+        if (!user) {
+           thisPage.history.push("/");
+        }
         });
-     }
+      }
 
+    logout(e) {
+        e.preventDefault();
+        firebase.auth().signOut();
+        this.props.history.push("/");
+    }
+
+     getUserName(e){
+      var page = this;
+      firebase.auth().onAuthStateChanged(function(user) {
+         if (user) {
+            var info = {
+               id: user.uid
+            }
+            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+            .then(response => {
+               page.setState({name : response.data.name})
+            })
+         }
+      });
+   }
       getCourseName(){
         var info = { // JSON object to pass to the api call
           collegeName: this.state.selectedSchool,
@@ -155,8 +179,30 @@ class Browser extends PureComponent {
         }
 
         return (
+          
 
             <div className="browserTitle">
+            <div className = "nav">
+              <Navbar/>
+              <div className = "flexRow" style = {{marginLeft: "auto"}}>
+                <span
+                  style = {{fontSize: "22px", marginRight: "10px"}}
+                >
+                  <Link
+                    to = "/dashboard/profile"
+                    style = {{color: "white"}}
+                  >
+                    {this.state.name}
+                  </Link>
+                </span>
+                <Button
+                  onClick={this.logout}
+                  style = {{color:'white', fontSize: "17px"}}
+                >
+                  Logout
+                </Button>
+              </div>
+            </div>
 
               <div className = "flexCenter">
                   <h1

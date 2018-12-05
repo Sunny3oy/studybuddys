@@ -23,8 +23,8 @@ class App extends Component {
       name: "",
     }
    this.authListener = this.authListener.bind(this);
-   this.logout = this.logout.bind(this);
-   this.getUserName = this.getUserName.bind(this);
+  //  this.logout = this.logout.bind(this);
+  //  this.getUserName = this.getUserName.bind(this);
  }
 
   componentDidMount(){
@@ -55,11 +55,11 @@ class App extends Component {
       });
    }
 
-  logout(e){
-    e.preventDefault();
-    firebase.auth().signOut();
-    this.setState({loggedIn: false});
-  }
+  // logout(e){
+  //   e.preventDefault();
+  //   firebase.auth().signOut();
+  //   this.setState({loggedIn: false});
+  // }
 
   componentWillUnMount(){
     this.authListener();
@@ -119,14 +119,9 @@ class App extends Component {
 
     return (
       <BrowserRouter>
-          <div className = "App"><Button
-            onClick={this.logout}
-            style = {{color:'white', fontSize: "17px"}}
-          >
-            Logout
-          </Button>
+          <div className = "App">
           <Switch>
-            <Route path = "/login" exact component = { Home } />
+            <Route path = "/" exact component = { Home } />
               <Route path = "/signup" exact component = { SignUp } />
               <Route path= "/dashboard" exact component = { Dashboard } />
               <Route path= "/dashboard/profile" exact component = { Profile } />
