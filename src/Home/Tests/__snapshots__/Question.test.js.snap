@@ -1,11 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CoursePage component render snapshot 1`] = `
+exports[`Question component render snapshot 1`] = `
 <div
   data-aos="fade-in"
   data-aos-duration="800"
   data-aos-easing="linear"
-  style="display:flex;flex-direction:column"
 >
   <div
     class="nav"
@@ -65,31 +64,34 @@ exports[`CoursePage component render snapshot 1`] = `
       </button>
     </div>
   </div>
-  <h1
-    class="MuiTypography-root-54 MuiTypography-h1-66"
+  <br />
+  <h2
+    class="MuiTypography-root-54 MuiTypography-h2-67"
     style="margin:16px auto"
-  />
+  >
+    <strong />
+  </h2>
+  <h6
+    class="MuiTypography-root-54 MuiTypography-h6-71"
+    style="margin:0px auto"
+  >
+    <em>
+      Created By: 
+    </em>
+  </h6>
   <div
     class="flexCenter"
     style="margin:30px;background-color:#ffffff;border:1px solid black;padding:20px;border-radius:10px;box-shadow:5px 5px 5px 5px #777777;-moz-box-shadow:0 0 10px #777777;-webkit-box-shadow:0 0 10px #777777"
   >
-    <h4
-      class="MuiTypography-root-54 MuiTypography-h4-69 MuiTypography-gutterBottom-81"
-    >
-      <u>
-        Questions
-      </u>
-      :
-    </h4>
     <div
       class="MuiFormControl-root-89"
-      style="margin-top:20px;width:50%"
+      style="width:50%;margin-top:15px"
     >
       <label
         class="MuiFormLabel-root-104 MuiInputLabel-root-93 MuiInputLabel-formControl-98 MuiInputLabel-animated-101 MuiInputLabel-outlined-103"
         data-shrink="false"
       >
-        Ask a Question
+        Answer
       </label>
       <div
         class="MuiInputBase-root-124 MuiOutlinedInput-root-111 MuiInputBase-formControl-125 MuiInputBase-multiline-132 MuiOutlinedInput-multiline-117"
@@ -134,23 +136,18 @@ exports[`CoursePage component render snapshot 1`] = `
         </div>
       </div>
     </div>
-    <br />
     <button
       class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-contained-13 MuiButton-raised-16"
-      style="width:50%"
+      style="width:50%;margin-top:15px"
       tabindex="0"
       type="submit"
     >
       <span
         class="MuiButton-label-3"
       >
-        Ask Away
+        Submit
       </span>
     </button>
   </div>
-  <div
-    class="MuiPaper-root-147 MuiPaper-elevation1-150 MuiPaper-rounded-148 MuiCard-root-146 flexRow"
-    style="margin:10px auto;width:50%;height:50px"
-  />
 </div>
 `;

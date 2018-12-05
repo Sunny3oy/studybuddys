@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard component render snapshot 1`] = `
+<div
+  class="browserTitle"
+  data-aos="fade-down"
+  data-aos-duration="500"
+  data-aos-easing="linear"
+>
+  <div
+    class="nav"
+  >
+    <div>
+      <button
+        class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-text-4 MuiButton-flat-7"
+        style="float:left"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-3"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root-31 MuiSvgIcon-fontSizeLarge-39"
+            focusable="false"
+            role="presentation"
+            style="color:white"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M0 0h24v24H0z"
+              fill="none"
+            />
+            <path
+              d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="flexRow"
+      style="margin-left:auto"
+    >
+      <span
+        style="font-size:22px;margin-right:10px"
+      >
+        <a
+          href="/dashboard/profile"
+          style="color:white"
+        />
+      </span>
+      <button
+        class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-text-4 MuiButton-flat-7"
+        style="color:white;font-size:17px"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-3"
+        >
+          Logout
+        </span>
+      </button>
+    </div>
+  </div>
+  <h1
+    class="dashSec"
+  >
+     My Courses 
+  </h1>
+  <div
+    class="flexCenter"
+    style="margin-top:50px"
+  >
+    <h2>
+      <br />
+      <br />
+      <br />
+      <br />
+      You Haven't Selected a Class Yet! 
+      <br />
+      <br />
+       Select a Class by Clicking on the Left Tab 
+    </h2>
+  </div>
+</div>
+`;

@@ -3,13 +3,71 @@
 exports[`Profile component render snapshot 1`] = `
 <div>
   <div
+    class="nav"
+  >
+    <div>
+      <button
+        class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-text-4 MuiButton-flat-7"
+        style="float:left"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-3"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root-31 MuiSvgIcon-fontSizeLarge-39"
+            focusable="false"
+            role="presentation"
+            style="color:white"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M0 0h24v24H0z"
+              fill="none"
+            />
+            <path
+              d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="flexRow"
+      style="margin-left:auto"
+    >
+      <span
+        style="font-size:22px;margin-right:10px"
+      >
+        <a
+          href="/dashboard/profile"
+          style="color:white"
+        />
+      </span>
+      <button
+        class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-text-4 MuiButton-flat-7"
+        style="color:white;font-size:17px"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-3"
+        >
+          Logout
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
     class="flexCenter"
     data-aos="fade-in"
     data-aos-duration="800"
     data-aos-easing="linear"
   >
     <h3
-      class="MuiTypography-root-1 MuiTypography-h3-15"
+      class="MuiTypography-root-54 MuiTypography-h3-68"
     >
       <br />
       <u>
@@ -18,19 +76,19 @@ exports[`Profile component render snapshot 1`] = `
     </h3>
     <br />
     <div
-      class="MuiPaper-root-37 MuiPaper-elevation8-47 MuiPaper-rounded-38 MuiCard-root-36 profile"
+      class="MuiPaper-root-90 MuiPaper-elevation8-100 MuiPaper-rounded-91 MuiCard-root-89 profile"
       data-aos="fade-in"
       data-aos-duration="800"
       data-aos-easing="linear"
     >
       <h4
-        class="MuiTypography-root-1 MuiTypography-h4-16"
+        class="MuiTypography-root-54 MuiTypography-h4-69"
       >
         Your Current Information:
       </h4>
       <br />
       <h6
-        class="MuiTypography-root-1 MuiTypography-h6-18"
+        class="MuiTypography-root-54 MuiTypography-h6-71"
       >
         <strong>
           Name:
@@ -38,7 +96,7 @@ exports[`Profile component render snapshot 1`] = `
          
       </h6>
       <h6
-        class="MuiTypography-root-1 MuiTypography-h6-18"
+        class="MuiTypography-root-54 MuiTypography-h6-71"
       >
         <strong>
           Email:
@@ -46,7 +104,7 @@ exports[`Profile component render snapshot 1`] = `
          
       </h6>
       <h6
-        class="MuiTypography-root-1 MuiTypography-h6-18"
+        class="MuiTypography-root-54 MuiTypography-h6-71"
       >
         <strong>
           Facebook:
@@ -54,7 +112,7 @@ exports[`Profile component render snapshot 1`] = `
          Facebook
       </h6>
       <h6
-        class="MuiTypography-root-1 MuiTypography-h6-18"
+        class="MuiTypography-root-54 MuiTypography-h6-71"
       >
         <strong>
           LinkedIn:
@@ -62,7 +120,7 @@ exports[`Profile component render snapshot 1`] = `
          LinkedIn
       </h6>
       <h6
-        class="MuiTypography-root-1 MuiTypography-h6-18"
+        class="MuiTypography-root-54 MuiTypography-h6-71"
       >
         <strong>
           Instagram:
@@ -71,191 +129,191 @@ exports[`Profile component render snapshot 1`] = `
       </h6>
     </div>
     <div
-      class="MuiPaper-root-37 MuiPaper-elevation8-47 MuiPaper-rounded-38 MuiCard-root-36 profile"
+      class="MuiPaper-root-90 MuiPaper-elevation8-100 MuiPaper-rounded-91 MuiCard-root-89 profile"
       data-aos="fade-in"
       data-aos-duration="800"
       data-aos-easing="linear"
     >
       <h4
-        class="MuiTypography-root-1 MuiTypography-h4-16"
+        class="MuiTypography-root-54 MuiTypography-h4-69"
       >
         Update Account Information:
       </h4>
       <br />
       <div
-        class="MuiFormControl-root-64"
+        class="MuiFormControl-root-117"
         style="margin-top:18px"
       >
         <div
-          class="MuiInputBase-root-81 MuiInput-root-68 MuiInput-underline-72 MuiInputBase-formControl-82 MuiInput-formControl-69"
+          class="MuiInputBase-root-134 MuiInput-root-121 MuiInput-underline-125 MuiInputBase-formControl-135 MuiInput-formControl-122"
         >
           <input
             aria-invalid="false"
-            class="MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79"
+            class="MuiInputBase-input-144 MuiInput-input-129 MuiInputBase-inputType-147 MuiInput-inputType-132"
             placeholder="Email Address"
             type="email"
           />
         </div>
       </div>
       <button
-        class="MuiButtonBase-root-124 MuiButton-root-98 MuiButton-text-100 MuiButton-flat-103"
+        class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-text-4 MuiButton-flat-7"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiButton-label-99"
+          class="MuiButton-label-3"
         >
           Save Change
         </span>
       </button>
       <div
-        class="MuiFormControl-root-64"
+        class="MuiFormControl-root-117"
         style="margin-top:18px"
       >
         <div
-          class="MuiInputBase-root-81 MuiInput-root-68 MuiInput-underline-72 MuiInputBase-formControl-82 MuiInput-formControl-69"
+          class="MuiInputBase-root-134 MuiInput-root-121 MuiInput-underline-125 MuiInputBase-formControl-135 MuiInput-formControl-122"
         >
           <input
             aria-invalid="false"
-            class="MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79"
+            class="MuiInputBase-input-144 MuiInput-input-129 MuiInputBase-inputType-147 MuiInput-inputType-132"
             placeholder="Password"
             type="password"
           />
         </div>
       </div>
       <button
-        class="MuiButtonBase-root-124 MuiButton-root-98 MuiButton-text-100 MuiButton-flat-103"
+        class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-text-4 MuiButton-flat-7"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiButton-label-99"
+          class="MuiButton-label-3"
         >
           Save Change
         </span>
       </button>
     </div>
     <div
-      class="MuiPaper-root-37 MuiPaper-elevation8-47 MuiPaper-rounded-38 MuiCard-root-36 profile"
+      class="MuiPaper-root-90 MuiPaper-elevation8-100 MuiPaper-rounded-91 MuiCard-root-89 profile"
       data-aos="fade-in"
       data-aos-duration="800"
       data-aos-easing="linear"
     >
       <h4
-        class="MuiTypography-root-1 MuiTypography-h4-16"
+        class="MuiTypography-root-54 MuiTypography-h4-69"
       >
         Social Media Accounts
       </h4>
       <h6
-        class="MuiTypography-root-1 MuiTypography-subtitle1-19"
+        class="MuiTypography-root-54 MuiTypography-subtitle1-72"
       >
         (Leave As Is If You're Not Updating)
       </h6>
       <br />
       <div
-        class="MuiFormControl-root-64"
+        class="MuiFormControl-root-117"
         style="margin-top:18px"
       >
         <div
-          class="MuiInputBase-root-81 MuiInput-root-68 MuiInput-underline-72 MuiInputBase-formControl-82 MuiInput-formControl-69"
+          class="MuiInputBase-root-134 MuiInput-root-121 MuiInput-underline-125 MuiInputBase-formControl-135 MuiInput-formControl-122"
         >
           <input
             aria-invalid="false"
-            class="MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79"
+            class="MuiInputBase-input-144 MuiInput-input-129 MuiInputBase-inputType-147 MuiInput-inputType-132"
             type="url"
             value="facebook.com"
           />
         </div>
       </div>
       <div
-        class="MuiFormControl-root-64"
+        class="MuiFormControl-root-117"
         style="margin-top:18px"
       >
         <div
-          class="MuiInputBase-root-81 MuiInput-root-68 MuiInput-underline-72 MuiInputBase-formControl-82 MuiInput-formControl-69"
+          class="MuiInputBase-root-134 MuiInput-root-121 MuiInput-underline-125 MuiInputBase-formControl-135 MuiInput-formControl-122"
         >
           <input
             aria-invalid="false"
-            class="MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79"
+            class="MuiInputBase-input-144 MuiInput-input-129 MuiInputBase-inputType-147 MuiInput-inputType-132"
             type="url"
             value="linkedin.com"
           />
         </div>
       </div>
       <div
-        class="MuiFormControl-root-64"
+        class="MuiFormControl-root-117"
         style="margin-top:18px"
       >
         <div
-          class="MuiInputBase-root-81 MuiInput-root-68 MuiInput-underline-72 MuiInputBase-formControl-82 MuiInput-formControl-69"
+          class="MuiInputBase-root-134 MuiInput-root-121 MuiInput-underline-125 MuiInputBase-formControl-135 MuiInput-formControl-122"
         >
           <input
             aria-invalid="false"
-            class="MuiInputBase-input-91 MuiInput-input-76 MuiInputBase-inputType-94 MuiInput-inputType-79"
+            class="MuiInputBase-input-144 MuiInput-input-129 MuiInputBase-inputType-147 MuiInput-inputType-132"
             type="url"
             value="instagram.com"
           />
         </div>
       </div>
       <button
-        class="MuiButtonBase-root-124 MuiButton-root-98 MuiButton-text-100 MuiButton-flat-103"
+        class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-text-4 MuiButton-flat-7"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiButton-label-99"
+          class="MuiButton-label-3"
         >
           Save Change(s)
         </span>
       </button>
     </div>
     <div
-      class="MuiPaper-root-37 MuiPaper-elevation8-47 MuiPaper-rounded-38 MuiCard-root-36 profile"
+      class="MuiPaper-root-90 MuiPaper-elevation8-100 MuiPaper-rounded-91 MuiCard-root-89 profile"
       data-aos="fade-in"
       data-aos-duration="800"
       data-aos-easing="linear"
     >
       <h4
-        class="MuiTypography-root-1 MuiTypography-h4-16"
+        class="MuiTypography-root-54 MuiTypography-h4-69"
       >
         Please Respond Events
       </h4>
       <br />
     </div>
     <div
-      class="MuiPaper-root-37 MuiPaper-elevation8-47 MuiPaper-rounded-38 MuiCard-root-36 profile"
+      class="MuiPaper-root-90 MuiPaper-elevation8-100 MuiPaper-rounded-91 MuiCard-root-89 profile"
       data-aos="fade-in"
       data-aos-duration="800"
       data-aos-easing="linear"
     >
       <h4
-        class="MuiTypography-root-1 MuiTypography-h4-16"
+        class="MuiTypography-root-54 MuiTypography-h4-69"
       >
         Awaiting Response Events
       </h4>
       <br />
     </div>
     <div
-      class="MuiPaper-root-37 MuiPaper-elevation8-47 MuiPaper-rounded-38 MuiCard-root-36 profile"
+      class="MuiPaper-root-90 MuiPaper-elevation8-100 MuiPaper-rounded-91 MuiCard-root-89 profile"
       data-aos="fade-in"
       data-aos-duration="800"
       data-aos-easing="linear"
     >
       <h4
-        class="MuiTypography-root-1 MuiTypography-h4-16"
+        class="MuiTypography-root-54 MuiTypography-h4-69"
       >
         Approved Events
       </h4>
       <br />
     </div>
     <div
-      class="MuiPaper-root-37 MuiPaper-elevation8-47 MuiPaper-rounded-38 MuiCard-root-36 profile"
+      class="MuiPaper-root-90 MuiPaper-elevation8-100 MuiPaper-rounded-91 MuiCard-root-89 profile"
       data-aos="fade-in"
       data-aos-duration="800"
       data-aos-easing="linear"
     >
       <h4
-        class="MuiTypography-root-1 MuiTypography-h4-16"
+        class="MuiTypography-root-54 MuiTypography-h4-69"
       >
         Denied Events
       </h4>
