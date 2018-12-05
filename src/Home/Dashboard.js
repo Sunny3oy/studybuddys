@@ -7,6 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
+import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import * as firebase from 'firebase';
 
@@ -17,24 +18,48 @@ class Dashboard extends PureComponent {
         name: "",
         userClass: "",
       }
+      this.getUserName = this.getUserName.bind(this);
       this.getUserCourses = this.getUserCourses.bind(this);
       this.deleteUserCourses = this.deleteUserCourses.bind(this);
+      this.logout = this.logout.bind(this);
       this.authen = this.authen.bind(this);
    }
 
    componentDidMount() {
       this.authen();
       this.getUserCourses();
+      this.getUserName();
    }
 
    authen() {
      var thisPage = this.props;
      firebase.auth().onAuthStateChanged(function(user) {
         if (!user) {
-           thisPage.history.push("/login");
+           thisPage.history.push("/");
         }
      });
-  }
+    }
+
+    logout(e) {
+        e.preventDefault();
+        firebase.auth().signOut();
+        this.props.history.push("/");
+    }
+
+    getUserName(e){
+        var page = this;
+        firebase.auth().onAuthStateChanged(function(user) {
+           if (user) {
+              var info = {
+                 id: user.uid
+              }
+              axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+              .then(response => {
+                 page.setState({name : response.data.name})
+              })
+           }
+        });
+     }
 
    getUserCourses(){
       var page = this;
@@ -115,6 +140,27 @@ class Dashboard extends PureComponent {
         return (
 
             <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500" className="browserTitle">
+                <div className = "nav">
+                    <Navbar/>
+                    <div className = "flexRow" style = {{marginLeft: "auto"}}>
+                        <span 
+                        style = {{fontSize: "22px", marginRight: "10px"}}
+                        >
+                        <Link 
+                            to = "/dashboard/profile" 
+                            style = {{color: "white"}}
+                        >
+                            {this.state.name}
+                        </Link>
+                        </span>
+                        <Button 
+                        onClick={this.logout} 
+                        style = {{color:'white', fontSize: "17px"}}
+                        >
+                        Logout
+                        </Button>
+                    </div>
+                </div>
                 <h1 className = "dashSec"> My Courses </h1>
                 <div className="flexCenter" style={{marginTop:'50px'}}>
                     {classes}

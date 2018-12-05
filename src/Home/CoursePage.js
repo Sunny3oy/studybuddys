@@ -89,7 +89,7 @@ class CoursePage extends PureComponent {
             thisPage.history.push("/login");
          }
       });
-   }
+    }
 
     getQuestions() {
         var course = {
@@ -103,6 +103,19 @@ class CoursePage extends PureComponent {
                     createdBy: response.data.names
                 })
             })
+    }
+
+    getReplies(ID){
+        var info={
+            questionID: ID,
+        }
+        axios.post("https://studybuddys-223920.appspot.com/api/getReplies",info)
+        .then(response=>{
+            this.setState({
+                replies:response.data.replies,
+                createdBy: response.data.names
+            })
+        })
     }
 
     createQuestion() {
@@ -225,6 +238,7 @@ class CoursePage extends PureComponent {
                                     <Button
                                         onClick={() => {
                                             this.handleClickOpen();
+                                            this.setState({openKey: key});
                                             this.setState({openKey: key}, this.getSocialMedia(key))
                                         }}
                                     >
@@ -236,17 +250,18 @@ class CoursePage extends PureComponent {
                                     >
                                     <DialogTitle  id="alert-dialog-title">{this.state.userList[this.state.openKey]}</DialogTitle>
                                         <DialogContent style = {{width : "575px"}}>
+                                            
                                             <DialogContentText id="alert-dialog-description">
                                                 <Typography variant = "subtitle1">
-                                                    Facebook: {this.state.facebook}
-                                                </Typography>
-                                                <Typography variant = "subtitle1">
-                                                    LinkedIn: {this.state.linkedIn}
-                                                </Typography>
-                                                <Typography variant = "subtitle1">
-                                                    Instagram: {this.state.instagram}
-                                                </Typography>
-                                                <br/>
+                                                     Facebook: {this.state.facebook}
+                                                 </Typography>
+                                                 <Typography variant = "subtitle1">
+                                                     LinkedIn: {this.state.linkedIn}
+                                                 </Typography>
+                                                 <Typography variant = "subtitle1">
+                                                     Instagram: {this.state.instagram}
+                                                 </Typography>
+                                                 <br/>
                                             </DialogContentText>
                                             <br></br>
                                             <MeetUp
