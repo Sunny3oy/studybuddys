@@ -155,7 +155,6 @@ class Browser extends PureComponent {
                   courseName: course
                };
                axios.post('https://studybuddys-223920.appspot.com/api/addCourses', info)
-               alert("Class Added!");
             }
          });
       }
