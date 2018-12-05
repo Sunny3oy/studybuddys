@@ -119,6 +119,186 @@ describe('getUserCourses', function() {
     });
 });
 
+describe('getUsersByCourseTaken', function() {
+    it('should return an array with the test user indicating he\'s in the class', function(done) {
+        chai.request(server)
+        .post('/api/getUsersByCourseTaken')
+        .send({
+            courseName : "math"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('ids');
+            res.body.ids.should.be.a('array');
+            res.body.should.have.property('names');
+            res.body.names.should.be.a('array');
+            assert(res.body.names, ['Test']);
+            assert(res.body.ids, ['s4w1QclKq1a8vaPRXQaRZ0ldQYq1']);
+            done();
+        });
+    });
+});
+
+describe('createQuestion', function() {
+    it('should return a message say successfully added', function(done) {
+        chai.request(server)
+        .post('/api/createQuestion')
+        .send({
+            id : "s4w1QclKq1a8vaPRXQaRZ0ldQYq1",
+            courseName : "math",
+            userQuestion : "This is a test question"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('message');
+            res.body.message.should.be.a('string');
+            assert("question added", res.body.message);
+            done();
+        });
+    });
+});
+
+describe('getQuestions', function() {
+    it('should return an array containing the names of users who made a question', function(done) {
+        chai.request(server)
+        .post('/api/getQuestions')
+        .send({
+            courseName : "math"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('names');
+            res.body.names.should.be.a('array');
+            assert(res.body.names, ["Test"]);
+            done();
+        });
+    });
+
+    it('should return an array containing the questions that users have asked', function(done) {
+        chai.request(server)
+        .post('/api/getQuestions')
+        .send({
+            courseName : "math"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('questions');
+            res.body.questions.should.be.a('array');
+            assert(res.body.questions, ["This is a test question"]);
+            done();
+        });
+    });
+
+    it('should return an array containing the ids of the users that have asked questions', function(done) {
+        chai.request(server)
+        .post('/api/getQuestions')
+        .send({
+            courseName : "math"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('ids');
+            res.body.ids.should.be.a('array');
+            assert(res.body.ids, ["s4w1QclKq1a8vaPRXQaRZ0ldQYq1"]);
+            done();
+        });
+    });
+});
+
+describe('getSingleQuestion', function() {
+    it('should return the name of the user that made the question', function(done) {
+        chai.request(server)
+        .post('/api/getSingleQuestion')
+        .send({
+            courseName : "math",
+            questionID : "-LT-582oMPecU-okiv74"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('name');
+            res.body.name.should.be.a('string');
+            assert("Test", res.body.name);
+            done();
+        });
+    });
+
+    it('should return the question text of a specific question', function(done) {
+        chai.request(server)
+        .post('/api/getSingleQuestion')
+        .send({
+            courseName : "math",
+            questionID : "-LT-582oMPecU-okiv74"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('question');
+            res.body.question.should.be.a('string');
+            assert("This is a test question", res.body.question);
+            done();
+        });
+    });
+});
+
+describe('submitAnswer', function() {
+    it('should submit a reply to a question and return a succcess message', function(done) {
+        chai.request(server)
+        .post('/api/submitAnswer')
+        .send({
+            id : "s4w1QclKq1a8vaPRXQaRZ0ldQYq1",
+            replyText : "This is a test reply",
+            questionID : "-LT-582oMPecU-okiv74"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('message');
+            res.body.message.should.be.a('string');
+            done();
+        });
+    });
+});
+
+describe('getReplies', function() {
+    it('should contain a list of the names of users that submitted a reply', function(done) {
+        chai.request(server)
+        .post('/api/getReplies')
+        .send({
+            questionID : "-LT-582oMPecU-okiv74"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('names');
+            res.body.names.should.be.a('array');
+            assert(res.body.names, ["Test"]);
+            done();
+        });
+    });
+
+    it('should contain a list of the replies made for a question', function(done) {
+        chai.request(server)
+        .post('/api/getReplies')
+        .send({
+            questionID : "-LT-582oMPecU-okiv74"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('replies');
+            res.body.replies.should.be.a('array');
+            assert(res.body.replies, ["This is a test reply"]);
+            done();
+        });
+    });
+});
+
 describe('deleteUserCourses', function() {
     it('should delete a class and should return a success message', function(done) {
         chai.request(server)
@@ -150,6 +330,27 @@ describe('getUserCourses', function() {
             res.body.should.have.property('courseList');
             res.body.courseList.should.be.a('array');
             assert(res.body.courseList, []);
+            done();
+        });
+    });
+});
+
+describe('getUsersByCourseTaken', function() {
+    it('should return an empty array since no one is taking the class now', function(done) {
+        chai.request(server)
+        .post('/api/getUsersByCourseTaken')
+        .send({
+            courseName : "math"
+        })
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('ids');
+            res.body.ids.should.be.a('array');
+            res.body.should.have.property('names');
+            res.body.names.should.be.a('array');
+            assert(res.body.names, []);
+            assert(res.body.ids, []);
             done();
         });
     });
