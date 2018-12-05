@@ -46,9 +46,6 @@ class MeetUp extends PureComponent {
         var description = this.state.description;
         var partner = this.state.partner;
         var course = this.state.course;
-        console.log(requestedDate)
-        console.log(requestedTime)
-        console.log(this.state.description)
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 var info = {
@@ -61,7 +58,6 @@ class MeetUp extends PureComponent {
                 };
                 axios.post('https://studybuddys-223920.appspot.com/api/createMeetUp', info)
                 .then(alert("MeetUp Requested!"))
-                console.log(info)
             }
         })
     }

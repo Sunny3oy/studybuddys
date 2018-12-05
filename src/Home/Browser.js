@@ -15,7 +15,7 @@ import './Browser.css';
 import { Link } from 'react-router-dom';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-
+import Navbar from "./Navbar";
 
 class Browser extends PureComponent {
     constructor(props) {
@@ -24,6 +24,7 @@ class Browser extends PureComponent {
           selectedSchool:'',
           selectedSubject:'',
           class:[],
+          name:"",
           userClasses: [],
           loading: true,
           allSubject:[],
@@ -85,8 +86,10 @@ class Browser extends PureComponent {
         this.handleChange = this.handleChange.bind(this);
         this.addCourseToUser = this.addCourseToUser.bind(this);
         this.getCourseName = this.getCourseName.bind(this);
-        this.checkLoggedIn = this.checkLoggedIn.bind(this);
+        this.authen = this.authen.bind(this);
         this.getSubjects = this.getSubjects.bind(this);
+        this.getUserName = this.getUserName.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
       handleChange = name => event => {
@@ -96,18 +99,39 @@ class Browser extends PureComponent {
       };
 
       componentDidMount(){
-        this.checkLoggedIn();
+        this.authen();
+        this.getUserName();
       }
 
-      checkLoggedIn(){
-        var prop = this.props;
+      authen() {
+        var thisPage = this.props;
         firebase.auth().onAuthStateChanged(function(user) {
-           if (!user) {
-              prop.history.push('/');
-           }
+        if (!user) {
+           thisPage.history.push("/");
+        }
         });
-     }
+      }
 
+    logout(e) {
+        e.preventDefault();
+        firebase.auth().signOut();
+        this.props.history.push("/");
+    }
+
+     getUserName(e){
+      var page = this;
+      firebase.auth().onAuthStateChanged(function(user) {
+         if (user) {
+            var info = {
+               id: user.uid
+            }
+            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+            .then(response => {
+               page.setState({name : response.data.name})
+            })
+         }
+      });
+   }
       getCourseName(){
         var info = { // JSON object to pass to the api call
           collegeName: this.state.selectedSchool,
@@ -153,10 +177,32 @@ class Browser extends PureComponent {
         if (this.state.loading === false) {
           loading = (<h1>Loading...</h1>)
         }
-          
+
         return (
+          
 
             <div className="browserTitle">
+            <div className = "nav">
+              <Navbar/>
+              <div className = "flexRow" style = {{marginLeft: "auto"}}>
+                <span
+                  style = {{fontSize: "22px", marginRight: "10px"}}
+                >
+                  <Link
+                    to = "/dashboard/profile"
+                    style = {{color: "white"}}
+                  >
+                    {this.state.name}
+                  </Link>
+                </span>
+                <Button
+                  onClick={this.logout}
+                  style = {{color:'white', fontSize: "17px"}}
+                >
+                  Logout
+                </Button>
+              </div>
+            </div>
 
               <div className = "flexCenter">
                   <h1
@@ -171,41 +217,41 @@ class Browser extends PureComponent {
 
                 <div style = {{height:'65vh'}}>
                   {/* mapping the schools */}
-                  <InputLabel Shrink htmlFor="SelectSchool">
+                  <InputLabel>
                     Select School
+                    <Select
+                      input={<Input name="school" id="SelectSchool"/>}
+                      onChange = {this.handleChange('selectedSchool')}
+                      value = {this.state.selectedSchool}
+                      style = {{width:'300px'}}
+                    >
+                      {this.state.schools.map((data, key) => {
+                        return (
+                          <MenuItem
+                          key = {key}
+                          value = {data.value}>
+                            {data.label}
+                          </MenuItem>
+                        )
+                      })}
+                    </Select>
                   </InputLabel>
-                  <Select
-                    input={<Input name="school" id="SelectSchool"/>}
-                    onChange = {this.handleChange('selectedSchool')}
-                    value = {this.state.selectedSchool}
-                    style = {{width:'300px'}}
-                  >
-                    {this.state.schools.map((data, key) => {
-                      return (
-                        <MenuItem 
-                        key = {key} 
-                        value = {data.value}>
-                          {data.label}
-                        </MenuItem>
-                      )
-                    })}
-                  </Select>
                 <br/>
 
                 {/* mapping the subjects, only if a school was selected */}
-                
+
                 <div className="flexCenter">
                   {
-                    
+
                     this.state.selectedSchool !== ''?
-                    <InputLabel htmlFor="SelectSubject">Select Subject
+                    <InputLabel htmlFor="SelectSubject">
+                      Select Subject
                       <Select
                         input={<Input name="subject" id="SelectSubject"/>}
                         value={this.state.selectedSubject}
                         onChange={this.handleChange('selectedSubject')}
                         style={{width:'300px'}}
                       >
-                      
 
                         {this.state.allSubject.map((option,key) => {
                           return (
@@ -218,8 +264,8 @@ class Browser extends PureComponent {
                           )
                         })}
                       </Select>
-                      </InputLabel>
-                    : null 
+                    </InputLabel>
+                    : null
                   }
 
                 </div>
@@ -244,10 +290,10 @@ class Browser extends PureComponent {
                       <GridList className = "flexRow" cols={4}>
                          {this.state.class.sections.map((data, key) => {
                           return(
-                              <Card 
-                                key = {key} 
-                                value={data} 
-                                className ="flexCenter" 
+                              <Card
+                                key = {key}
+                                value={data}
+                                className ="flexCenter"
                                 style={{width:'250px',height:'250px',margin:'10px 10px'}}
                               >
                                 <form key = {key}>

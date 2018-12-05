@@ -19,11 +19,22 @@ class Dashboard extends PureComponent {
       }
       this.getUserCourses = this.getUserCourses.bind(this);
       this.deleteUserCourses = this.deleteUserCourses.bind(this);
+      this.authen = this.authen.bind(this);
    }
 
    componentDidMount() {
+      this.authen();
       this.getUserCourses();
    }
+
+   authen() {
+     var thisPage = this.props;
+     firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+           thisPage.history.push("/login");
+        }
+     });
+  }
 
    getUserCourses(){
       var page = this;
@@ -55,10 +66,11 @@ class Dashboard extends PureComponent {
                id: user.uid,
                courseName: course
             };
-            axios.post('https://studybuddys-223920.appspot.com/api/deleteUserCourses', info).then(
+            axios.post('https://studybuddys-223920.appspot.com/api/deleteUserCourses', info)
+            .then(
                page.getUserCourses
             )
-            alert("Class Deleted!");
+            console.log("Class Deleted!");
          }
       });
    }
@@ -75,13 +87,13 @@ class Dashboard extends PureComponent {
                     return (
                             <Card key = {key} value={data} className ="flexRow" style={{width:'250px',height:'250px',margin:'10px 10px'}}>
                                 <CardContent>
-                        
+
                                     <Link to = {"/courses/" + data}>
                                         <Typography variant ="headline">
                                             {data}
                                         </Typography >
                                     </Link>
-                        
+
                                     <Button
                                         onClick={(e)=>this.deleteUserCourses(e)}
                                         value={data}
@@ -101,8 +113,8 @@ class Dashboard extends PureComponent {
         }
 
         return (
-            
-            <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500" className="browserTitle">  
+
+            <div  data-aos="fade-down" data-aos-easing="linear" data-aos-duration="500" className="browserTitle">
                 <h1 className = "dashSec"> My Courses </h1>
                 <div className="flexCenter" style={{marginTop:'50px'}}>
                     {classes}

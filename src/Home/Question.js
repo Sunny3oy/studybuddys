@@ -7,6 +7,8 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import * as firebase from 'firebase';
+import Navbar from "./Navbar";
+import { Link } from 'react-router-dom';
 
 
 class Question extends PureComponent {
@@ -25,22 +27,24 @@ class Question extends PureComponent {
         this.handleChange = this.handleChange.bind(this);
         this.getQuestion = this.getQuestion.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
+        this.getReplies = this.getReplies.bind(this);
+        this.authen = this.authen.bind(this);
+        this.getUserName = this.getUserName.bind(this);
+        this.logout = this.logout.bind(this);
     }
-    
+
     componentDidMount() {
+      this.getUserName();  
+      this.authen();
         const { courseName } = this.props.match.params;
         const { questionID } = this.props.match.params;
         fetch(`/course/${courseName}?/${questionID}?`)
             .then(
                 this.setState({
-                    course : courseName, 
+                    course : courseName,
                     questID: questionID
-                })
+                }, this.getQuestion, this.getReplies)
             )
-            .then (
-                this.getQuestion,
-                this.getReplies(questionID)
-            )  
     }
 
     handleChange = name => event => {
@@ -50,6 +54,7 @@ class Question extends PureComponent {
     };
 
     submitAnswer() {
+        var page = this;
         var reply = this.state.replyText;
         var questID = this.state.questID;
         firebase.auth().onAuthStateChanged(function(user) {
@@ -60,23 +65,54 @@ class Question extends PureComponent {
                     questionID: questID,
                 }
                 axios.post('https://studybuddys-223920.appspot.com/api/submitAnswer', info)
+                .then(page.getReplies)
             }
         });
-        this.getReplies(questID);
     }
-    
-    getReplies(ID) {
+
+    authen() {
+        var thisPage = this.props;
+        firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+           thisPage.history.push("/");
+        }
+        });
+      }
+
+    logout(e) {
+        e.preventDefault();
+        firebase.auth().signOut();
+        this.props.history.push("/");
+    }
+
+     getUserName(e){
+      var page = this;
+      firebase.auth().onAuthStateChanged(function(user) {
+         if (user) {
+            var info = {
+               id: user.uid
+            }
+            axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+            .then(response => {
+               page.setState({name : response.data.name})
+            })
+         }
+      });
+   }
+
+    getReplies() {
         var info = {
-            questionID: ID,
+            questionID: this.state.questID,
         }
         axios.post('https://studybuddys-223920.appspot.com/api/getReplies', info)
-        .then( response => {
+        .then(response => {
             this.setState({
                 replies: response.data.replies,
                 replier: response.data.names
             })
         })
     }
+
     getQuestion() {
         var questID = {
             courseName: this.state.course,
@@ -84,69 +120,76 @@ class Question extends PureComponent {
         };
         axios.post('https://studybuddys-223920.appspot.com/api/getSingleQuestion', questID)
             .then(response => {
-                console.log(response.data)
                 this.setState({
                     question: response.data.question,
                     createdBy: response.data.name
                 })
             })
-            
+        this.getReplies();
     }
-    
+
 
     render() {
-        return (
+        return (           
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800">
-                    {/* <Button 
-                        className="Calendar"
-                        type="submit"
-                        onClick={this.openCalendar}>
-                        Meet Up
-                    </Button>
-                {
-                    this.state.calendarIsOpen
-                    ?
-                    <MuiPickersUtilsProvider 
-                        utils={LuxonUtils}>
-                        <Calendar />
-                    </MuiPickersUtilsProvider>
-                    : null
-                } */}
-                <br></br> 
+            <div className = "nav">
+              <Navbar/>
+              <div className = "flexRow" style = {{marginLeft: "auto"}}>
+                <span
+                  style = {{fontSize: "22px", marginRight: "10px"}}
+                >
+                  <Link
+                    to = "/dashboard/profile"
+                    style = {{color: "white"}}
+                  >
+                    {this.state.name}
+                  </Link>
+                </span>
+                <Button
+                  onClick={this.logout}
+                  style = {{color:'white', fontSize: "17px"}}
+                >
+                  Logout
+                </Button>
+              </div>
+            </div>
+                <br></br>
                 <Typography variant = "h2" style = {{margin: "16px auto"}}><strong>{this.state.question}</strong></Typography>
                 <Typography variant = "h6" style = {{margin: "0px auto"}}><em>Created By: {this.state.createdBy}</em></Typography>
-                <div className = "flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", opacity:"0.8",padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
+                <div className = "flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
                     {this.state.replies.map((data, key) => {
                         return (
-                            <Paper className = "flexCenter" style = {{margin: "10px auto", width: "65%", height: "10%"}}>
-                                <Typography variant = "subtitle">
+                            <Paper key = {key} className = "flexCenter" style = {{margin: "10px auto", width: "65%", height: "10%"}}>
+                                <Typography variant = "subtitle1">
                                     <em>{data}</em>
                                 </Typography>
-                                <Typography variant = "subtitle">
+                                <Typography variant = "subtitle1">
                                     <em>Answered By: {this.state.replier[key]}</em>
                                 </Typography>
                             </Paper>
                         )
                     })}
-                    <TextField 
-                        variant = "outlined" 
-                        multiline = {true} 
-                        label = "Answer" 
+                    <TextField
+                        variant = "outlined"
+                        multiline = {true}
+                        label = "Answer"
                         style = {{ width: "50%",marginTop:'15px'}}
-                        onChange= {                                         
-                            this.handleChange("replyText")         
+                        onChange= {
+                            this.handleChange("replyText")
                         }
                     >
-                    {console.log(this.state.replyText) }
                     </TextField>
-                    <Button 
-                    type = "submit" 
+                    <Button
+                    type = "submit"
                     variant = "contained"
-                    onClick = {this.submitAnswer} 
-                    style = {{width: "50%",marginTop:'15px'}}>Submit</Button>
+                    onClick = {this.submitAnswer}
+                    style = {{width: "50%",marginTop:'15px'}}
+                    >
+                        Submit
+                    </Button>
                 </div>
             </div>
-        )   
+        )
     }
 }
 

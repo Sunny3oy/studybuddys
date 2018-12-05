@@ -171,13 +171,13 @@ module.exports = {
                         ref.child(childsnap.key).remove();
                     }
                 });
-                newref.once("value", function(snapshot){
-                    snapshot.forEach(function (childsnap) {
-                        console.log(childsnap.val());
-                        if (childsnap.val() === req.body.id){
-                            newref.child(childsnap.key).remove();
-                        }
-                    });
+            });
+
+            newref.once("value", function(snapshot){
+                snapshot.forEach(function (childsnap) {
+                    if (childsnap.val().id === req.body.id){
+                        newref.child(childsnap.key).remove();
+                    }
                 });
             });
             res.status(200).json({message: "course deleted"});
@@ -193,7 +193,6 @@ module.exports = {
             var userIds = [];
             var ref = firebase.database().ref("CoursesTakenByUser/" + req.body.courseName);
             ref.once("value", function (snapshot){
-                console.log(snapshot.val())
                 snapshot.forEach(function (childsnap) {
                     userNames.push(childsnap.val().name);
                     userIds.push(childsnap.val().id);

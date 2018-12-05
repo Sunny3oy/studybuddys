@@ -16,6 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import MeetUp from "./MeetUp";
+import Navbar from "./Navbar";
 
 class CoursePage extends PureComponent {
     constructor(props) {
@@ -36,33 +37,31 @@ class CoursePage extends PureComponent {
             open:false,
             openkey: 0,
             today: "",
+            facebook: "",
+            linkedIn: "",
+            instagram: "",
         }
-        this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createQuestion = this.createQuestion.bind(this);
         this.getQuestions = this.getQuestions.bind(this);
-        this.openCalendar = this.openCalendar.bind(this);
         this.getUserList = this.getUserList.bind(this);
         this.handleClickOpen =this.handleClickOpen.bind(this);
         this.handleClose =this.handleClose.bind(this);
         this.getToday = this.getToday.bind(this);
+        this.getSocialMedia = this.getSocialMedia.bind(this);
+        this.authen = this.authen.bind(this);
+        this.getUserName = this.getUserName.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount() {
+      this.getUserName();  
+      this.authen();
         const { courseName } = this.props.match.params;
-        fetch(`/courses/${courseName}`).then(this.setState({course : courseName}));
-        this.getQuestions(courseName);
-        this.getUserList(courseName);
+        fetch(`/courses/${courseName}`).then(this.setState({course : courseName}))
+        .then(this.getQuestions)
+        .then(this.getUserList(courseName))
         this.getToday();
-    }
-
-    checkLoggedIn() {
-        var prop = this.props;
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (!user) {
-                prop.history.push('/');
-            }
-        });
     }
 
     handleChange = name => event => {
@@ -71,34 +70,68 @@ class CoursePage extends PureComponent {
         });
     };
 
-    getQuestions(courseNum) {
+    getSocialMedia(key) {
+        var partner = this.state.userListId[key];
+        var page = this;
+        var info = {
+            id: partner,
+        }
+        axios.post('https://studybuddys-223920.appspot.com/api/getSocialMedia', info)
+        .then( response => {
+            page.setState({
+                facebook: response.data.urlList[0],
+                linkedIn: response.data.urlList[1],
+                instagram: response.data.urlList[2],
+            })
+        })
+    }
+
+    authen() {
+        var thisPage = this.props;
+        firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+           thisPage.history.push("/");
+        }
+        });
+      }
+
+    logout(e) {
+        e.preventDefault();
+        firebase.auth().signOut();
+        this.props.history.push("/");
+    }
+
+    getUserName(e){
+        var page = this;
+        firebase.auth().onAuthStateChanged(function(user) {
+           if (user) {
+              var info = {
+                 id: user.uid
+              }
+              axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+              .then(response => {
+                 page.setState({name : response.data.name})
+              })
+           }
+        });
+     }
+
+    getQuestions() {
         var course = {
-            courseName: courseNum
+            courseName: this.state.course
         };
         axios.post('https://studybuddys-223920.appspot.com/api/getQuestions', course)
             .then(response => {
                 this.setState({
                     questID: response.data.ids,
                     questions: response.data.questions,
-                    createdBy: response.data.names})
+                    createdBy: response.data.names
+                })
             })
-    }
-
-    getReplies(ID){
-        var info={
-            questionID: ID,
-        }
-        axios.post("https://studybuddys-223920.appspot.com/api/getReplies",info)
-        .then(response=>{
-            console.log(ID);
-            console.log(response.data.replies);
-            this.setState({
-                replies:response.data.replies,
-            })
-        })
     }
 
     createQuestion() {
+        var page = this;
         var course = this.state.course;
         var newQuestion = this.state.newQuestion;
         firebase.auth().onAuthStateChanged(function(user){
@@ -109,17 +142,8 @@ class CoursePage extends PureComponent {
                     userQuestion: newQuestion
                 };
                 axios.post('https://studybuddys-223920.appspot.com/api/createQuestion', question)
-                console.log("course is " + course)
-                console.log("question is: " + newQuestion)
-                console.log(question)
+                .then(page.getQuestions)
             }
-        })
-        this.getQuestions(this.state.course);
-    }
-
-    openCalendar() {
-        this.setState({
-            calendarIsOpen: !this.state.calendarIsOpen
         })
     }
 
@@ -176,21 +200,39 @@ class CoursePage extends PureComponent {
         return (
 
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
-
+             <div className = "nav">
+              <Navbar/>
+              <div className = "flexRow" style = {{marginLeft: "auto"}}>
+                <span
+                  style = {{fontSize: "22px", marginRight: "10px"}}
+                >
+                  <Link
+                    to = "/dashboard/profile"
+                    style = {{color: "white"}}
+                  >
+                    {this.state.name}
+                  </Link>
+                </span>
+                <Button
+                  onClick={this.logout}
+                  style = {{color:'white', fontSize: "17px"}}
+                >
+                  Logout
+                </Button>
+              </div>
+            </div>
                 <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
-               
-                
-                <div className="flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", opacity:"0.8",padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
-                    <Typography 
-                        gutterBottom = {true} 
+                <div className="flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
+                    <Typography
+                        gutterBottom = {true}
                         variant = "h4">
                         <u>Questions</u>:
                     </Typography>
                     {this.state.questions.map((data, key) => {
                         return (
-                            <Paper 
-                                className = "flexCenter" 
-                                style = {{margin: "10px auto", width: "50%", height: "10%"}} 
+                            <Paper
+                                className = "flexCenter"
+                                style = {{margin: "10px auto", height: "10%", width: "50%"}}
                                 key={key}
                             >
                                 <Link to = {"/course/" + this.state.course + "/" + this.state.questID[key]}>
@@ -219,19 +261,18 @@ class CoursePage extends PureComponent {
                         Ask Away
                     </Button>
                 </div>
-               
+
                 <Card className = "flexRow" style = {{margin: "10px auto", width: "50%", height: "50px"}} >
-                    {console.log(this.state.userList)}
                     {
                         this.state.userList.map((data,key)=>{
                             return (
                                 <div key = {key}>
-                                    <Button 
+                                    <Button
                                         onClick={() => {
                                             this.handleClickOpen();
-                                            this.setState({openKey: key})
+                                            this.setState({openKey: key}, this.getSocialMedia(key))
                                         }}
-                                    > 
+                                    >
                                         {data}
                                     </Button>
                                     <Dialog
@@ -239,26 +280,32 @@ class CoursePage extends PureComponent {
                                         onClose={this.handleClose}
                                     >
                                     <DialogTitle  id="alert-dialog-title">{this.state.userList[this.state.openKey]}</DialogTitle>
-                                        <DialogContent>
-                                            
+                                        <DialogContent style = {{width : "575px"}}>
                                             <DialogContentText id="alert-dialog-description">
-                            
-                                            Let Google help apps determine location. This means sending anonymous location data to
-                                            Google, even when no apps are running.
+                                                <Typography variant = "subtitle1">
+                                                    Facebook: {this.state.facebook}
+                                                </Typography>
+                                                <Typography variant = "subtitle1">
+                                                    LinkedIn: {this.state.linkedIn}
+                                                </Typography>
+                                                <Typography variant = "subtitle1">
+                                                    Instagram: {this.state.instagram}
+                                                </Typography>
+                                                <br/>
                                             </DialogContentText>
                                             <br></br>
-                                            <MeetUp 
-                                                courseName = {this.state.course} 
-                                                partner = {this.state.userListId[this.state.openKey]} 
+                                            <MeetUp
+                                                courseName = {this.state.course}
+                                                partner = {this.state.userListId[this.state.openKey]}
                                                 today = {this.state.today}
                                             />
                                         </DialogContent>
                                         <DialogActions>
-                                            <Button onClick={this.handleClose} color="primary">Close</Button> 
+                                            <Button onClick={this.handleClose} color="primary">Close</Button>
                                         </DialogActions>
                                     </Dialog>
                                 </div>
-                            )    
+                            )
                         })
                     }
                 </Card>

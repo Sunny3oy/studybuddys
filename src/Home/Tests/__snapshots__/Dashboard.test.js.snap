@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard component render snapshot 1`] = `
+<div
+  class="browserTitle"
+  data-aos="fade-down"
+  data-aos-duration="500"
+  data-aos-easing="linear"
+>
+  <h1
+    class="dashSec"
+  >
+     My Courses 
+  </h1>
+  <div
+    class="flexCenter"
+    style="margin-top:50px"
+  >
+    <h2>
+      <br />
+      <br />
+      <br />
+      <br />
+      You Haven't Selected a Class Yet! 
+      <br />
+      <br />
+       Select a Class by Clicking on the Left Tab 
+    </h2>
+  </div>
+</div>
+`;
