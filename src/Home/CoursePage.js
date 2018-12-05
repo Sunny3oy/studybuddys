@@ -87,7 +87,6 @@ class CoursePage extends PureComponent {
     }
 
     authen() {
-
         var thisPage = this.props;
         firebase.auth().onAuthStateChanged(function(user) {
         if (!user) {
@@ -145,6 +144,7 @@ class CoursePage extends PureComponent {
     }
 
     createQuestion() {
+        console.log("creatQue")
         var page = this;
         var course = this.state.course;
         var newQuestion = this.state.newQuestion;
