@@ -50,7 +50,7 @@ class Profile extends PureComponent{
     }
 
     componentDidMount(){
-      this.authen();
+        this.authen();
         this.getUserInfo();
         this.getSocialMedia();
         this.getMeetUps();

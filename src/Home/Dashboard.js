@@ -95,7 +95,6 @@ class Dashboard extends PureComponent {
             .then(
                page.getUserCourses
             )
-            console.log("Class Deleted!");
          }
       });
    }

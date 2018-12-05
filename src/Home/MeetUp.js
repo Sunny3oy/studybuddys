@@ -57,7 +57,6 @@ class MeetUp extends PureComponent {
                     courseName: course,
                 };
                 axios.post('https://studybuddys-223920.appspot.com/api/createMeetUp', info)
-                .then(alert("MeetUp Requested!"))
             }
         })
     }
