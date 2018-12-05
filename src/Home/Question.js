@@ -25,6 +25,7 @@ class Question extends PureComponent {
         this.handleChange = this.handleChange.bind(this);
         this.getQuestion = this.getQuestion.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
+        this.getReplies = this.getReplies.bind(this);
     }
     
     componentDidMount() {
@@ -35,9 +36,8 @@ class Question extends PureComponent {
                 this.setState({
                     course : courseName, 
                     questID: questionID
-                }, this.getQuestion, this.getReplies(questionID))
+                }, this.getQuestion, this.getReplies)
             )
-
     }
 
     handleChange = name => event => {
@@ -58,15 +58,14 @@ class Question extends PureComponent {
                     questionID: questID,
                 }
                 axios.post('https://studybuddys-223920.appspot.com/api/submitAnswer', info)
-                .then(page.getReplies(questID))
+                .then(page.getReplies)
             }
         });
-        this.getReplies(questID);
     }
     
-    getReplies(ID) {
+    getReplies() {
         var info = {
-            questionID: ID,
+            questionID: this.state.questID,
         }
         axios.post('https://studybuddys-223920.appspot.com/api/getReplies', info)
         .then(response => {
@@ -88,7 +87,8 @@ class Question extends PureComponent {
                     question: response.data.question,
                     createdBy: response.data.name
                 })
-            })  
+            })
+        this.getReplies();  
     }
     
 
@@ -101,11 +101,11 @@ class Question extends PureComponent {
                 <div className = "flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
                     {this.state.replies.map((data, key) => {
                         return (
-                            <Paper className = "flexCenter" style = {{margin: "10px auto", width: "65%", height: "10%"}}>
-                                <Typography variant = "subtitle">
+                            <Paper key = {key} className = "flexCenter" style = {{margin: "10px auto", width: "65%", height: "10%"}}>
+                                <Typography variant = "subtitle1">
                                     <em>{data}</em>
                                 </Typography>
-                                <Typography variant = "subtitle">
+                                <Typography variant = "subtitle1">
                                     <em>Answered By: {this.state.replier[key]}</em>
                                 </Typography>
                             </Paper>
@@ -125,7 +125,10 @@ class Question extends PureComponent {
                     type = "submit" 
                     variant = "contained"
                     onClick = {this.submitAnswer} 
-                    style = {{width: "50%",marginTop:'15px'}}>Submit</Button>
+                    style = {{width: "50%",marginTop:'15px'}}
+                    >
+                        Submit
+                    </Button>
                 </div>
             </div>
         )   

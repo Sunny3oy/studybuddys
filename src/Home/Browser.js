@@ -13,6 +13,9 @@ import * as firebase from 'firebase';
 import './Dashboard.css';
 import './Browser.css';
 import { Link } from 'react-router-dom';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+
 
 class Browser extends PureComponent {
     constructor(props) {
@@ -128,6 +131,7 @@ class Browser extends PureComponent {
                   courseName: course
                };
                axios.post('https://studybuddys-223920.appspot.com/api/addCourses', info)
+               alert("Class Added!");
             }
          });
       }
@@ -167,30 +171,42 @@ class Browser extends PureComponent {
 
                 <div style = {{height:'65vh'}}>
                   {/* mapping the schools */}
-                  <Select
-                    onChange = {this.handleChange('selectedSchool')}
-                    value = {this.state.selectedSchool}
-                    style = {{width:'300px'}}
-                  >
-                    {this.state.schools.map((data, key) => {
-                      return (
-                        <MenuItem key = {key} value = {data.value}>
-                          {data.label}
-                        </MenuItem>
-                      )
-                    })}
-                  </Select>
+                  <InputLabel>
+                    Select School
+                    <Select
+                      input={<Input name="school" id="SelectSchool"/>}
+                      onChange = {this.handleChange('selectedSchool')}
+                      value = {this.state.selectedSchool}
+                      style = {{width:'300px'}}
+                    >
+                      {this.state.schools.map((data, key) => {
+                        return (
+                          <MenuItem 
+                          key = {key} 
+                          value = {data.value}>
+                            {data.label}
+                          </MenuItem>
+                        )
+                      })}
+                    </Select>
+                  </InputLabel>
                 <br/>
 
                 {/* mapping the subjects, only if a school was selected */}
+                
                 <div className="flexCenter">
                   {
+                    
                     this.state.selectedSchool !== ''?
+                    <InputLabel htmlFor="SelectSubject">
+                      Select Subject
                       <Select
+                        input={<Input name="subject" id="SelectSubject"/>}
                         value={this.state.selectedSubject}
                         onChange={this.handleChange('selectedSubject')}
                         style={{width:'300px'}}
                       >
+                      
                         {this.state.allSubject.map((option,key) => {
                           return (
                             <MenuItem
@@ -202,9 +218,10 @@ class Browser extends PureComponent {
                           )
                         })}
                       </Select>
-
-                    : null
+                    </InputLabel>
+                    : null 
                   }
+
                 </div>
                   {this.state.selectedSubject !==''?
                     <Button

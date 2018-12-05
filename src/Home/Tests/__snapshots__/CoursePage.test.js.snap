@@ -92,7 +92,7 @@ exports[`CoursePage component render snapshot 1`] = `
   </div>
   <div
     class="MuiPaper-root-123 MuiPaper-elevation1-126 MuiPaper-rounded-124 MuiCard-root-122 flexRow"
-    style="margin:10px auto;width:65%;height:500px"
+    style="margin:10px auto;width:50%;height:50px"
   />
 </div>
 `;

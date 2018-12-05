@@ -40,7 +40,6 @@ class CoursePage extends PureComponent {
             linkedIn: "",
             instagram: "",
         }
-        this.checkLoggedIn = this.checkLoggedIn.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.createQuestion = this.createQuestion.bind(this);
         this.getQuestions = this.getQuestions.bind(this);
@@ -53,19 +52,10 @@ class CoursePage extends PureComponent {
 
     componentDidMount() {
         const { courseName } = this.props.match.params;
-        fetch(`/courses/${courseName}`).then(this.setState({course : courseName}));
-        this.getQuestions(courseName);
-        this.getUserList(courseName);
+        fetch(`/courses/${courseName}`).then(this.setState({course : courseName}))
+        .then(this.getQuestions)
+        .then(this.getUserList(courseName))
         this.getToday();
-    }
-
-    checkLoggedIn() {
-        var prop = this.props;
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (!user) {
-                prop.history.push('/');
-            }
-        });
     }
 
     handleChange = name => event => {
@@ -90,29 +80,18 @@ class CoursePage extends PureComponent {
         })
     }
 
-    getQuestions(courseNum) {
+    getQuestions() {
         var course = {
-            courseName: courseNum
+            courseName: this.state.course
         };
         axios.post('https://studybuddys-223920.appspot.com/api/getQuestions', course)
             .then(response => {
                 this.setState({
                     questID: response.data.ids,
                     questions: response.data.questions,
-                    createdBy: response.data.names})
+                    createdBy: response.data.names
+                })
             })
-    }
-
-    getReplies(ID){
-        var info={
-            questionID: ID,
-        }
-        axios.post("https://studybuddys-223920.appspot.com/api/getReplies",info)
-        .then(response=>{
-            this.setState({
-                replies:response.data.replies,
-            })
-        })
     }
 
     createQuestion() {
@@ -127,7 +106,7 @@ class CoursePage extends PureComponent {
                     userQuestion: newQuestion
                 };
                 axios.post('https://studybuddys-223920.appspot.com/api/createQuestion', question)
-                .then(page.getQuestions(course))
+                .then(page.getQuestions)
             }
         })
     }
@@ -187,8 +166,6 @@ class CoursePage extends PureComponent {
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
 
                 <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
-               
-                
                 <div className="flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
                     <Typography 
                         gutterBottom = {true} 
@@ -199,7 +176,7 @@ class CoursePage extends PureComponent {
                         return (
                             <Paper 
                                 className = "flexCenter" 
-                                style = {{margin: "10px auto", height: "10%", width: "65%"}} 
+                                style = {{margin: "10px auto", height: "10%", width: "50%"}} 
                                 key={key}
                             >
                                 <Link to = {"/course/" + this.state.course + "/" + this.state.questID[key]}>
@@ -222,14 +199,14 @@ class CoursePage extends PureComponent {
                     <Button
                         type = "submit"
                         variant = "contained"
-                        onClick = {() => {this.createQuestion(); this.getQuestions(this.state.course)}}
+                        onClick = {this.createQuestion}
                         style = {{width: "50%"}}
                     >
                         Ask Away
                     </Button>
                 </div>
                
-                <Card className = "flexRow" style = {{margin: "10px auto", width: "65%", height: "500px"}} >
+                <Card className = "flexRow" style = {{margin: "10px auto", width: "50%", height: "50px"}} >
                     {
                         this.state.userList.map((data,key)=>{
                             return (
@@ -260,6 +237,7 @@ class CoursePage extends PureComponent {
                                                 </Typography>
                                                 <br/>
                                             </DialogContentText>
+                                            <br></br>
                                             <MeetUp 
                                                 courseName = {this.state.course} 
                                                 partner = {this.state.userListId[this.state.openKey]} 

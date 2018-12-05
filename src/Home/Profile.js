@@ -33,7 +33,7 @@ class Profile extends PureComponent{
                 approvedMeetUp:[],
                 deniedMeetup:[],
             }
-        this.getUserName = this.getUserName.bind(this);
+        this.getUserInfo = this.getUserInfo.bind(this);
         this.changeEmail = this.changeEmail.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.changePassword = this.changePassword.bind(this);
@@ -49,7 +49,7 @@ class Profile extends PureComponent{
     }
 
     componentDidMount(){
-        this.getUserName();
+        this.getUserInfo();
         this.getSocialMedia();
         this.getMeetUps();
         this.getPendingReplyMeetUps();
@@ -93,21 +93,31 @@ class Profile extends PureComponent{
         });
     }
 
-    getUserName(){
+    getUserInfo(){
         var page = this;
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 var info = {
                     id: user.uid
                 }
-                axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
-                .then(response => {
-                    page.setState({name : response.data.name})
-                })
-                axios.post('https://studybuddys-223920.appspot.com/api/getUseremail', info)
-                .then(response => {
-                    page.setState({email: response.data.email})
-                })
+                axios.all([
+                    axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info),
+                    axios.post('https://studybuddys-223920.appspot.com/api/getUseremail', info)
+                ])
+                .then( axios.spread((userNameRes, emailRes) => {
+                    page.setState({
+                        name: userNameRes.data.name,
+                        email: emailRes.data.email
+                    })
+                }))
+                // axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+                // .then(response => {
+                //     page.setState({name : response.data.name})
+                // })
+                // axios.post('https://studybuddys-223920.appspot.com/api/getUseremail', info)
+                // .then(response => {
+                //     page.setState({email: response.data.email})
+                // })
             }
         });
     }

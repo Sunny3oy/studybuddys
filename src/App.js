@@ -41,7 +41,6 @@ class App extends Component {
   }
 
   getUserName(e){
-    console.log("bloop")
       var page = this;
       firebase.auth().onAuthStateChanged(function(user) {
          if (user) {

@@ -55,9 +55,11 @@ class Dashboard extends PureComponent {
                id: user.uid,
                courseName: course
             };
-            axios.post('https://studybuddys-223920.appspot.com/api/deleteUserCourses', info).then(
+            axios.post('https://studybuddys-223920.appspot.com/api/deleteUserCourses', info)
+            .then(
                page.getUserCourses
             )
+            console.log("Class Deleted!");
          }
       });
    }
