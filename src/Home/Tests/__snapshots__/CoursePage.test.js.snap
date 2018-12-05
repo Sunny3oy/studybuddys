@@ -7,8 +7,66 @@ exports[`CoursePage component render snapshot 1`] = `
   data-aos-easing="linear"
   style="display:flex;flex-direction:column"
 >
+  <div
+    class="nav"
+  >
+    <div>
+      <button
+        class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-text-4 MuiButton-flat-7"
+        style="float:left"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-3"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root-31 MuiSvgIcon-fontSizeLarge-39"
+            focusable="false"
+            role="presentation"
+            style="color:white"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M0 0h24v24H0z"
+              fill="none"
+            />
+            <path
+              d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="flexRow"
+      style="margin-left:auto"
+    >
+      <span
+        style="font-size:22px;margin-right:10px"
+      >
+        <a
+          href="/dashboard/profile"
+          style="color:white"
+        />
+      </span>
+      <button
+        class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-text-4 MuiButton-flat-7"
+        style="color:white;font-size:17px"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label-3"
+        >
+          Logout
+        </span>
+      </button>
+    </div>
+  </div>
   <h1
-    class="MuiTypography-root-1 MuiTypography-h1-13"
+    class="MuiTypography-root-54 MuiTypography-h1-66"
     style="margin:16px auto"
   />
   <div
@@ -16,7 +74,7 @@ exports[`CoursePage component render snapshot 1`] = `
     style="margin:30px;background-color:#ffffff;border:1px solid black;padding:20px;border-radius:10px;box-shadow:5px 5px 5px 5px #777777;-moz-box-shadow:0 0 10px #777777;-webkit-box-shadow:0 0 10px #777777"
   >
     <h4
-      class="MuiTypography-root-1 MuiTypography-h4-16 MuiTypography-gutterBottom-28"
+      class="MuiTypography-root-54 MuiTypography-h4-69 MuiTypography-gutterBottom-81"
     >
       <u>
         Questions
@@ -24,25 +82,25 @@ exports[`CoursePage component render snapshot 1`] = `
       :
     </h4>
     <div
-      class="MuiFormControl-root-36"
+      class="MuiFormControl-root-89"
       style="margin-top:20px;width:50%"
     >
       <label
-        class="MuiFormLabel-root-51 MuiInputLabel-root-40 MuiInputLabel-formControl-45 MuiInputLabel-animated-48 MuiInputLabel-outlined-50"
+        class="MuiFormLabel-root-104 MuiInputLabel-root-93 MuiInputLabel-formControl-98 MuiInputLabel-animated-101 MuiInputLabel-outlined-103"
         data-shrink="false"
       >
         Ask a Question
       </label>
       <div
-        class="MuiInputBase-root-71 MuiOutlinedInput-root-58 MuiInputBase-formControl-72 MuiInputBase-multiline-79 MuiOutlinedInput-multiline-64"
+        class="MuiInputBase-root-124 MuiOutlinedInput-root-111 MuiInputBase-formControl-125 MuiInputBase-multiline-132 MuiOutlinedInput-multiline-117"
       >
         <fieldset
           aria-hidden="true"
-          class="MuiPrivateNotchedOutline-root-88 MuiOutlinedInput-notchedOutline-65"
+          class="MuiPrivateNotchedOutline-root-141 MuiOutlinedInput-notchedOutline-118"
           style="padding-left:8px"
         >
           <legend
-            class="MuiPrivateNotchedOutline-legend-89"
+            class="MuiPrivateNotchedOutline-legend-142"
             style="width:0.01px"
           >
             <span>
@@ -51,25 +109,25 @@ exports[`CoursePage component render snapshot 1`] = `
           </legend>
         </fieldset>
         <div
-          class="MuiPrivateTextarea-root-90"
+          class="MuiPrivateTextarea-root-143"
         >
           <textarea
             aria-hidden="true"
-            class="MuiPrivateTextarea-textarea-91 MuiPrivateTextarea-shadow-92"
+            class="MuiPrivateTextarea-textarea-144 MuiPrivateTextarea-shadow-145"
             readonly=""
             rows="1"
             tabindex="-1"
           />
           <textarea
             aria-hidden="true"
-            class="MuiPrivateTextarea-textarea-91 MuiPrivateTextarea-shadow-92"
+            class="MuiPrivateTextarea-textarea-144 MuiPrivateTextarea-shadow-145"
             readonly=""
             rows="1"
             tabindex="-1"
           />
           <textarea
             aria-invalid="false"
-            class="MuiPrivateTextarea-textarea-91 MuiInputBase-input-81 MuiOutlinedInput-input-66 MuiInputBase-inputMultiline-83 MuiOutlinedInput-inputMultiline-68"
+            class="MuiPrivateTextarea-textarea-144 MuiInputBase-input-134 MuiOutlinedInput-input-119 MuiInputBase-inputMultiline-136 MuiOutlinedInput-inputMultiline-121"
             rows="1"
             style="height:19px"
           />
@@ -78,20 +136,20 @@ exports[`CoursePage component render snapshot 1`] = `
     </div>
     <br />
     <button
-      class="MuiButtonBase-root-119 MuiButton-root-93 MuiButton-contained-104 MuiButton-raised-107"
+      class="MuiButtonBase-root-28 MuiButton-root-2 MuiButton-contained-13 MuiButton-raised-16"
       style="width:50%"
       tabindex="0"
       type="submit"
     >
       <span
-        class="MuiButton-label-94"
+        class="MuiButton-label-3"
       >
         Ask Away
       </span>
     </button>
   </div>
   <div
-    class="MuiPaper-root-123 MuiPaper-elevation1-126 MuiPaper-rounded-124 MuiCard-root-122 flexRow"
+    class="MuiPaper-root-147 MuiPaper-elevation1-150 MuiPaper-rounded-148 MuiCard-root-146 flexRow"
     style="margin:10px auto;width:50%;height:50px"
   />
 </div>
