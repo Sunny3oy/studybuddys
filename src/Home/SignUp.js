@@ -18,6 +18,7 @@ class SignUp extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.createUser = this.createUser.bind(this);
+        this.authen = this.authen.bind(this);
     }
 
     handleChange = name => event => {
@@ -25,6 +26,19 @@ class SignUp extends Component {
             [name]: event.target.value
         });
     }
+
+    componentDidMount(){
+     this.authen();
+    }
+
+    authen() {
+     var thisPage = this.props;
+     firebase.auth().onAuthStateChanged(function(user) {
+         if (user) {
+            thisPage.history.push("/dashboard");
+         }
+     });
+   }
 
     createUser(e){
       e.preventDefault();

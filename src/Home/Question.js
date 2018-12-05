@@ -26,15 +26,17 @@ class Question extends PureComponent {
         this.getQuestion = this.getQuestion.bind(this);
         this.submitAnswer = this.submitAnswer.bind(this);
         this.getReplies = this.getReplies.bind(this);
+        this.authen = this.authen.bind(this);
     }
-    
+
     componentDidMount() {
+      this.authen();
         const { courseName } = this.props.match.params;
         const { questionID } = this.props.match.params;
         fetch(`/course/${courseName}?/${questionID}?`)
             .then(
                 this.setState({
-                    course : courseName, 
+                    course : courseName,
                     questID: questionID
                 }, this.getQuestion, this.getReplies)
             )
@@ -62,7 +64,16 @@ class Question extends PureComponent {
             }
         });
     }
-    
+
+    authen() {
+      var thisPage = this.props;
+      firebase.auth().onAuthStateChanged(function(user) {
+         if (!user) {
+            thisPage.history.push("/login");
+         }
+      });
+   }
+
     getReplies() {
         var info = {
             questionID: this.state.questID,
@@ -88,14 +99,14 @@ class Question extends PureComponent {
                     createdBy: response.data.name
                 })
             })
-        this.getReplies();  
+        this.getReplies();
     }
-    
+
 
     render() {
         return (
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800">
-                <br></br> 
+                <br></br>
                 <Typography variant = "h2" style = {{margin: "16px auto"}}><strong>{this.state.question}</strong></Typography>
                 <Typography variant = "h6" style = {{margin: "0px auto"}}><em>Created By: {this.state.createdBy}</em></Typography>
                 <div className = "flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
@@ -111,27 +122,27 @@ class Question extends PureComponent {
                             </Paper>
                         )
                     })}
-                    <TextField 
-                        variant = "outlined" 
-                        multiline = {true} 
-                        label = "Answer" 
+                    <TextField
+                        variant = "outlined"
+                        multiline = {true}
+                        label = "Answer"
                         style = {{ width: "50%",marginTop:'15px'}}
-                        onChange= {                                         
-                            this.handleChange("replyText")         
+                        onChange= {
+                            this.handleChange("replyText")
                         }
                     >
                     </TextField>
-                    <Button 
-                    type = "submit" 
+                    <Button
+                    type = "submit"
                     variant = "contained"
-                    onClick = {this.submitAnswer} 
+                    onClick = {this.submitAnswer}
                     style = {{width: "50%",marginTop:'15px'}}
                     >
                         Submit
                     </Button>
                 </div>
             </div>
-        )   
+        )
     }
 }
 

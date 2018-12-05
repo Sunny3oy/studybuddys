@@ -46,9 +46,11 @@ class Profile extends PureComponent{
         this.getApprovedMeetUps = this.getApprovedMeetUps.bind(this);
         this.getDeniedMeetUps = this.getDeniedMeetUps.bind(this);
         this.deleteMeetUps = this.deleteMeetUps.bind(this);
+        this.authen = this.authen.bind(this);
     }
 
     componentDidMount(){
+      this.authen();
         this.getUserInfo();
         this.getSocialMedia();
         this.getMeetUps();
@@ -62,6 +64,15 @@ class Profile extends PureComponent{
             [name]: event.target.value,
         });
     };
+
+    authen() {
+      var thisPage = this.props;
+      firebase.auth().onAuthStateChanged(function(user) {
+         if (!user) {
+            thisPage.history.push("/login");
+         }
+      });
+   }
 
     changeEmail(e){
         var page = this;
@@ -184,8 +195,8 @@ class Profile extends PureComponent{
                 }
                 axios.post('https://studybuddys-223920.appspot.com/api/getPendingResponseMeetUps', info)
                 .then( response => {
-                    page.setState({    
-                        meetUps:response.data.info,                       
+                    page.setState({
+                        meetUps:response.data.info,
                     })
                 })
             }
@@ -219,10 +230,10 @@ class Profile extends PureComponent{
                 }
                 axios.post('https://studybuddys-223920.appspot.com/api/denyMeetup', info)
                 .then( page.getMeetUps()
-                    
+
                 ).then(page.getDeniedMeetUps())
             }
-        })    
+        })
     }
 
     getPendingReplyMeetUps(){
@@ -241,7 +252,7 @@ class Profile extends PureComponent{
                     })
                 })
             }
-        }) 
+        })
     }
 
     getApprovedMeetUps(){
@@ -258,9 +269,9 @@ class Profile extends PureComponent{
                     page.setState({
                         approvedMeetUp:response.data.info
                     })
-                })  
+                })
             }
-        })  
+        })
     }
 
     getDeniedMeetUps(){
@@ -295,8 +306,8 @@ class Profile extends PureComponent{
                 .then(
                     alert("You Deleted An Event.")
                 )
-                .then(page.getMeetUps(),page.getApprovedMeetUps(),page.getDeniedMeetUps())  
-            }  
+                .then(page.getMeetUps(),page.getApprovedMeetUps(),page.getDeniedMeetUps())
+            }
         })
     }
 
@@ -401,27 +412,27 @@ class Profile extends PureComponent{
                                     <Typography variant = "title">
                                         {this.state.meetUps[key].courseName}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         Host Buddy: {this.state.meetUps[key].name}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         Study Buddy: {this.state.meetUps[key].partner}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         "{this.state.meetUps[key].description}"
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         {this.state.meetUps[key].date}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         {this.state.meetUps[key].time}
                                     </Typography>
-                                    
+
                                     {
                                     this.state.decision !== true?
                                         <div className="flexRow">
@@ -431,7 +442,7 @@ class Profile extends PureComponent{
                                     :
                                     <div><p><b>You're Meeting Up!</b></p></div>
                                     }
-                                   
+
                                 </Paper>
                             )
                         })}
@@ -453,27 +464,27 @@ class Profile extends PureComponent{
                                     <Typography variant = "title">
                                         {this.state.awaitingMeetUp[key].courseName}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         Host Buddy: {this.state.awaitingMeetUp[key].name}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         Study Buddy: {this.state.awaitingMeetUp[key].partner}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         "{this.state.awaitingMeetUp[key].description}"
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         {this.state.awaitingMeetUp[key].date}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         {this.state.awaitingMeetUp[key].time}
                                     </Typography>
-                                     
+
                                 </Paper>
                             )
                         })}
@@ -495,28 +506,28 @@ class Profile extends PureComponent{
                                     <Typography variant = "title">
                                         {this.state.approvedMeetUp[key].courseName}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         Host Buddy: {this.state.approvedMeetUp[key].name}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         Study Buddy: {this.state.approvedMeetUp[key].partner}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         "{this.state.approvedMeetUp[key].description}"
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         {this.state.approvedMeetUp[key].date}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         {this.state.approvedMeetUp[key].time}
                                     </Typography>
-                                    
-                                    
+
+
                                    <Button onClick={()=>{this.setState({selectedMeetUp:this.state.approvedMeetUp[key].meetupId},this.deleteMeetUps)}} color="secondary">Delete</Button>
                                 </Paper>
                             )
@@ -540,27 +551,27 @@ class Profile extends PureComponent{
                                     <Typography variant = "title">
                                         {this.state.deniedMeetup[key].courseName}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         Host Buddy: {this.state.deniedMeetup[key].name}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         Study Buddy: {this.state.deniedMeetup[key].partner}
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         "{this.state.deniedMeetup[key].description}"
                                     </Typography>
-                                    
+
                                     <Typography variant = "subtitle1">
                                         {this.state.deniedMeetup[key].date}
-                                    </Typography> 
-                                    
+                                    </Typography>
+
                                     <Typography variant = "subtitle1">
                                         {this.state.deniedMeetup[key].time}
                                     </Typography>
-                                    
+
                                     <Button onClick={()=>{this.setState({selectedMeetUp:this.state.deniedMeetup[key].meetupId},this.deleteMeetUps)}} color="secondary">Delete</Button>
                                 </Paper>
                             )

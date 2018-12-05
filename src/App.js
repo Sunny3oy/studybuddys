@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter,Route,Redirect,Link,Switch } from 'react-router-dom';
+import { BrowserRouter,Route,Redirect,Link,Switch, Router } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Dashboard from './Home/Dashboard';
 import Home from './Home/Home';
@@ -66,7 +66,7 @@ class App extends Component {
   }
 
 
-  render() {    
+  render() {
 
     var routes = (
       <BrowserRouter>
@@ -78,7 +78,7 @@ class App extends Component {
           </Switch>
         </div>
       </BrowserRouter>
-    ); 
+    );
 
     if(this.state.loggedIn) {
       routes = (
@@ -87,18 +87,18 @@ class App extends Component {
             <div className = "nav">
               <Navbar/>
               <div className = "flexRow" style = {{marginLeft: "auto"}}>
-                <span 
+                <span
                   style = {{fontSize: "22px", marginRight: "10px"}}
                 >
-                  <Link 
-                    to = "/dashboard/profile" 
+                  <Link
+                    to = "/dashboard/profile"
                     style = {{color: "white"}}
                   >
                     {this.state.name}
                   </Link>
                 </span>
-                <Button 
-                  onClick={this.logout} 
+                <Button
+                  onClick={this.logout}
                   style = {{color:'white', fontSize: "17px"}}
                 >
                   Logout
@@ -114,13 +114,28 @@ class App extends Component {
             </Switch>
           </div>
         </BrowserRouter>
-      ); 
-    } 
+      );
+    }
 
     return (
-      <div >
-        {routes}
-      </div>
+      <BrowserRouter>
+          <div className = "App"><Button
+            onClick={this.logout}
+            style = {{color:'white', fontSize: "17px"}}
+          >
+            Logout
+          </Button>
+          <Switch>
+            <Route path = "/login" exact component = { Home } />
+              <Route path = "/signup" exact component = { SignUp } />
+              <Route path= "/dashboard" exact component = { Dashboard } />
+              <Route path= "/dashboard/profile" exact component = { Profile } />
+              <Route path= "/dashboard/browse" exact component = { Browser } />
+              <Route path= "/courses/:courseName" exact component = { CoursePage } />
+              <Route path= "/course/:courseName?/:questionID?" exact component = { Question } />
+            </Switch>
+          </div>
+        </BrowserRouter>
     );
   }
 }

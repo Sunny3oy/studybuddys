@@ -17,7 +17,7 @@ class Home extends Component {
     }
    this.handleChange = this.handleChange.bind(this);
    this.login = this.login.bind(this);
-   this.checkLoggedIn = this.checkLoggedIn.bind(this);
+   this.authen = this.authen.bind(this);
 }
 
   handleChange = name => event => {
@@ -27,17 +27,17 @@ class Home extends Component {
   }
 
   componentDidMount(){
-    this.checkLoggedIn();
+    this.authen();
   }
 
-  checkLoggedIn(){
-    var prop = this.props;
-    firebase.auth().onAuthStateChanged(function(user) {
+  authen() {
+   var thisPage = this.props;
+   firebase.auth().onAuthStateChanged(function(user) {
        if (user) {
-          prop.history.push('/dashboard');
+          thisPage.history.push("/dashboard");
        }
-    });
-  }
+   });
+ }
 
   login(e){
      e.preventDefault();

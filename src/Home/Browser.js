@@ -85,7 +85,7 @@ class Browser extends PureComponent {
         this.handleChange = this.handleChange.bind(this);
         this.addCourseToUser = this.addCourseToUser.bind(this);
         this.getCourseName = this.getCourseName.bind(this);
-        this.checkLoggedIn = this.checkLoggedIn.bind(this);
+        this.authen = this.authen.bind(this);
         this.getSubjects = this.getSubjects.bind(this);
     }
 
@@ -96,14 +96,14 @@ class Browser extends PureComponent {
       };
 
       componentDidMount(){
-        this.checkLoggedIn();
+        this.authen();
       }
 
-      checkLoggedIn(){
-        var prop = this.props;
+      authen() {
+        var thisPage = this.props;
         firebase.auth().onAuthStateChanged(function(user) {
            if (!user) {
-              prop.history.push('/');
+              thisPage.history.push("/login");
            }
         });
      }
@@ -153,7 +153,7 @@ class Browser extends PureComponent {
         if (this.state.loading === false) {
           loading = (<h1>Loading...</h1>)
         }
-          
+
         return (
 
             <div className="browserTitle">
@@ -181,8 +181,8 @@ class Browser extends PureComponent {
                     >
                       {this.state.schools.map((data, key) => {
                         return (
-                          <MenuItem 
-                          key = {key} 
+                          <MenuItem
+                          key = {key}
                           value = {data.value}>
                             {data.label}
                           </MenuItem>
@@ -193,10 +193,10 @@ class Browser extends PureComponent {
                 <br/>
 
                 {/* mapping the subjects, only if a school was selected */}
-                
+
                 <div className="flexCenter">
                   {
-                    
+
                     this.state.selectedSchool !== ''?
                     <InputLabel htmlFor="SelectSubject">
                       Select Subject
@@ -206,7 +206,7 @@ class Browser extends PureComponent {
                         onChange={this.handleChange('selectedSubject')}
                         style={{width:'300px'}}
                       >
-                      
+
                         {this.state.allSubject.map((option,key) => {
                           return (
                             <MenuItem
@@ -219,7 +219,7 @@ class Browser extends PureComponent {
                         })}
                       </Select>
                     </InputLabel>
-                    : null 
+                    : null
                   }
 
                 </div>
@@ -244,10 +244,10 @@ class Browser extends PureComponent {
                       <GridList className = "flexRow" cols={4}>
                          {this.state.class.sections.map((data, key) => {
                           return(
-                              <Card 
-                                key = {key} 
-                                value={data} 
-                                className ="flexCenter" 
+                              <Card
+                                key = {key}
+                                value={data}
+                                className ="flexCenter"
                                 style={{width:'250px',height:'250px',margin:'10px 10px'}}
                               >
                                 <form key = {key}>

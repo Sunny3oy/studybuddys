@@ -48,9 +48,11 @@ class CoursePage extends PureComponent {
         this.handleClose =this.handleClose.bind(this);
         this.getToday = this.getToday.bind(this);
         this.getSocialMedia = this.getSocialMedia.bind(this);
+        this.authen = this.authen.bind(this);
     }
 
     componentDidMount() {
+      this.authen();
         const { courseName } = this.props.match.params;
         fetch(`/courses/${courseName}`).then(this.setState({course : courseName}))
         .then(this.getQuestions)
@@ -79,6 +81,15 @@ class CoursePage extends PureComponent {
             })
         })
     }
+
+    authen() {
+      var thisPage = this.props;
+      firebase.auth().onAuthStateChanged(function(user) {
+         if (!user) {
+            thisPage.history.push("/login");
+         }
+      });
+   }
 
     getQuestions() {
         var course = {
@@ -167,16 +178,16 @@ class CoursePage extends PureComponent {
 
                 <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
                 <div className="flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
-                    <Typography 
-                        gutterBottom = {true} 
+                    <Typography
+                        gutterBottom = {true}
                         variant = "h4">
                         <u>Questions</u>:
                     </Typography>
                     {this.state.questions.map((data, key) => {
                         return (
-                            <Paper 
-                                className = "flexCenter" 
-                                style = {{margin: "10px auto", height: "10%", width: "50%"}} 
+                            <Paper
+                                className = "flexCenter"
+                                style = {{margin: "10px auto", height: "10%", width: "50%"}}
                                 key={key}
                             >
                                 <Link to = {"/course/" + this.state.course + "/" + this.state.questID[key]}>
@@ -205,18 +216,18 @@ class CoursePage extends PureComponent {
                         Ask Away
                     </Button>
                 </div>
-               
+
                 <Card className = "flexRow" style = {{margin: "10px auto", width: "50%", height: "50px"}} >
                     {
                         this.state.userList.map((data,key)=>{
                             return (
                                 <div key = {key}>
-                                    <Button 
+                                    <Button
                                         onClick={() => {
                                             this.handleClickOpen();
                                             this.setState({openKey: key}, this.getSocialMedia(key))
                                         }}
-                                    > 
+                                    >
                                         {data}
                                     </Button>
                                     <Dialog
@@ -238,18 +249,18 @@ class CoursePage extends PureComponent {
                                                 <br/>
                                             </DialogContentText>
                                             <br></br>
-                                            <MeetUp 
-                                                courseName = {this.state.course} 
-                                                partner = {this.state.userListId[this.state.openKey]} 
+                                            <MeetUp
+                                                courseName = {this.state.course}
+                                                partner = {this.state.userListId[this.state.openKey]}
                                                 today = {this.state.today}
                                             />
                                         </DialogContent>
                                         <DialogActions>
-                                            <Button onClick={this.handleClose} color="primary">Close</Button> 
+                                            <Button onClick={this.handleClose} color="primary">Close</Button>
                                         </DialogActions>
                                     </Dialog>
                                 </div>
-                            )    
+                            )
                         })
                     }
                 </Card>
