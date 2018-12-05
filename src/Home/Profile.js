@@ -10,6 +10,8 @@ import {
 import axios from 'axios';
 import * as firebase from 'firebase';
 import "./Dashboard.css";
+import Navbar from "./Navbar";
+import { Link } from 'react-router-dom';
 
 class Profile extends PureComponent{
     constructor(props) {
@@ -47,6 +49,8 @@ class Profile extends PureComponent{
         this.getDeniedMeetUps = this.getDeniedMeetUps.bind(this);
         this.deleteMeetUps = this.deleteMeetUps.bind(this);
         this.authen = this.authen.bind(this);
+        this.getUserName = this.getUserName.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount(){
@@ -57,6 +61,7 @@ class Profile extends PureComponent{
         this.getPendingReplyMeetUps();
         this.getApprovedMeetUps();
         this.getDeniedMeetUps();
+        this.getUserName();
     }
 
     handleChange = name => event => {
@@ -66,13 +71,34 @@ class Profile extends PureComponent{
     };
 
     authen() {
-      var thisPage = this.props;
-      firebase.auth().onAuthStateChanged(function(user) {
-         if (!user) {
-            thisPage.history.push("/login");
-         }
-      });
-   }
+        var thisPage = this.props;
+        firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+           thisPage.history.push("/");
+        }
+        });
+      }
+
+    logout(e) {
+        e.preventDefault();
+        firebase.auth().signOut();
+        this.props.history.push("/");
+    }
+
+    getUserName(e){
+        var page = this;
+        firebase.auth().onAuthStateChanged(function(user) {
+           if (user) {
+              var info = {
+                 id: user.uid
+              }
+              axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+              .then(response => {
+                 page.setState({name : response.data.name})
+              })
+           }
+        });
+     }
 
     changeEmail(e){
         var page = this;
@@ -93,6 +119,7 @@ class Profile extends PureComponent{
             alert(error.message);
         })
     }
+
 
    changePassword(e){
         var user = firebase.auth().currentUser;
@@ -306,6 +333,27 @@ class Profile extends PureComponent{
     render(){
         return(
             <div>
+            <div className = "nav">
+              <Navbar/>
+              <div className = "flexRow" style = {{marginLeft: "auto"}}>
+                <span
+                  style = {{fontSize: "22px", marginRight: "10px"}}
+                >
+                  <Link
+                    to = "/dashboard/profile"
+                    style = {{color: "white"}}
+                  >
+                    {this.state.name}
+                  </Link>
+                </span>
+                <Button
+                  onClick={this.logout}
+                  style = {{color:'white', fontSize: "17px"}}
+                >
+                  Logout
+                </Button>
+              </div>
+            </div>
 
                 <div
                     className = "flexCenter"

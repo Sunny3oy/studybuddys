@@ -16,6 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import MeetUp from "./MeetUp";
+import Navbar from "./Navbar";
 
 class CoursePage extends PureComponent {
     constructor(props) {
@@ -49,9 +50,12 @@ class CoursePage extends PureComponent {
         this.getToday = this.getToday.bind(this);
         this.getSocialMedia = this.getSocialMedia.bind(this);
         this.authen = this.authen.bind(this);
+        this.getUserName = this.getUserName.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount() {
+      this.getUserName();  
       this.authen();
         const { courseName } = this.props.match.params;
         fetch(`/courses/${courseName}`).then(this.setState({course : courseName}))
@@ -83,13 +87,35 @@ class CoursePage extends PureComponent {
     }
 
     authen() {
-      var thisPage = this.props;
-      firebase.auth().onAuthStateChanged(function(user) {
-         if (!user) {
-            thisPage.history.push("/login");
-         }
-      });
+
+        var thisPage = this.props;
+        firebase.auth().onAuthStateChanged(function(user) {
+        if (!user) {
+           thisPage.history.push("/");
+        }
+        });
+      }
+
+    logout(e) {
+        e.preventDefault();
+        firebase.auth().signOut();
+        this.props.history.push("/");
     }
+
+    getUserName(e){
+        var page = this;
+        firebase.auth().onAuthStateChanged(function(user) {
+           if (user) {
+              var info = {
+                 id: user.uid
+              }
+              axios.post('https://studybuddys-223920.appspot.com/api/getUsername', info)
+              .then(response => {
+                 page.setState({name : response.data.name})
+              })
+           }
+        });
+     }
 
     getQuestions() {
         var course = {
@@ -188,7 +214,27 @@ class CoursePage extends PureComponent {
         return (
 
             <div data-aos ="fade-in" data-aos-easing="linear" data-aos-duration="800" style = {{display: "flex", flexDirection: "column"}}>
-
+             <div className = "nav">
+              <Navbar/>
+              <div className = "flexRow" style = {{marginLeft: "auto"}}>
+                <span
+                  style = {{fontSize: "22px", marginRight: "10px"}}
+                >
+                  <Link
+                    to = "/dashboard/profile"
+                    style = {{color: "white"}}
+                  >
+                    {this.state.name}
+                  </Link>
+                </span>
+                <Button
+                  onClick={this.logout}
+                  style = {{color:'white', fontSize: "17px"}}
+                >
+                  Logout
+                </Button>
+              </div>
+            </div>
                 <Typography variant = "h1" style = {{margin: "16px auto"}}>{this.state.course}</Typography>
                 <div className="flexCenter" style={{margin:"30px",backgroundColor: "#ffffff",border:"1px solid black", padding:"20px", borderRadius:"10px", boxShadow:"5px 5px 5px 5px #777777", MozBoxShadow:"0 0 10px #777777",WebkitBoxShadow:"0 0 10px #777777"}}>
                     <Typography
