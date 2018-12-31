@@ -3,6 +3,9 @@
 <h3>Purpose</h3>
 The goal of this project is to help connect students with each other, helping them find their study buddy. We're student ourselves, so we know how difficult it can be when studying alone. We want to build a platform for students to ask questions, share resources, and meet up with one another.  
 
+<h4>Disclaimer</h4>
+Our website may be down due to issues with billing. Sorry for the inconvenience. 
+
 </br>
 </br>
 <table>
